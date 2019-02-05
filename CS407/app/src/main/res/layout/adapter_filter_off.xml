@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/adapter_container"
+    android:background="@color/colorBackground"
+    tools:ignore="HardcodedText"
+    tools:targetApi="lollipop"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="false">
+
+    <TextView
+        android:id="@+id/adapter_alt_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_filter_inactive"
+        android:clickable="false"
+        android:elevation="4dp"
+        android:fontFamily="@font/martel_sans_semibold"
+        android:text="Category"
+        android:textColor="@color/StandardText" />
+</FrameLayout>

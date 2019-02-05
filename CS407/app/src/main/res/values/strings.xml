@@ -1,0 +1,13 @@
+<resources>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+
+
+    <string-array name="filter_options">
+        <item>Night Clubs</item>
+        <item>Bars with Food</item>
+        <item>Breweries</item>
+        <item>Outdoor Venues</item>
+        <item>Under 21</item>
+    </string-array>
+</resources>

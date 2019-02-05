@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="PrimaryDark">#9b7501</color>
+    <color name="Primary">#F0B80C</color>
+    <color name="PrimaryTransparent">#50F0B80C</color>
+    <color name="Accent">#FF3F80</color>
+    <color name="MainButton">#0ba376</color>
+    <color name="SecondaryButton">#B90A60</color>
+    <color name="LinkText">#F0B80C</color>
+
+    <color name="colorPrimaryOutline">#FFFFFF</color>
+    <color name="StandardText">#FFFFFF</color>
+    <color name="HelperText">#FFFFFF</color>
+    <color name="HelperTextTransparent">#50FFFFFF</color>
+    <color name="colorBackground">#12151C</color>
+    <color name="colorForeground">#202833</color>
+    <color name="OffWhiteBackground">#f5fcff</color>
+
+</resources>

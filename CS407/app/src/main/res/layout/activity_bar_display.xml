@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BarDisplayActivity">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
+
+        <android.support.constraint.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline_horiz"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.33"/>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/bar_toolbar"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
+            app:titleTextColor="@color/Primary"
+            app:title="Bar Name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/bar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/Primary"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scrollbarThumbHorizontal="@drawable/scrollbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bar_toolbar"
+            app:layout_constraintBottom_toTopOf="@id/guideline_horiz">
+
+            <LinearLayout
+                android:id="@+id/bar_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/bar_card_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/guideline_horiz">
+
+            <ImageView
+                android:id="@+id/bar_litness"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="100dp"
+                android:maxWidth="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/meter_4"
+                app:layout_constraintBottom_toBottomOf="@+id/barrier"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/bar_card_info"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="2"
+                android:background="@color/cardview_dark_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@animator/button_anim"
+                app:cardBackgroundColor="@color/colorForeground"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/bar_litness"
+                app:layout_constraintBottom_toBottomOf="@+id/barrier"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="lollipop">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp">
+
+                    <TextView
+                        android:id="@+id/bar_alt_phone"
+                        style="@style/LinkText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(205) 069-0420 "
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/bar_alt_address"
+                        style="@style/LinkText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="6969 Bone Street Bumfuck, AL 420 "
+                        android:textSize="15sp"
+                        app:layout_constraintTop_toBottomOf="@id/bar_alt_phone" />
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.constraint.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="bar_litness,bar_card_info" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/bar_card_cover"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/cardview_dark_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@animator/button_anim"
+                app:cardBackgroundColor="@color/colorForeground"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bar_card_top"
+                tools:targetApi="lollipop">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp">
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        style="@style/_HelperText_Lower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cover: "
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/bar_lablel_cover_over"
+                        style="@style/_HelperText_Lower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cover: 21+ "
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@id/textView12"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/bar_alt_cover_over"
+                        style="@style/_HelperText_Lower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$69"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@id/bar_lablel_cover_over"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        style="@style/_HelperText_Lower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:text=" | 18-20 "
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@id/bar_alt_cover_over"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginStart="4dp" />
+                    <TextView
+                        android:id="@+id/bar_alt_cover_under"
+                        style="@style/_HelperText_Lower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" $69"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@id/textView13"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/bar_wait"
+                        style="@style/_HelperText_Lower"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxLines="2"
+                        android:text="Temp Wait"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/bar_alt_cover_over" />
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/bar_button_checkin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:stateListAnimator="@animator/button_anim"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.99"
+                        app:layout_constraintStart_toEndOf="@+id/bar_alt_cover_under"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:targetApi="lollipop">
+
+                        <TextView
+                            style="@style/_DarkButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="Check In"
+                            android:textSize="16sp" />
+                    </android.support.v7.widget.CardView>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/bar_card_specials"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/cardview_dark_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@animator/button_anim"
+                app:cardBackgroundColor="@color/colorForeground"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bar_card_cover"
+                tools:targetApi="lollipop">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp">
+
+                    <TextView
+                        android:id="@+id/bar_alt_day"
+                        style="@style/_HelperText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sundays"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        style="@style/_HelperText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:text=" Events and Specials"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@id/bar_alt_day"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <HorizontalScrollView
+                        android:id="@+id/horiz1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0">
+
+                        <LinearLayout
+                            android:id="@+id/bar_events"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/horiz1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0">
+
+                        <LinearLayout
+                            android:id="@+id/bar_specials"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+
+                    </HorizontalScrollView>
+
+                    <TextView
+                        android:id="@+id/bar_alt_noevents"
+                        android:textColor="@color/HelperTextTransparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5"
+                        android:text="No Events or Specials Today"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/bar_button_allspecials"
+                        style="@style/_HelperText_Lower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:text="See all"
+                        android:textColor="@color/Primary"
+                        android:textSize="15sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/textView5" />
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/bar_card_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@color/cardview_dark_background"
+                android:clickable="true"
+                android:focusable="true"
+                android:stateListAnimator="@animator/button_anim"
+                app:cardBackgroundColor="@color/colorForeground"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bar_card_specials"
+                tools:targetApi="lollipop">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            style="@style/_HelperText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="-8dp"
+                            android:text="Description"
+                            android:textSize="15sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/bar_alt_description"
+                            style="@style/_HelperText_Lower"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:maxLines="3"
+                            android:text="This bar is a chill place that has a lot of good drinks. Friendly wait staff and  "
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    </android.support.constraint.ConstraintLayout>
+                </ScrollView>
+            </android.support.v7.widget.CardView>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/bar_card_description">
+
+                <android.support.constraint.Guideline
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/guideline_vert1"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.33"/>
+
+                <android.support.constraint.Guideline
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/guideline_vert2"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.67"/>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/bar_card_menu"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/cardview_dark_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:stateListAnimator="@animator/button_anim"
+                    app:cardBackgroundColor="@color/colorForeground"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/barrierBottom"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_vert1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:targetApi="lollipop">
+
+                    <TextView
+                        android:id="@+id/bar_alt_menu"
+                        style="@style/_HelperText_Lower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_gravity="center"
+                        android:text="Menu"
+                        android:textColor="@color/Primary"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@id/barrierBottom"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/bar_card_live_photos"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/cardview_dark_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:stateListAnimator="@animator/button_anim"
+                    app:cardBackgroundColor="@color/colorForeground"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="@id/barrierBottom"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_vert2"
+                    app:layout_constraintStart_toStartOf="@id/guideline_vert1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:targetApi="lollipop">
+
+                    <TextView
+                        android:id="@+id/bar_alt_livephotos"
+                        style="@style/_HelperText_Lower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Live Photos"
+                        android:textColor="@color/Primary"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/bar_card_reviews"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/cardview_dark_background"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:stateListAnimator="@animator/button_anim"
+                    app:cardBackgroundColor="@color/colorForeground"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/barrierBottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideline_vert2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:targetApi="lollipop">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:id="@+id/bar_layout_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/bar_alt_rating"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="4"
+                                android:textSize="25sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="/5"
+                                android:textSize="25sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/bar_alt_reviews"
+                            style="@style/_HelperText_Lower"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="Reviews"
+                            android:textColor="@color/Primary"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/bar_layout_rating" />
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.constraint.Barrier
+                    android:id="@+id/barrierBottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:barrierDirection="bottom"
+                    app:constraint_referenced_ids="bar_card_menu,bar_card_live_photos,bar_card_reviews" />
+
+            </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
