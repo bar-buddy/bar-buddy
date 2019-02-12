@@ -5,7 +5,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:transl>
 
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
 
@@ -22,13 +23,30 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:title="@string/app_name_proper" />
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation"
+        <android.support.design.widget.TabLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/tabLayout"
+            android:background="@color/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:layout_gravity="bottom">
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="629dp"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_marginBottom="?attr/actionBarSize">
+        </android.support.v4.view.ViewPager>
+
+        <!--<android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
             android:background="?android:attr/windowBackground"
-            app:menu="@menu/navigation" />
+            app:menu="@menu/navigation" />-->
         <!--app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"-->
