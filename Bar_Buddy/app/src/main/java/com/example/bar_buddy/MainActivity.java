@@ -39,18 +39,14 @@ public class MainActivity extends AppCompatActivity implements HomeTab.OnFragmen
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        final TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayout);
 
-        tabLayout.addTab(tabLayout.newTab());
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_home_black_24dp);
-        tabLayout.addTab(tabLayout.newTab());
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_favorite);
-        tabLayout.addTab(tabLayout.newTab());
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_updates);
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_home));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_favorite_faded));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_updates_faded));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = (ViewPager)findViewById(R.id.pager);
-        viewPager.setupViewPager
 
         adapter = new PagerAdapter(getSupportFragmentManager(), 3);
         viewPager.setAdapter(adapter);
@@ -60,11 +56,26 @@ public class MainActivity extends AppCompatActivity implements HomeTab.OnFragmen
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                switch(tab.getPosition()) {
+                    case 0:  tab.setIcon(R.drawable.ic_home);
+                        break;
+                    case 1:  tab.setIcon(R.drawable.ic_favorite);
+                        break;
+                    case 2:  tab.setIcon(R.drawable.ic_updates);
+                        break;
+                }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
+                switch(tab.getPosition()) {
+                    case 0:  tab.setIcon(R.drawable.ic_home_faded);
+                        break;
+                    case 1:  tab.setIcon(R.drawable.ic_favorite_faded);
+                        break;
+                    case 2:  tab.setIcon(R.drawable.ic_updates_faded);
+                        break;
+                }
             }
 
             @Override
