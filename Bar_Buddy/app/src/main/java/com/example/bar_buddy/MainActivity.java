@@ -1,10 +1,12 @@
 package com.example.bar_buddy;
 
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements HomeTab.OnFragmentInteractionListener,FavoritesTab.OnFragmentInteractionListener, UpdatesTab.OnFragmentInteractionListener {
@@ -41,41 +44,53 @@ public class MainActivity extends AppCompatActivity implements HomeTab.OnFragmen
 
         final TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayout);
 
+        /*int tabIconColor = ContextCompat.getColor(getApplicationContext(), R.color.tabUnselectedIconColor);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_home));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_favorite_faded));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_updates_faded));
+        //tabLayout.getTabAt(0).setText("Home");
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_favorite));
+        tabLayout.getTabAt(1).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+        //tabLayout.getTabAt(1).setText("Favorites");
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_updates));
+        tabLayout.getTabAt(2).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
+        //tabLayout.getTabAt(2).setText("Updates");*/
+
+        View view1 = getLayoutInflater().inflate(R.layout.customtab, null);
+        view1.findViewById(R.id.icon).setBackgroundResource(R.drawable.ic_home);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view1));
+
+
+        View view2 = getLayoutInflater().inflate(R.layout.customtab, null);
+        view2.findViewById(R.id.icon).setBackgroundResource(R.drawable.ic_favorite);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view2));
+
+
+        View view3 = getLayoutInflater().inflate(R.layout.customtab, null);
+        view3.findViewById(R.id.icon).setBackgroundResource(R.drawable.ic_updates);
+        tabLayout.addTab(tabLayout.newTab().setCustomView(view3));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = (ViewPager)findViewById(R.id.pager);
+        //tabLayout.setupWithViewPager(viewPager);
+        //setupViewPager();
 
         adapter = new PagerAdapter(getSupportFragmentManager(), 3);
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.setOnTabSelectedListener(
+                new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-                switch(tab.getPosition()) {
-                    case 0:  tab.setIcon(R.drawable.ic_home);
-                        break;
-                    case 1:  tab.setIcon(R.drawable.ic_favorite);
-                        break;
-                    case 2:  tab.setIcon(R.drawable.ic_updates);
-                        break;
-                }
+                super.onTabSelected(tab);
+                int tabIconColor = ContextCompat.getColor(getApplicationContext(), R.color.tabSelectedIconColor);
+                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                switch(tab.getPosition()) {
-                    case 0:  tab.setIcon(R.drawable.ic_home_faded);
-                        break;
-                    case 1:  tab.setIcon(R.drawable.ic_favorite_faded);
-                        break;
-                    case 2:  tab.setIcon(R.drawable.ic_updates_faded);
-                        break;
-                }
+                super.onTabUnselected(tab);
+                int tabIconColor = ContextCompat.getColor(getApplicationContext(), R.color.tabUnselectedIconColor);
+                tab.getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
             }
 
             @Override
