@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "10756779165",
+    "firebase_url": "https://bar-buddy-ac0e5.firebaseio.com",
+    "project_id": "bar-buddy-ac0e5",
+    "storage_bucket": "bar-buddy-ac0e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10756779165:android:245f2b11da8c5d7c",
+        "android_client_info": {
+          "package_name": "com.example.bar_buddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "10756779165-6bmq6uo3ct1s1daq0p5vc6dm8j1qtbpb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBga76cIbmuaP-nnmwXu5M8HCeJyTjgzWY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
