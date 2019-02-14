@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements HomeTab.OnFragmen
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        final TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        //final TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayout);
 
         /*int tabIconColor = ContextCompat.getColor(getApplicationContext(), R.color.tabUnselectedIconColor);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_home));
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements HomeTab.OnFragmen
         tabLayout.getTabAt(2).getIcon().setColorFilter(tabIconColor, PorterDuff.Mode.SRC_IN);
         //tabLayout.getTabAt(2).setText("Updates");*/
 
-        View view1 = getLayoutInflater().inflate(R.layout.customtab, null);
+        /*View view1 = getLayoutInflater().inflate(R.layout.customtab, null);
         view1.findViewById(R.id.icon).setBackgroundResource(R.drawable.ic_home);
         tabLayout.addTab(tabLayout.newTab().setCustomView(view1));
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements HomeTab.OnFragmen
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-        });
+        });*/
     }
 
     @Override

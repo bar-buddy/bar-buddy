@@ -43,7 +43,7 @@
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
             android:background="?android:attr/windowBackground"
-            app:labelVisibilityMode="unlabeled"
+            app:labelVisibilityMode="labeled"
             app:menu="@menu/navigation" />
         <!--app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
