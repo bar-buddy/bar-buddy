@@ -1,5 +1,6 @@
 package com.example.bar_buddy;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -18,7 +19,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+    implements HomeTab.OnFragmentInteractionListener, FavoritesTab.OnFragmentInteractionListener, UpdatesTab.OnFragmentInteractionListener, AccountTab.OnFragmentInteractionListener{
 
     private DrawerLayout mDrawerLayout;
 
@@ -65,15 +67,15 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     viewPager.setCurrentItem(0, false);
-                    Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_dashboard:
                     viewPager.setCurrentItem(1, false);
-                    Toast.makeText(getApplicationContext(), "Favs", Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.navigation_notifications:
                     viewPager.setCurrentItem(2, false);
-                    Toast.makeText(getApplicationContext(), "Updates", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.navigation_account:
+                    viewPager.setCurrentItem(3, false);
                     return true;
             }
             return false;
@@ -85,9 +87,16 @@ public class MainActivity extends AppCompatActivity {
         homeTab = new HomeTab();
         favoritesTab = new FavoritesTab();
         updatesTab = new UpdatesTab();
+        accountTab = new AccountTab();
         pagerAdapter.addFragment(homeTab);
         pagerAdapter.addFragment(favoritesTab);
         pagerAdapter.addFragment(updatesTab);
+        pagerAdapter.addFragment(accountTab);
         viewPager.setAdapter(pagerAdapter);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
