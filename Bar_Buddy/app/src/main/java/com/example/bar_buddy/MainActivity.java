@@ -4,17 +4,24 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private DrawerLayout mDrawerLayout;
+
+    private Menu searchMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +70,5 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
-
-
 
 }
