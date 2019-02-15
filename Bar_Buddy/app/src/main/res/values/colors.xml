@@ -4,7 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorBackground">#12151C</color>
-    <color name="colorBackgroundLighter">#181c26</color>
     <color name="colorForeground">#202833</color>
     <color name="tabSelectedIconColor">#008577</color>
     <color name="tabUnselectedIconColor">#00574B</color>
