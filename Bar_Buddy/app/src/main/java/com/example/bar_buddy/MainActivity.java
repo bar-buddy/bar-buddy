@@ -1,6 +1,9 @@
 package com.example.bar_buddy;
 
+<<<<<<< HEAD
 import android.net.Uri;
+=======
+>>>>>>> 6d29ccf0e06a6053092e19d5a33b7d9c0a321d07
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+<<<<<<< HEAD
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,6 +26,17 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity
     implements HomeTab.OnFragmentInteractionListener, FavoritesTab.OnFragmentInteractionListener, UpdatesTab.OnFragmentInteractionListener, AccountTab.OnFragmentInteractionListener{
+=======
+import android.widget.TextView;
+
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+public class MainActivity extends AppCompatActivity {
+>>>>>>> 6d29ccf0e06a6053092e19d5a33b7d9c0a321d07
 
     private DrawerLayout mDrawerLayout;
 
@@ -49,6 +64,17 @@ public class MainActivity extends AppCompatActivity
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+<<<<<<< HEAD
+=======
+        final Button btnLogout = findViewById(R.id.logoutBtn);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutOnClick(v);
+            }
+        });
+
+>>>>>>> 6d29ccf0e06a6053092e19d5a33b7d9c0a321d07
     }
 
     @Override
@@ -84,6 +110,7 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
+<<<<<<< HEAD
     private void setupViewPager(ViewPager viewPager) {
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         homeTab = new HomeTab();
@@ -99,6 +126,21 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+=======
+    public void logoutOnClick(View v){
+        if (v.getId() == R.id.logoutBtn){
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    });
+        }
+    }
+>>>>>>> 6d29ccf0e06a6053092e19d5a33b7d9c0a321d07
 
     }
 }
