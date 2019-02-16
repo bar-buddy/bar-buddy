@@ -52,30 +52,6 @@
             app:labelVisibilityMode="labeled"
             app:menu="@menu/navigation" />
 
-        <Button
-            android:id="@+id/logoutBtn"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
-            android:layout_marginLeft="150dp"
-            android:background="@color/colorPrimary"
-            android:text="Logout"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
-        <Button
-            android:id="@+id/resetPwdBtn"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="225dp"
-            android:layout_marginLeft="125dp"
-            android:background="@color/colorPrimary"
-            android:text="Reset Password"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
-
 
         <!--app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
