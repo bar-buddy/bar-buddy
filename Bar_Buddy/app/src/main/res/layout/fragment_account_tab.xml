@@ -7,8 +7,46 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Account Tab" />
+        android:id="@+id/user_email"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="50dp"
+        android:inputType="text"
+        android:text="User Email"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="50dp"
+        android:background="@color/colorPrimary"
+        android:text="LOGOUT"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/resetPwdBtn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="50dp"
+        android:background="@color/colorPrimary"
+        android:text="RESET PASSWORD"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/deleteAcctBtn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:layout_marginLeft="50dp"
+        android:background="@color/colorPrimary"
+        android:text="DELETE ACCOUNT"
+        android:textColor="@android:color/white" />
 
 </FrameLayout>
