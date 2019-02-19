@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity
     implements HomeTab.OnFragmentInteractionListener, FavoritesTab.OnFragmentInteractionListener, UpdatesTab.OnFragmentInteractionListener, AccountTab.OnFragmentInteractionListener{
 
     private DrawerLayout mDrawerLayout;
+
+    private BarCardAdapter adapter;
 
     ViewPager viewPager;
     HomeTab homeTab;
@@ -54,6 +57,10 @@ public class MainActivity extends AppCompatActivity
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
+        RecyclerView rvCards = findViewById(R.id.home_bars_recyclerview);
+        adapter = new BarCardAdapter(this);
+        rvCards.setAdapter(adapter);
 
     }
 
