@@ -19,8 +19,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:titleTextColor="@color/textColor"
+            android:theme="@style/ToolbarTheme"
             app:collapseIcon="@drawable/ic_favorite"
             app:title="@string/app_name_proper" >
 
@@ -30,8 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:iconifiedByDefault="true"
-                android:queryHint="@string/strQueryHintSearch"
-                app:collapseIcon="@drawable/ic_favorite" />
+                style="@style/SearchViewStyle" />
 
         </android.support.v7.widget.Toolbar>
 
