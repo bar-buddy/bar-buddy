@@ -67,7 +67,7 @@
 
         <Button
             android:id="@+id/btn_reset_password"
-            android:layout_width="fill_parent"
+            android:layout_width="300dip"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@drawable/secondgradient"
@@ -79,7 +79,7 @@
 
         <Button
             android:id="@+id/btn_signup"
-            android:layout_width="fill_parent"
+            android:layout_width="300dip"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
             android:background="@drawable/secondgradient"
