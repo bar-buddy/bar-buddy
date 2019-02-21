@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BottomNavTheme" >
+        <!--<item name="android:itemTextAppearance">@color/bottom_nav_icon_selector</item>
+        <item name="itemIconTint">@color/bottom_nav_icon_selector</item>-->
+    </style>
+
 </resources>

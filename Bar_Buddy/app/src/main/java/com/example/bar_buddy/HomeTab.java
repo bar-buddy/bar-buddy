@@ -80,7 +80,7 @@ public class HomeTab extends Fragment {
 
         bars = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
-            bars.add(new Bar("Rounders"));
+            bars.add(new Bar(""));
         }
 
         adapter = new BarCardAdapter(getActivity(), bars);
