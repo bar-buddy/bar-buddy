@@ -80,7 +80,7 @@ public class FavoritesTab extends Fragment {
 
         bars = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            bars.add(new Bar(""));
+            bars.add(new Bar("Rounders"));
         }
 
         adapter = new BarCardAdapter(getActivity(), bars);
