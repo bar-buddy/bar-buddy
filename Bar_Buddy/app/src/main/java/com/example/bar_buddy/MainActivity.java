@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         viewPager = (ViewPager) findViewById(R.id.pager);
         setupViewPager(viewPager);
 
@@ -82,16 +83,16 @@ public class MainActivity extends AppCompatActivity
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_main_home:
                     viewPager.setCurrentItem(0, false);
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_main_favorites:
                     viewPager.setCurrentItem(1, false);
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_main_updates:
                     viewPager.setCurrentItem(2, false);
                     return true;
-                case R.id.navigation_account:
+                case R.id.navigation_main_account:
                     viewPager.setCurrentItem(3, false);
                     return true;
             }

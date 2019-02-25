@@ -53,7 +53,7 @@
             android:background="@drawable/gradient"
             app:labelVisibilityMode="labeled"
             android:theme="@style/BottomNavTheme"
-            app:menu="@menu/navigation" />
+            app:menu="@menu/navigation_main_activity" />
 
 
         <!--app:layout_constraintBottom_toBottomOf="parent"

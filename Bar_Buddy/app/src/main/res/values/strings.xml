@@ -45,4 +45,8 @@
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">Enter your email to receive instructions for password reset.</string>
     <string name="prompt_password">New Password</string>
+    <string name="title_activity_bar_display_page">BarDisplayPage</string>
+    <string name="nav_bar_display_home">Home</string>
+    <string name="nav_bar_display_menu">Menu</string>
+    <string name="nav_bar_display_updates">Updates</string>
 </resources>
