@@ -30,6 +30,8 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             super(v);
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             barText = (TextView) itemView.findViewById(R.id.bar_text_view_example);
+            v.setClickable(true);
+            v.setOnClickListener(this);
         }
 
         @Override
