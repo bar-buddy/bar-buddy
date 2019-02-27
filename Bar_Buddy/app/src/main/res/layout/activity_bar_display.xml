@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@+id/content_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/gradient"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:collapseIcon="@drawable/ic_favorite"
+        app:title="Bar Name" >
+
+    </android.support.v7.widget.Toolbar>
+
+    <include
+        layout="@layout/activity_bar_display_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_marginBottom="?actionBarSize"/>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/gradient"
+        app:labelVisibilityMode="labeled"
+        android:theme="@style/BottomNavTheme"
+        app:menu="@menu/navigation" />
+
+</FrameLayout>
