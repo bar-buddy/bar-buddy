@@ -3,11 +3,15 @@ package com.example.bar_buddy;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +26,7 @@ import java.util.List;
 public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewHolder> {
 
     int mExpandedPosition = -1;
+    int previousExpandedPosition = -1;
 
     private final Context ctx;
     private List<Bar> data;
@@ -37,10 +42,11 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             barText = (TextView) itemView.findViewById(R.id.bar_text_view_example);
             hiddenTextView = (TextView) itemView.findViewById(R.id.hiddenTextView);
-            v.setClickable(true);
-            v.setOnClickListener(this);
+            //v.setClickable(true);
+            //v.setOnClickListener(this);
         }
 
+        //on-click listener for clicking card anywhere except expand button
         @Override
         public void onClick(View v) {
             final Intent intent;
@@ -72,23 +78,37 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BarViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final BarViewHolder holder, final int position) {
         final boolean isExpanded = position==mExpandedPosition;
+        final Button expand_button = holder.itemView.findViewById(R.id.expand_button);
+
         holder.hiddenTextView.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.itemView.setActivated(isExpanded);
 
-        final Button expand_button = holder.itemView.findViewById(R.id.expand_button);
+        if(isExpanded) {
+            previousExpandedPosition = position;
+            expand_button.setBackground(ActivityCompat.getDrawable(ctx, R.drawable.ic_expand_less));
+        } else {
+            expand_button.setBackground(ActivityCompat.getDrawable(ctx, R.drawable.ic_expand_more));
+        }
+
+        //on-click listener for expand button click
         expand_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mExpandedPosition = isExpanded ? -1:position;
+                if(isExpanded) {
+                    expand_button.setBackground(ActivityCompat.getDrawable(ctx, R.drawable.ic_expand_less));
+                } else {
+                    expand_button.setBackground(ActivityCompat.getDrawable(ctx, R.drawable.ic_expand_more));
+                }
+
+                TransitionManager.beginDelayedTransition(holder.itemView.findViewById(R.id.barcard_cv));
+
+                notifyItemChanged(previousExpandedPosition);
                 notifyItemChanged(position);
             }
         });
-
-        /*holder.itemView.setOnClickListener(new View.OnClickListener(){
-
-        });*/
 
         holder.barText.setText(data.get(position).text);
     }
