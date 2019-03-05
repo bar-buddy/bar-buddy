@@ -3,12 +3,15 @@ package com.example.bar_buddy;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +21,8 @@ import java.util.List;
 
 public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewHolder> {
 
+    int mExpandedPosition = -1;
+
     private final Context ctx;
     private List<Bar> data;
 
@@ -25,11 +30,13 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
 
         private final CardView cardContainer;
         private final TextView barText;
+        private final TextView hiddenTextView;
 
         BarViewHolder(View v) {
             super(v);
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             barText = (TextView) itemView.findViewById(R.id.bar_text_view_example);
+            hiddenTextView = (TextView) itemView.findViewById(R.id.hiddenTextView);
             v.setClickable(true);
             v.setOnClickListener(this);
         }
@@ -65,7 +72,24 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BarViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BarViewHolder holder, final int position) {
+        final boolean isExpanded = position==mExpandedPosition;
+        holder.hiddenTextView.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+        holder.itemView.setActivated(isExpanded);
+
+        final Button expand_button = holder.itemView.findViewById(R.id.expand_button);
+        expand_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mExpandedPosition = isExpanded ? -1:position;
+                notifyItemChanged(position);
+            }
+        });
+
+        /*holder.itemView.setOnClickListener(new View.OnClickListener(){
+
+        });*/
+
         holder.barText.setText(data.get(position).text);
     }
 
