@@ -21,7 +21,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
     private final Context ctx;
     private List<Bar> data;
 
-    class BarViewHolder extends RecyclerView.ViewHolder{
+    class BarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final CardView cardContainer;
         private final TextView barText;
@@ -30,12 +30,22 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             super(v);
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             barText = (TextView) itemView.findViewById(R.id.bar_text_view_example);
+            v.setClickable(true);
+            v.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            final Intent intent;
+            intent = new Intent(v.getContext(), BarDisplay.class);
+            ctx.startActivity(intent);
+            //startActivity(new Intent(this, BarDisplayPage.class))
         }
     }
 
     public BarCardAdapter(Context c, List<Bar> data) {
-            this.ctx = c;
-            this.data = data;
+        this.ctx = c;
+        this.data = data;
     }
 
     /*public void updateBars(Collection<Bar> c) {
@@ -51,7 +61,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
     @NonNull
     @Override
     public BarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new BarViewHolder(LayoutInflater.from(ctx).inflate(R.layout.adapter_bar_card,parent,false));
+        return new BarViewHolder(LayoutInflater.from(ctx).inflate(R.layout.adapter_bar_card,parent,false));
     }
 
     @Override

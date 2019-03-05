@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".BarDisplay">-->
+    tools:context=".BarDisplay">
 
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -33,11 +33,14 @@
                 app:expandedTitleGravity="top"
                 app:toolbarId="@+id/toolbar">
 
-                <!--<ImageView
+                <ImageView
                     android:id="@+id/bar_display_image_header"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/rounders"/>-->
+                    android:src="@drawable/rounders"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="center"
+                    app:layout_collapseMode="parallax"/>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -63,7 +66,7 @@
     </android.support.design.widget.CoordinatorLayout>
 
 
-    <!--<android.support.design.widget.BottomNavigationView
+    <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation_bar_display_page"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,4 +76,4 @@
         app:labelVisibilityMode="labeled"
         app:menu="@menu/navigation" />
 
-</RelativeLayout>-->
+</RelativeLayout>
