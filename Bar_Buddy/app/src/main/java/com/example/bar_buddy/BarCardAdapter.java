@@ -21,7 +21,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
     private final Context ctx;
     private List<Bar> data;
 
-    class BarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class BarViewHolder extends RecyclerView.ViewHolder{
 
         private final CardView cardContainer;
         private final TextView barText;
@@ -30,14 +30,6 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             super(v);
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             barText = (TextView) itemView.findViewById(R.id.bar_text_view_example);
-        }
-
-        @Override
-        public void onClick(View v) {
-            final Intent intent;
-            intent = new Intent(v.getContext(), BarDisplay.class);
-            ctx.startActivity(intent);
-            //startActivity(new Intent(this, BarDisplayPage.class))
         }
     }
 
