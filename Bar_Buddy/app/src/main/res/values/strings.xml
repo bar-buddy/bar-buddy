@@ -136,4 +136,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="bar_collapsing_image_description">Collapsing Main Bar Image</string>
 </resources>

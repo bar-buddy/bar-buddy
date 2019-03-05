@@ -14,12 +14,14 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="?actionBarSize"
         android:fitsSystemWindows="true"
+        android:theme="@style/CollapsingActionBar"
         tools:context=".BarDisplay">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
+            android:background="@android:color/black"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -27,20 +29,26 @@
                 android:id="@+id/toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/bar_collapsing_image_description"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleGravity="bottom"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:expandedTitleGravity="top"
+                app:title="Rounders"
+                app:expandedTitleTextAppearance="@style/ExpandedTitleText"
                 app:toolbarId="@+id/toolbar">
 
                 <ImageView
                     android:id="@+id/bar_display_image_header"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/rounders"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="center_horizontal"
+                    android:contentDescription="@string/bar_collapsing_image_description"
                     android:fitsSystemWindows="true"
-                    android:scaleType="center"
-                    app:layout_collapseMode="parallax"/>
+                    android:src="@drawable/rounders2"
+                    app:layout_collapseMode="parallax" />
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
