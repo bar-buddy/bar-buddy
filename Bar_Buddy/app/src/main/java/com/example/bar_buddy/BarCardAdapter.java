@@ -42,8 +42,8 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             barText = (TextView) itemView.findViewById(R.id.bar_text_view_example);
             hiddenTextView = (TextView) itemView.findViewById(R.id.hiddenTextView);
-            //v.setClickable(true);
-            //v.setOnClickListener(this);
+            v.setClickable(true);
+            v.setOnClickListener(this);
         }
 
         //on-click listener for clicking card anywhere except expand button
@@ -102,8 +102,6 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
                 } else {
                     expand_button.setBackground(ActivityCompat.getDrawable(ctx, R.drawable.ic_expand_more));
                 }
-
-                TransitionManager.beginDelayedTransition(holder.itemView.findViewById(R.id.barcard_cv));
 
                 notifyItemChanged(previousExpandedPosition);
                 notifyItemChanged(position);
