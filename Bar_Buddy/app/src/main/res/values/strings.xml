@@ -16,6 +16,7 @@
     <string name="facebook_application_id" translatable="false">1063295013852839</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb1063295013852839</string>
 
+    <string name="spinner_title">Select type of User</string>
     <string name="action_sign_in_short">Register</string>
     <string name="email">Email</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
