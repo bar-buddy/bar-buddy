@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.res.ResourcesCompat;
@@ -35,13 +36,15 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
 
         private final CardView cardContainer;
         private final TextView barText;
-        private final TextView hiddenTextView;
+        //private final TextView hiddenTextView;
+        private final ConstraintLayout hiddenLayout;
 
         BarViewHolder(View v) {
             super(v);
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             barText = (TextView) itemView.findViewById(R.id.bar_text_view_example);
-            hiddenTextView = (TextView) itemView.findViewById(R.id.hiddenTextView);
+            //hiddenTextView = (TextView) itemView.findViewById(R.id.hiddenTextView);
+            hiddenLayout = (ConstraintLayout) itemView.findViewById(R.id.hiddenBarCardExpansion);
             v.setClickable(true);
             v.setOnClickListener(this);
         }
@@ -82,7 +85,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         final boolean isExpanded = position==mExpandedPosition;
         final Button expand_button = holder.itemView.findViewById(R.id.expand_button);
 
-        holder.hiddenTextView.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+        holder.hiddenLayout.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.itemView.setActivated(isExpanded);
 
         if(isExpanded) {
