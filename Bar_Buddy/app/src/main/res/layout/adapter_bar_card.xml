@@ -117,12 +117,6 @@
             android:visibility="gone" />-->
 
         <Button
-            android:id="favorite_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/expand_button"/>
-
-        <Button
             android:id="@+id/expand_button"
             android:layout_width="36dp"
             android:layout_height="36dp"
