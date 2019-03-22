@@ -3,16 +3,32 @@ package com.example.bar_buddy;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static android.support.constraint.Constraints.TAG;
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 
 /**
@@ -79,9 +95,37 @@ public class HomeTab extends Fragment {
         rvCards.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         bars = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 1; i++) {
             bars.add(new Bar("Rounders"));
         }
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        /*Map<String, Object> data = new HashMap<>();
+        data.put("bar_name", "TEST");
+        db.collection("bars").add(data);*/
+
+        db.collection("bars")
+                .whereEqualTo("bar")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        bars.add(new Bar("Rounders"));
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Bar b = document.toObject(Bar.class);
+
+                                String name = b.getBar_name();
+
+                                bars.add(b);
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
         adapter = new BarCardAdapter(getActivity(), bars);
         rvCards.setAdapter(adapter);

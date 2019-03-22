@@ -42,7 +42,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         BarViewHolder(View v) {
             super(v);
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
-            barText = (TextView) itemView.findViewById(R.id.bar_text_view_example);
+            barText = (TextView) itemView.findViewById(R.id.bar_title_tv);
             //hiddenTextView = (TextView) itemView.findViewById(R.id.hiddenTextView);
             hiddenLayout = (ConstraintLayout) itemView.findViewById(R.id.hiddenBarCardExpansion);
             v.setClickable(true);
@@ -111,7 +111,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             }
         });
 
-        holder.barText.setText(data.get(position).text);
+        holder.barText.setText(data.get(position).bar_name);
     }
 
     @Override
