@@ -36,14 +36,14 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <android.support.v4.view.ViewPager
+        <com.example.bar_buddy.LockableViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
-            android:layout_marginBottom="?attr/actionBarSize">
-
-        </android.support.v4.view.ViewPager>
+            android:layout_marginBottom="?attr/actionBarSize"
+            >
+        </com.example.bar_buddy.LockableViewPager>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
