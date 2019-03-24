@@ -1,5 +1,8 @@
 package com.example.bar_buddy;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 public class Bar {
     String bar_name;
     String bar_cover;
@@ -29,4 +32,5 @@ public class Bar {
     public String getBar_description() {
         return bar_description;
     }
+
 }

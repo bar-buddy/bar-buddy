@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
@@ -35,15 +37,22 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
     class BarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final CardView cardContainer;
-        private final TextView barText;
-        //private final TextView hiddenTextView;
         private final ConstraintLayout hiddenLayout;
+        
+        private final TextView bar_name;
+        private final TextView cover;
+        private final TextView wait_time;
+        private final TextView description;
 
         BarViewHolder(View v) {
             super(v);
+
+            bar_name = (TextView) itemView.findViewById(R.id.bar_name_tv);
+            cover = (TextView) itemView.findViewById(R.id.cover_tv);
+            wait_time = (TextView) itemView.findViewById(R.id.wait_time_tv);
+            description = (TextView) itemView.findViewById(R.id.description_tv);
+
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
-            barText = (TextView) itemView.findViewById(R.id.bar_title_tv);
-            //hiddenTextView = (TextView) itemView.findViewById(R.id.hiddenTextView);
             hiddenLayout = (ConstraintLayout) itemView.findViewById(R.id.hiddenBarCardExpansion);
             v.setClickable(true);
             v.setOnClickListener(this);
@@ -55,7 +64,6 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             final Intent intent;
             intent = new Intent(v.getContext(), BarDisplay.class);
             ctx.startActivity(intent);
-            //startActivity(new Intent(this, BarDisplayPage.class))
         }
     }
 
@@ -69,10 +77,10 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             notifyDataSetChanged();
     }*/
 
-    /*@Override
+    @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
-    }*/
+    }
 
     @NonNull
     @Override
@@ -111,11 +119,32 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             }
         });
 
-        holder.barText.setText(data.get(position).bar_name);
+        holder.bar_name.setText(data.get(position).bar_name);
+        holder.cover.setText(data.get(position).bar_cover);
+        holder.wait_time.setText(data.get(position).bar_wait_time_minutes);
+        holder.description.setText(data.get(position).bar_description);
+    }
+
+    public void addAll(final List<Bar> list) {
+        final int currentCount = data.size();
+        synchronized (data) {
+            data.addAll(list);
+        }
+        if(Looper.getMainLooper() == Looper.myLooper()) {
+            notifyItemRangeInserted(currentCount, list.size());
+        } else {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    notifyItemRangeInserted(currentCount, list.size());
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
+        if(data == null || data.isEmpty()) return 0;
         return data.size();
     }
 }

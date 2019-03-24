@@ -94,31 +94,21 @@ public class HomeTab extends Fragment {
         RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.home_bars_recyclerview);
         rvCards.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
         bars = new ArrayList<>();
-        for (int i = 0; i < 1; i++) {
-            bars.add(new Bar("Rounders"));
-        }
+        bars.add(new Bar("Rounders"));
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        /*Map<String, Object> data = new HashMap<>();
-        data.put("bar_name", "TEST");
-        db.collection("bars").add(data);*/
-
         db.collection("bars")
-                .whereEqualTo("bar")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        bars.add(new Bar("Rounders"));
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
+
                                 Bar b = document.toObject(Bar.class);
-
-                                String name = b.getBar_name();
-
                                 bars.add(b);
                             }
                         } else {
@@ -128,6 +118,8 @@ public class HomeTab extends Fragment {
                 });
 
         adapter = new BarCardAdapter(getActivity(), bars);
+        //adapter.notifyDataSetChanged();
+        //adapter.addAll(bars);
         rvCards.setAdapter(adapter);
         rvCards.setItemAnimator(new DefaultItemAnimator());
         rvCards.setNestedScrollingEnabled(false);

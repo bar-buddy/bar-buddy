@@ -51,10 +51,9 @@
             </android.support.v7.widget.CardView>
 
             <TextView
-                android:id="@+id/bar_title_tv"
+                android:id="@+id/bar_name_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rounders"
                 android:textColor="@android:color/black"
                 android:textSize="24sp"
                 android:layout_marginTop="10dp"
@@ -65,11 +64,10 @@
                 android:id="@+id/cover_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/bar_title_tv"
-                app:layout_constraintStart_toStartOf="@id/bar_title_tv"
+                app:layout_constraintTop_toBottomOf="@id/bar_name_tv"
+                app:layout_constraintStart_toStartOf="@id/bar_name_tv"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:text="$10"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/wait_time_tv"
@@ -78,8 +76,7 @@
                 app:layout_constraintTop_toBottomOf="@id/cover_tv"
                 app:layout_constraintStart_toStartOf="@id/cover_tv"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"
-                android:text="5 minutes"/>
+                android:textSize="16sp" />
 
         </android.support.constraint.ConstraintLayout>
 
@@ -94,12 +91,12 @@
             app:layout_constraintTop_toBottomOf="@id/visibleLayout">
 
             <TextView
+                android:id="@+id/description_tv"
                 android:layout_width="300dp"
                 android:layout_height="125dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:textColor="@android:color/black"
-                android:text="Description: I mean like it's a pretty good bar and you'll like it and all that stuff for sure. I can guarantee it."/>
+                android:textColor="@android:color/black" />
 
         </android.support.constraint.ConstraintLayout>
 
