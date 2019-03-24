@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ManagerMainActivity"></activity>
+        <activity
+            android:name=".BarMenu"
+            android:label="@string/title_activity_bar_menu"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ManagerMainActivity" />
         <activity android:name=".UserTypeActivity" />
         <activity
             android:name=".BarDisplay"
@@ -26,8 +30,7 @@
         <activity android:name=".SignupActivity" />
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
-            />
+            android:launchMode="singleTop" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name">

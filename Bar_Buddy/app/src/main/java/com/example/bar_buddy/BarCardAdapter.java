@@ -1,29 +1,20 @@
 package com.example.bar_buddy;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewHolder> {
@@ -32,7 +23,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
     int previousExpandedPosition = -1;
 
     private final Context ctx;
-    private List<Bar> data;
+    private List<BarItem> data;
 
     class BarViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -44,6 +35,8 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         private final TextView wait_time;
         private final TextView description;
 
+        private final Button menuBtn;
+
         BarViewHolder(View v) {
             super(v);
 
@@ -51,6 +44,8 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             cover = (TextView) itemView.findViewById(R.id.cover_tv);
             wait_time = (TextView) itemView.findViewById(R.id.wait_time_tv);
             description = (TextView) itemView.findViewById(R.id.description_tv);
+
+            menuBtn = (Button) itemView.findViewById(R.id.menu_btn);
 
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             hiddenLayout = (ConstraintLayout) itemView.findViewById(R.id.hiddenBarCardExpansion);
@@ -67,12 +62,12 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         }
     }
 
-    public BarCardAdapter(Context c, List<Bar> data) {
+    public BarCardAdapter(Context c, List<BarItem> data) {
         this.ctx = c;
         this.data = data;
     }
 
-    /*public void updateBars(Collection<Bar> c) {
+    /*public void updateBars(Collection<BarItem> c) {
             data = new ArrayList<>(c);
             notifyDataSetChanged();
     }*/
@@ -119,13 +114,22 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             }
         });
 
+        holder.menuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Intent intent;
+                intent = new Intent(v.getContext(), BarMenu.class);
+                ctx.startActivity(intent);
+            }
+        });
+
         holder.bar_name.setText(data.get(position).bar_name);
         holder.cover.setText(data.get(position).bar_cover);
         holder.wait_time.setText(data.get(position).bar_wait_time_minutes);
         holder.description.setText(data.get(position).bar_description);
     }
 
-    public void addAll(final List<Bar> list) {
+    public void addAll(final List<BarItem> list) {
         final int currentCount = data.size();
         synchronized (data) {
             data.addAll(list);

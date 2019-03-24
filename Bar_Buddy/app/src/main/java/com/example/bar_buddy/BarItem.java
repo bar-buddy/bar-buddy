@@ -1,19 +1,16 @@
 package com.example.bar_buddy;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-public class Bar {
+public class BarItem {
     String bar_name;
     String bar_cover;
     String bar_wait_time_minutes;
     String bar_description;
 
-    public Bar() {
+    public BarItem() {
 
     }
 
-    public Bar(String text) {
+    public BarItem(String text) {
         this.bar_name = text;
     }
 

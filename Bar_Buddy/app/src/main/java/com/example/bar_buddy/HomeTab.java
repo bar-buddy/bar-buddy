@@ -12,23 +12,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static android.support.constraint.Constraints.TAG;
-import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 
 /**
@@ -42,7 +36,7 @@ import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 public class HomeTab extends Fragment {
 
     private BarCardAdapter adapter;
-    private List<Bar> bars;
+    private List<BarItem> bars;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -96,7 +90,7 @@ public class HomeTab extends Fragment {
 
 
         bars = new ArrayList<>();
-        bars.add(new Bar("Rounders"));
+        bars.add(new BarItem("Rounders"));
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("bars")
@@ -108,7 +102,7 @@ public class HomeTab extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
 
-                                Bar b = document.toObject(Bar.class);
+                                BarItem b = document.toObject(BarItem.class);
                                 bars.add(b);
                             }
                         } else {

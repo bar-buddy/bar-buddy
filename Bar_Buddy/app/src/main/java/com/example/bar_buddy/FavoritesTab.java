@@ -26,7 +26,7 @@ import java.util.List;
 public class FavoritesTab extends Fragment {
 
     private BarCardAdapter adapter;
-    private List<Bar> bars;
+    private List<BarItem> bars;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,7 +80,7 @@ public class FavoritesTab extends Fragment {
 
         bars = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            bars.add(new Bar("Rounders"));
+            bars.add(new BarItem("Rounders"));
         }
 
         adapter = new BarCardAdapter(getActivity(), bars);
