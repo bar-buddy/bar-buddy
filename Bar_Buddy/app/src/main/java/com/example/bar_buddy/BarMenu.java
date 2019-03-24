@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +40,11 @@ public class BarMenu extends AppCompatActivity {
         //getSupportActionBar().setHomeButtonEnabled(true);
 
         RecyclerView rvMenu = findViewById(R.id.menu_drinks_rv);
+        rvMenu.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+        /* Custom divider
+        DividerItemDecoration decoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        decoration.setDrawable(ContextCompat.getDrawable(this, R.drawable.ic_expand_less));
+        rvMenu.addItemDecoration(decoration);*/
         rvMenu.setLayoutManager(new LinearLayoutManager(this));
 
         /*FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -60,7 +67,9 @@ public class BarMenu extends AppCompatActivity {
                 });*/
 
         List<MenuItem> menuList = new ArrayList<>();
-        menuList.add(new MenuItem("Test", "$14", "This is a menu item."));
+        for(int i = 0; i < 10; i++) {
+            menuList.add(new MenuItem("Test", "$14", "This is a menu item."));
+        }
 
         adapter = new MenuAdapter(this, menuList);
         rvMenu.setAdapter(adapter);
