@@ -21,13 +21,14 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/Devin"/>
+                android:src="@drawable/Devin"
+                android:contentDescription="TODO" />
             <TextView
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Devin Brown"
+                android:text="@string/devin_brown"
                 android:textColor="#fff"
                 android:textStyle="bold"
                 android:textSize="21sp"/>
@@ -41,75 +42,79 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:weightSum="3">
+                android:weightSum="3"
+                android:baselineAligned="false">
                 <LinearLayout
-                    android:background="@drawable/gradient"
+                    android:background="@drawable/secondgradient"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Favorites"
-                        android:textSize="20sp"
-                        />
-                    <TextView
 
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="125"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:paddingTop="10dp"
-                        android:textColor="@drawable/secondgradient"/>
+                        android:text="@string/favorites"
+                        android:textColor="#fff"
+                        android:textSize="20sp" />
 
-                </LinearLayout>
-                <LinearLayout
-                    android:background="@drawable/gradient"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent">
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="49dp"
                         android:layout_height="wrap_content"
-                        android:text="Followers"
-                        android:textSize="20sp"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1205"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@drawable/secondgradient"/>
+                        android:text="@string/_125"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
                 <LinearLayout
-                    android:background="@drawable/gradient"
+                    android:background="@drawable/secondgradient"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Following"
-                        android:textSize="20sp"
-                        />
+                        android:text="@string/followers"
+                        android:textColor="#fff"
+                        android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="360"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@drawable/secondgradient"/>
+                        android:text="@string/_1205"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@drawable/secondgradient"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/following"
+                        android:textColor="#fff"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="@string/_360"
+                        android:textColor="#fff"
+                        android:textSize="20sp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -125,7 +130,7 @@
         android:layout_marginTop="45dp">
         <LinearLayout
             android:orientation="horizontal"
-            android:paddingLeft="25dp"
+            android:paddingStart="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
@@ -137,7 +142,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
+                android:paddingStart="20dp"
                 android:text="dsbrown4@gmail.com"/>
         </LinearLayout>
         <LinearLayout
@@ -206,6 +211,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Follow Me"/>
+        android:text="@string/follow_me"/>
 
 </LinearLayout>
