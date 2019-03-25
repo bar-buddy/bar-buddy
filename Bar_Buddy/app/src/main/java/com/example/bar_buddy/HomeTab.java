@@ -15,12 +15,19 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+
+import javax.annotation.Nullable;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -37,6 +44,9 @@ public class HomeTab extends Fragment {
 
     private BarCardAdapter adapter;
     private List<BarItem> bars;
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference barsRef = db.collection("bars");
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,22 +88,62 @@ public class HomeTab extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.fragment_home_tab, container, false);
-        RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.home_bars_recyclerview);
-        rvCards.setLayoutManager(new LinearLayoutManager(getActivity()));
-
 
         bars = new ArrayList<>();
-        bars.add(new BarItem("Rounders"));
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("bars")
+        readData(new FirestoreCallback() {
+            @Override
+            public void onCallback(List<BarItem> list) {
+                //bars = list;
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    /*@Override
+    public void onStart() {
+        super.onStart();
+        barsRef.addSnapshotListener((Executor) this, new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(e != null) {
+                    return;
+                }
+
+                bars = new ArrayList<>();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    BarItem b = documentSnapshot.toObject(BarItem.class);
+                    bars.add(b);
+                }
+            }
+        });
+                //.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                        if(e != null) {
+                            return;
+                        }
+
+                        bars = new ArrayList<>();
+
+                        readData(new FirestoreCallback() {
+                            @Override
+                            public void onCallback(List<BarItem> list) {
+                                //bars = list;
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
+
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            BarItem b = documentSnapshot.toObject(BarItem.class);
+                            bars.add(b);
+                        }
+                    }
+                });
+    }*/
+
+    private void readData(final FirestoreCallback firestoreCallback) {
+        barsRef
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -105,11 +155,25 @@ public class HomeTab extends Fragment {
                                 BarItem b = document.toObject(BarItem.class);
                                 bars.add(b);
                             }
+                            firestoreCallback.onCallback(bars);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
+    }
+
+    private interface FirestoreCallback {
+        void onCallback(List<BarItem> list);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View rootView = inflater.inflate(R.layout.fragment_home_tab, container, false);
+        RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.home_bars_recyclerview);
+        rvCards.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         adapter = new BarCardAdapter(getActivity(), bars);
         //adapter.notifyDataSetChanged();
