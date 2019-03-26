@@ -4,32 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/barcard_cv"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="id/"
     app:cardBackgroundColor="@color/white"
 
     app:cardCornerRadius="15dp">
 
     <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="200dp">
-            <Image
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-
-                />
-        </android.support.constraint.ConstraintLayout>
-
         <Button
-            android:id="@+id/button1"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_favorite"
+            android:text="Favorite" />
 
         <View
             android:id="@+id/divider1"
@@ -37,10 +30,11 @@
             android:layout_height="match_parent"
             android:background="?android:attr/listDivider" />
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_favorite"
+            android:text="Menu" />
 
         <View
             android:id="@+id/divider2"
@@ -49,9 +43,10 @@
             android:background="?android:attr/listDivider" />
 
         <Button
-            android:id="@+id/button3"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_favorite"
+            android:text="Favorite" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 
