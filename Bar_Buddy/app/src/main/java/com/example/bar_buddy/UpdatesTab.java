@@ -4,9 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -18,6 +23,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class UpdatesTab extends Fragment {
+
+    private UpdatesCardAdapter adapter;
+    private List<UpdateItem> updatesList;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,8 +72,20 @@ public class UpdatesTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_updates_tab, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_updates_tab, container, false);
+        RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.updates_recyclerview);
+
+        updatesList = new ArrayList<>();
+        for(int i = 0; i < 20; i++) {
+            updatesList.add(new UpdateItem());
+        }
+
+        adapter = new UpdatesCardAdapter(getActivity(), updatesList);
+        rvCards.setAdapter(adapter);
+        rvCards.setItemAnimator(new DefaultItemAnimator());
+        rvCards.setNestedScrollingEnabled(false);
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
