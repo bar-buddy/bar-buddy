@@ -16,14 +16,48 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class WeeklySpecials extends AppCompatActivity {
     private EditText specialName, specialDay, specialDescription;
     private FirebaseAuth auth;
-    private ProgressBar progressBar;
-    private Button btnSignup, btnLogin, btnReset;
+    private Button btnAddWeeklySpecial;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final Map<String, Object> data = new HashMap<>();
+        final DocumentReference docRef = db.collection("bars").document("U2AraPs3G9bAGgGFwIDW").collection("weekly_specials").document("RauYNgHCafmj3m9CKruZ");
+
+        //set the view now
+        setContentView(R.layout.activity_add_weekly_specials);
+
+        specialName = (EditText) findViewById(R.id.input_WeeklySpecialName);
+        specialDay = (EditText) findViewById(R.id.inputspecialday);
+        specialDescription = (EditText) findViewById(R.id.input_weeklyspecialdescription);
+        btnAddWeeklySpecial = (Button) findViewById(R.id.btn_addWeeklySpecial);
+
+        btnAddWeeklySpecial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = specialName.getText().toString();
+                String day = specialDay.getText().toString();
+                String description = specialDescription.getText().toString();
+
+                data.put("special_day", day);
+                data.put("special_description", description);
+                data.put("special_name", name);
+                docRef.set(data);
+            }
+        });
+    }
+
+
 
 }

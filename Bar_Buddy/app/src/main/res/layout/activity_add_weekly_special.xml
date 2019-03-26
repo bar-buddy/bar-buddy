@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/input_weekly-special-description"
+        android:id="@+id/input_weeklyspecialdescription"
         android:layout_width="327dp"
         android:layout_height="317dp"
         android:layout_marginStart="28dp"
@@ -63,7 +63,7 @@
         app:layout_constraintVertical_bias="0.973" />
 
     <EditText
-        android:id="@+id/input_special-day"
+        android:id="@+id/inputspecialday"
         android:layout_width="328dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
@@ -73,7 +73,7 @@
         android:ems="10"
         android:hint="@string/hint_specialDay"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/input_weekly-special-description"
+        app:layout_constraintBottom_toTopOf="@+id/input_weeklyspecialdescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
