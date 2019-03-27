@@ -1,5 +1,4 @@
 package com.example.bar_buddy;
-package com.firebase.ui.firestore;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,13 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 
-public class BarCardAdapter extends FirestoreRecyclerAdapter {
-
-}
-
-/*public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewHolder> {
+public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewHolder> {
 
     int mExpandedPosition = -1;
     int previousExpandedPosition = -1;
@@ -62,10 +56,8 @@ public class BarCardAdapter extends FirestoreRecyclerAdapter {
         //on-click listener for clicking card anywhere except expand button
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
             final Intent intent;
             intent = new Intent(v.getContext(), BarDisplay.class);
-            //intent.putExtra("bar_id", )
             ctx.startActivity(intent);
         }
     }
@@ -74,6 +66,11 @@ public class BarCardAdapter extends FirestoreRecyclerAdapter {
         this.ctx = c;
         this.data = data;
     }
+
+    /*public void updateBars(Collection<BarItem> c) {
+            data = new ArrayList<>(c);
+            notifyDataSetChanged();
+    }*/
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
@@ -129,7 +126,24 @@ public class BarCardAdapter extends FirestoreRecyclerAdapter {
         holder.bar_name.setText(data.get(position).bar_name);
         holder.cover.setText(data.get(position).bar_cover);
         holder.wait_time.setText(data.get(position).bar_wait_time_minutes);
-        holder.description.setText(data.get(position).uid);
+        holder.description.setText(data.get(position).bar_description);
+    }
+
+    public void addAll(final List<BarItem> list) {
+        final int currentCount = data.size();
+        synchronized (data) {
+            data.addAll(list);
+        }
+        if(Looper.getMainLooper() == Looper.myLooper()) {
+            notifyItemRangeInserted(currentCount, list.size());
+        } else {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    notifyItemRangeInserted(currentCount, list.size());
+                }
+            });
+        }
     }
 
     @Override
@@ -137,4 +151,4 @@ public class BarCardAdapter extends FirestoreRecyclerAdapter {
         if(data == null || data.isEmpty()) return 0;
         return data.size();
     }
-}*/
+}

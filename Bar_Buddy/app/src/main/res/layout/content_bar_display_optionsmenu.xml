@@ -6,6 +6,8 @@
     android:id="@+id/barcard_cv"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="id/"
     app:cardBackgroundColor="@color/white"
 
     app:cardCornerRadius="15dp">
