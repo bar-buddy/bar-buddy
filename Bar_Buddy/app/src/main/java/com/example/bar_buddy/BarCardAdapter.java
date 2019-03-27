@@ -1,4 +1,5 @@
 package com.example.bar_buddy;
+package com.firebase.ui.firestore;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,102 +16,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-
 import java.util.List;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 
-public class BarCardAdapter extends FirestoreRecyclerAdapter<BarItem, BarCardAdapter.BarViewHolder> {
+public class BarCardAdapter extends FirestoreRecyclerAdapter {
 
-    int mExpandedPosition = -1;
-    int previousExpandedPosition = -1;
-
-    Context ctx;
-
-    public BarCardAdapter(@NonNull FirestoreRecyclerOptions<BarItem> options) {
-        super(options);
-    }
-
-    @Override
-    protected void onBindViewHolder(@NonNull BarViewHolder holder, final int position, @NonNull BarItem model) {
-        final boolean isExpanded = position==mExpandedPosition;
-        final Button expand_button = holder.itemView.findViewById(R.id.expand_button);
-
-        holder.hiddenLayout.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.itemView.setActivated(isExpanded);
-
-        if(isExpanded) {
-            previousExpandedPosition = position;
-            expand_button.setBackground(ActivityCompat.getDrawable(ctx, R.drawable.ic_expand_less));
-        } else {
-            expand_button.setBackground(ActivityCompat.getDrawable(ctx, R.drawable.ic_expand_more));
-        }
-
-        //on-click listener for expand button click
-        expand_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mExpandedPosition = isExpanded ? -1:position;
-                if(isExpanded) {
-                    expand_button.setBackground(ActivityCompat.getDrawable(ctx, R.drawable.ic_expand_less));
-                } else {
-                    expand_button.setBackground(ActivityCompat.getDrawable(ctx, R.drawable.ic_expand_more));
-                }
-
-                notifyItemChanged(previousExpandedPosition);
-                notifyItemChanged(position);
-            }
-        });
-
-        holder.menuBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Intent intent;
-                intent = new Intent(v.getContext(), BarMenu.class);
-                ctx.startActivity(intent);
-            }
-        });
-
-        holder.bar_name.setText(model.getBar_name());
-        holder.cover.setText(model.getBar_cover());
-        holder.wait_time.setText(model.getBar_wait_time_minutes());
-        holder.description.setText(model.getBar_description());
-    }
-
-    @NonNull
-    @Override
-    public BarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        ctx = parent.getContext();
-
-        View v = LayoutInflater.from(ctx).inflate(R.layout.adapter_bar_card, parent, false);
-        return new BarViewHolder(v);
-    }
-
-    class BarViewHolder extends RecyclerView.ViewHolder {
-
-        private final CardView cardContainer;
-        private final ConstraintLayout hiddenLayout;
-        private final Button menuBtn;
-
-        private final TextView bar_name;
-        private final TextView cover;
-        private final TextView wait_time;
-        private final TextView description;
-
-        public BarViewHolder(@NonNull View v) {
-            super(v);
-
-            bar_name = (TextView) itemView.findViewById(R.id.bar_name_tv);
-            cover = (TextView) itemView.findViewById(R.id.cover_tv);
-            wait_time = (TextView) itemView.findViewById(R.id.wait_time_tv);
-            description = (TextView) itemView.findViewById(R.id.description_tv);
-
-            menuBtn = (Button) itemView.findViewById(R.id.menu_btn);
-
-            cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
-            hiddenLayout = (ConstraintLayout) itemView.findViewById(R.id.hiddenBarCardExpansion);
-        }
-    }
 }
 
 /*public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewHolder> {
