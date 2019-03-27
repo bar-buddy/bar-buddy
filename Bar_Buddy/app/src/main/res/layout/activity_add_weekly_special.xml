@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/input_weeklyspecialdescription"
+        android:layout_width="327dp"
+        android:layout_height="317dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="18dp"
+        android:ems="10"
+        android:hint="@string/hint_specialDescription"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/btn_addWeeklySpecial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="352dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="362dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_addWeeklySpecial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/input_WeeklySpecialName"
+            android:layout_width="407dp"
+            android:layout_height="match_parent"
+            android:hint="@string/hint_specialName"
+            android:inputType="text" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_addWeeklySpecial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="109dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="49dp"
+        android:text="Add Weekly Special"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintVertical_bias="0.973" />
+
+    <EditText
+        android:id="@+id/inputspecialday"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="29dp"
+        android:ems="10"
+        android:hint="@string/hint_specialDay"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/input_weeklyspecialdescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+</android.support.constraint.ConstraintLayout>
