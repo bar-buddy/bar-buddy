@@ -47,6 +47,9 @@
     <string name="forgot_password_msg">Enter your email to receive instructions for password reset.</string>
     <string name="prompt_password">New Password</string>
     <string name="title_activity_bar_display">BarDisplay</string>
+    <string name="hint_specialName" >Name of Weekly Special</string>
+    <string name="hint_specialDay">Day of the Week</string>
+    <string name="hint_specialDescription">Description of Special</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
