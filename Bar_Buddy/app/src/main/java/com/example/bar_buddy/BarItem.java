@@ -1,6 +1,7 @@
 package com.example.bar_buddy;
 
 public class BarItem {
+    String uid;
     String bar_name;
     String bar_cover;
     String bar_wait_time_minutes;

@@ -100,48 +100,6 @@ public class HomeTab extends Fragment {
         });
     }
 
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        barsRef.addSnapshotListener((Executor) this, new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(e != null) {
-                    return;
-                }
-
-                bars = new ArrayList<>();
-                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                    BarItem b = documentSnapshot.toObject(BarItem.class);
-                    bars.add(b);
-                }
-            }
-        });
-                //.addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if(e != null) {
-                            return;
-                        }
-
-                        bars = new ArrayList<>();
-
-                        readData(new FirestoreCallback() {
-                            @Override
-                            public void onCallback(List<BarItem> list) {
-                                //bars = list;
-                                adapter.notifyDataSetChanged();
-                            }
-                        });
-
-                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                            BarItem b = documentSnapshot.toObject(BarItem.class);
-                            bars.add(b);
-                        }
-                    }
-                });
-    }*/
-
     private void readData(final FirestoreCallback firestoreCallback) {
         barsRef
                 .get()
