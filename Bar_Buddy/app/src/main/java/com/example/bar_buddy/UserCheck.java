@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -21,6 +22,10 @@ public class UserCheck extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user_check);
+
+        FirebaseApp.initializeApp(this);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -32,9 +37,6 @@ public class UserCheck extends AppCompatActivity {
         else {
             getUserType();
         }
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_check);
     }
 
     public void getUserType(){
