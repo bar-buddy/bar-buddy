@@ -22,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WeeklySpecials extends AppCompatActivity {
+public class WeeklySpecials extends AppCompatActivity{
     private EditText specialName, specialDay, specialDescription;
     private FirebaseAuth auth;
     private Button btnAddWeeklySpecial;
@@ -31,12 +31,12 @@ public class WeeklySpecials extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        final Map<String, Object> data = new HashMap<>();
-        final DocumentReference docRef = db.collection("bars").document("U2AraPs3G9bAGgGFwIDW").collection("weekly_specials").document("RauYNgHCafmj3m9CKruZ");
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //final Map<String, Object> data = new HashMap<>();
+        //final DocumentReference docRef = db.collection("bars").document("U2AraPs3G9bAGgGFwIDW").collection("weekly_specials").document("RauYNgHCafmj3m9CKruZ");
 
         //set the view now
-        setContentView(R.layout.activity_add_weekly_specials);
+        setContentView(R.layout.activity_add_weekly_special);
 
         specialName = (EditText) findViewById(R.id.input_WeeklySpecialName);
         specialDay = (EditText) findViewById(R.id.inputspecialday);
@@ -49,6 +49,24 @@ public class WeeklySpecials extends AppCompatActivity {
                 String name = specialName.getText().toString();
                 String day = specialDay.getText().toString();
                 String description = specialDescription.getText().toString();
+
+                if (TextUtils.isEmpty(name)) {
+                    Toast.makeText(getApplicationContext(), "Enter a Name!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(day)) {
+                    Toast.makeText(getApplicationContext(), "Enter a Day", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(description)) {
+                    Toast.makeText(getApplicationContext(), "Enter a Description!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Map<String, Object> data = new HashMap<>();
+                DocumentReference docRef = db.collection("bars").document("U2AraPs3G9bAGgGFwIDW").collection("weekly_specials").document("RauYNgHCafmj3m9CKruZ");
 
                 data.put("special_day", day);
                 data.put("special_description", description);
