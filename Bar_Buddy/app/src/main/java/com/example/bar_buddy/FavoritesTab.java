@@ -75,7 +75,7 @@ public class FavoritesTab extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_favorites_tab, container, false);
-        RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.favorites_bars_recyclerview);
+        /*RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.favorites_bars_recyclerview);
         rvCards.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         bars = new ArrayList<>();
@@ -86,7 +86,7 @@ public class FavoritesTab extends Fragment {
         adapter = new BarCardAdapter(getActivity(), bars);
         rvCards.setAdapter(adapter);
         rvCards.setItemAnimator(new DefaultItemAnimator());
-        rvCards.setNestedScrollingEnabled(false);
+        rvCards.setNestedScrollingEnabled(false);*/
 
         // Inflate the layout for this fragment
         return rootView;
