@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -20,6 +21,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -42,11 +44,13 @@ import static android.support.constraint.Constraints.TAG;
  */
 public class HomeTab extends Fragment {
 
-    private BarCardAdapter adapter;
     private List<BarItem> bars;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference barsRef = db.collection("bars");
+    private BarCardAdapter adapter;
+
+    View root;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,7 +93,9 @@ public class HomeTab extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        bars = new ArrayList<>();
+        //setUpRecyclerView();
+
+        /*bars = new ArrayList<>();
 
         readData(new FirestoreCallback() {
             @Override
@@ -97,10 +103,37 @@ public class HomeTab extends Fragment {
                 //bars = list;
                 adapter.notifyDataSetChanged();
             }
-        });
+        });*/
     }
 
-    private void readData(final FirestoreCallback firestoreCallback) {
+    private void setUpRecyclerView() {
+        Query query = barsRef.orderBy("name", Query.Direction.DESCENDING);
+
+        FirestoreRecyclerOptions<BarItem> options = new FirestoreRecyclerOptions.Builder<BarItem>()
+                .setQuery(query, BarItem.class)
+                .build();
+
+        adapter = new BarCardAdapter(options);
+
+        /*RecyclerView recyclerView = root.findViewById(R.id.home_bars_recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);*/
+    }
+
+    /*@Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }*/
+
+    /*private void readData(final FirestoreCallback firestoreCallback) {
         barsRef
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -123,14 +156,17 @@ public class HomeTab extends Fragment {
 
     private interface FirestoreCallback {
         void onCallback(List<BarItem> list);
-    }
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_home_tab, container, false);
-        RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.home_bars_recyclerview);
+
+        root = rootView;
+
+        /*RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.home_bars_recyclerview);
         rvCards.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         adapter = new BarCardAdapter(getActivity(), bars);
@@ -138,7 +174,7 @@ public class HomeTab extends Fragment {
         //adapter.addAll(bars);
         rvCards.setAdapter(adapter);
         rvCards.setItemAnimator(new DefaultItemAnimator());
-        rvCards.setNestedScrollingEnabled(false);
+        rvCards.setNestedScrollingEnabled(false);*/
 
         // Inflate the layout for this fragment
         return rootView;
