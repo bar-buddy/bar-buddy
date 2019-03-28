@@ -13,35 +13,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
-
-import javax.annotation.Nullable;
 
 import static android.support.constraint.Constraints.TAG;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeTab.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeTab#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeTab extends Fragment {
 
     private List<BarItem> bars;
@@ -50,90 +33,27 @@ public class HomeTab extends Fragment {
     private CollectionReference barsRef = db.collection("bars");
     private BarCardAdapter adapter;
 
-    View root;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     private OnFragmentInteractionListener mListener;
 
     public HomeTab() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeTab.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeTab newInstance(String param1, String param2) {
-        HomeTab fragment = new HomeTab();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
-        //setUpRecyclerView();
-
-        /*bars = new ArrayList<>();
+        bars = new ArrayList<>();
 
         readData(new FirestoreCallback() {
             @Override
             public void onCallback(List<BarItem> list) {
-                //bars = list;
                 adapter.notifyDataSetChanged();
             }
-        });*/
+        });
     }
 
-    private void setUpRecyclerView() {
-        Query query = barsRef.orderBy("name", Query.Direction.DESCENDING);
-
-        FirestoreRecyclerOptions<BarItem> options = new FirestoreRecyclerOptions.Builder<BarItem>()
-                .setQuery(query, BarItem.class)
-                .build();
-
-        adapter = new BarCardAdapter(options);
-
-        /*RecyclerView recyclerView = root.findViewById(R.id.home_bars_recyclerview);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);*/
-    }
-
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }*/
-
-    /*private void readData(final FirestoreCallback firestoreCallback) {
+    private void readData(final FirestoreCallback firestoreCallback) {
         barsRef
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -156,7 +76,7 @@ public class HomeTab extends Fragment {
 
     private interface FirestoreCallback {
         void onCallback(List<BarItem> list);
-    }*/
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -164,19 +84,14 @@ public class HomeTab extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_home_tab, container, false);
 
-        root = rootView;
-
-        /*RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.home_bars_recyclerview);
+        RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.home_bars_recyclerview);
         rvCards.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         adapter = new BarCardAdapter(getActivity(), bars);
-        //adapter.notifyDataSetChanged();
-        //adapter.addAll(bars);
         rvCards.setAdapter(adapter);
         rvCards.setItemAnimator(new DefaultItemAnimator());
-        rvCards.setNestedScrollingEnabled(false);*/
-
-        // Inflate the layout for this fragment
+        rvCards.setNestedScrollingEnabled(false);
+        
         return rootView;
     }
 

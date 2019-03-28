@@ -48,7 +48,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/Primary"
             android:text="CUSTOMER"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
@@ -58,7 +58,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@color/colorPrimary"
+            android:background="@color/Primary"
             android:text="MANAGER"
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
