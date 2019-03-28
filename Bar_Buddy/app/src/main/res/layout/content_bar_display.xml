@@ -19,16 +19,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="Cover: $15"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/bar_display_wait_time_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bar_display_cover_tv"
-            android:text="Wait time: 7 minutes"/>
+            app:layout_constraintTop_toBottomOf="@id/bar_display_cover_tv" />
 
         <TextView
             android:id="@+id/bar_display_hours_operation"

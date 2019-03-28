@@ -33,7 +33,6 @@
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleGravity="bottom"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="Rounders"
                 app:expandedTitleTextAppearance="@style/ExpandedTitleText"
                 app:toolbarId="@+id/toolbar">
 

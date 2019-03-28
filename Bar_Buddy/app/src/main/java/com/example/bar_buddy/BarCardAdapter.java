@@ -2,6 +2,7 @@ package com.example.bar_buddy;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
@@ -13,9 +14,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewHolder> {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     int mExpandedPosition = -1;
     int previousExpandedPosition = -1;
@@ -57,7 +64,16 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             int position = getAdapterPosition();
             final Intent intent;
             intent = new Intent(v.getContext(), BarDisplay.class);
-            //intent.putExtra("bar_id", )
+
+            BarItem b = data.get(position);
+            intent.putExtra("bar_name", b.getBar_name());
+            intent.putExtra("bar_cover", b.getBar_cover());
+            intent.putExtra("bar_wait_time_minutes", b.getBar_wait_time_minutes());
+            intent.putExtra("bar_description", b.getBar_wait_time_minutes());
+            intent.putExtra("bar_address", b.getBar_address());
+            intent.putExtra("bar_phone", b.getBar_phone());
+            intent.putExtra("bar_image", b.getBar_image());
+
             ctx.startActivity(intent);
         }
     }

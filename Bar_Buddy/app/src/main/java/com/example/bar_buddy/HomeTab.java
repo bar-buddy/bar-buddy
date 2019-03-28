@@ -91,7 +91,7 @@ public class HomeTab extends Fragment {
         rvCards.setAdapter(adapter);
         rvCards.setItemAnimator(new DefaultItemAnimator());
         rvCards.setNestedScrollingEnabled(false);
-        
+
         return rootView;
     }
 
