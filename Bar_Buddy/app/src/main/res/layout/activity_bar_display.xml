@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".BarDisplay">
-
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -20,7 +12,6 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
-            android:background="@android:color/black"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -69,18 +60,4 @@
             app:layout_anchorGravity="bottom|end"
             app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
-    </android.support.design.widget.CoordinatorLayout>
-
-
-
-    <!--<android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation_bar_display_page"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/gradient"
-        android:theme="@style/BottomNavTheme"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/navigation" />-->
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
