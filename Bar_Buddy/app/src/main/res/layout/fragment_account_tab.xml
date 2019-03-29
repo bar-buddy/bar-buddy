@@ -1,53 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context=".AccountTab">
+    tools:context=".AccountTab"
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/user_email"
-        android:layout_width="300dp"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="405dp">
+        <LinearLayout
+            android:background="@drawable/gradient"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_marginTop="45dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/devin"
+                android:contentDescription="@string/todo" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/devin_brown"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:textSize="21sp"/>
+        </LinearLayout>
+        <android.support.v7.widget.CardView
+            android:layout_width="400dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="275dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:background="@drawable/secondgradient"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/favorites"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="49dp"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="@string/_125"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@drawable/secondgradient"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/followers"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="@string/_1205"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@drawable/secondgradient"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/following"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="@string/_360"
+                        android:textColor="#fff"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="50dp"
-        android:inputType="text"
-        android:text="User Email"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="45dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_contact_mail_black_24dp"
+                android:contentDescription="@string/todo" />
+            <TextView
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/dsbrown4_gmail_com"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_contact_phone_black_24dp"
+                android:contentDescription="@string/todo" />
+            <TextView
+                android:textStyle="bold"
+
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/_601_832_2960"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_contacts_black_24dp"
+                android:contentDescription="@string/todo" />
+            <TextView
+                android:textStyle="bold"
+
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/add_to_contacts"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:paddingStart="25dp"
+            android:paddingEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_star_black_24dp"
+                android:contentDescription="@string/todo" />
+            <TextView
+                android:textStyle="bold"
+
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/favorite_bars"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <Button
-        android:id="@+id/logoutBtn"
-        android:layout_width="300dp"
+        android:textColor="#fff"
+        android:background="@drawable/buttonstylegradient"
+        android:layout_marginTop="35dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="50dp"
-        android:background="@color/colorPrimary"
-        android:text="LOGOUT"
-        android:textColor="@android:color/white" />
+        android:text="@string/follow_me"/>
 
-    <Button
-        android:id="@+id/resetPwdBtn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:layout_marginLeft="50dp"
-        android:background="@color/colorPrimary"
-        android:text="RESET PASSWORD"
-        android:textColor="@android:color/white" />
-
-    <Button
-        android:id="@+id/deleteAcctBtn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"
-        android:layout_marginLeft="50dp"
-        android:background="@color/colorPrimary"
-        android:text="DELETE ACCOUNT"
-        android:textColor="@android:color/white" />
-
-</FrameLayout>
+</LinearLayout>
