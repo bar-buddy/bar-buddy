@@ -23,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:cardCornerRadius="5dp"
             android:layout_margin="7dp"
-            app:cardBackgroundColor="@color/Primary" >
+            app:cardBackgroundColor="@color/cardPrimaryColor" >
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -35,7 +35,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorBackground"
                 android:layout_margin="5dp"
                 android:orientation="vertical">
 
@@ -52,11 +51,9 @@
                 <TextView
                     android:id="@+id/bar_display_hours_operation_tv"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hours of operation: 9 p.m. - 2 a.m."/>
+                    android:layout_height="wrap_content" />
 
                 <View
-                    android:id="@+id/divider"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="?android:attr/listDivider" />
@@ -72,20 +69,43 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/bar_display_optionsmenu_cv"
-            android:layout_width="wrap_content"
+            android:id="@+id/menu_card"
             android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             app:layout_constraintTop_toBottomOf="@id/general_info_card"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="5dp"
+            android:layout_margin="7dp"
+            app:cardBackgroundColor="@color/cardPrimaryColor" >
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/bar_display_optionsmenu_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/cardBackground"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            app:cardCornerRadius="15dp">
+            android:layout_margin="1dp"
+            app:cardCornerRadius="5dp">
 
             <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="4dp">
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:numStars="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider" />
+
+                <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -97,12 +117,10 @@
                     android:drawableTop="@drawable/ic_favorite"
                     android:text="Favorite"
                     android:background="@color/transparent"
-                    android:textColor="@color/white"
-                    android:drawableTint="@color/white"/>
+                    android:textColor="@color/white" />
 
                 <View
-                    android:id="@+id/divider1"
-                    android:layout_width="5dp"
+                    android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="?android:attr/listDivider" />
 
@@ -113,12 +131,10 @@
                     android:drawableTop="@drawable/ic_restaurant_menu"
                     android:text="Menu"
                     android:background="@color/transparent"
-                    android:textColor="@color/white"
-                    android:drawableTint="@color/white"/>
+                    android:textColor="@color/white" />
 
                 <View
-                    android:id="@+id/divider2"
-                    android:layout_width="5dp"
+                    android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:background="?android:attr/listDivider" />
 
@@ -128,11 +144,12 @@
                     android:drawableTop="@drawable/ic_favorite"
                     android:text="Favorite"
                     android:background="@color/transparent"
-                    android:textColor="@color/white"
-                    android:drawableTint="@color/white"/>
+                    android:textColor="@color/white" />
 
             </android.support.v7.widget.LinearLayoutCompat>
+            </android.support.v7.widget.LinearLayoutCompat>
 
+        </android.support.v7.widget.CardView>
         </android.support.v7.widget.CardView>
 
         <include
@@ -141,7 +158,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bar_display_optionsmenu_cv" />
+            app:layout_constraintTop_toBottomOf="@id/menu_card" />
 
 
         <!--<TextView

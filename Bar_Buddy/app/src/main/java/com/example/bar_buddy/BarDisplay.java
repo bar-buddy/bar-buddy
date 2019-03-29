@@ -1,25 +1,16 @@
 package com.example.bar_buddy;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.w3c.dom.Text;
 
 public class BarDisplay extends AppCompatActivity {
 
@@ -71,7 +62,8 @@ public class BarDisplay extends AppCompatActivity {
                     extras.getString("bar_description"),
                     extras.getString("bar_phone"),
                     extras.getString("bar_address"),
-                    extras.getString("bar_image")
+                    extras.getString("bar_image"),
+                    extras.getString("bar_hours_operation")
             );
         }
     }
@@ -80,14 +72,17 @@ public class BarDisplay extends AppCompatActivity {
         getSupportActionBar().setTitle(bar.getBar_name());
         TextView cover_tv = (TextView) findViewById(R.id.bar_display_cover_tv);
         TextView wait_time_tv = (TextView) findViewById(R.id.bar_display_wait_time_tv);
+        TextView hours_operation = (TextView) findViewById(R.id.bar_display_hours_operation_tv);
         TextView description_tv = (TextView) findViewById(R.id.bar_display_description_tv);
         ImageView header_image = (ImageView) findViewById(R.id.bar_display_image_header);
 
-        String cover_lead = "Cover: " + bar.getBar_cover();
-        String wait_time_lead = "Wait time: " + bar.getBar_wait_time_minutes();
+        String cover_lead = "Cover: $" + bar.getBar_cover();
+        String wait_time_lead = "Wait time: " + bar.getBar_wait() + " minutes";
+        String hours_operation_lead = "Hours of operation: " + bar.getBar_hours_operation();
 
         cover_tv.setText(cover_lead);
         wait_time_tv.setText(wait_time_lead);
+        hours_operation.setText(hours_operation_lead);
         description_tv.setText(bar.getBar_description());
     }
 
@@ -98,8 +93,8 @@ public class BarDisplay extends AppCompatActivity {
         menuBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final Intent intent;
-                intent = new Intent(v.getContext(), BarMenu.class);
-                getApplicationContext().startActivity(intent);
+                intent = new Intent(BarDisplay.this, BarMenu.class);
+                BarDisplay.this.startActivity(intent);
             }
         });
 

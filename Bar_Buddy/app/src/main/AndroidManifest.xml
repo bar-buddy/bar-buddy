@@ -14,7 +14,7 @@
         <activity
             android:name=".BarMenu"
             android:label="@string/title_activity_bar_menu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.BarMenuStyle"></activity>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".ManagerMainActivity" />
         <activity android:name=".UserTypeActivity" />

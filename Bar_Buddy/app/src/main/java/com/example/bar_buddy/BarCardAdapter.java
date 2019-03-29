@@ -2,7 +2,6 @@ package com.example.bar_buddy;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
@@ -14,10 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewHolder> {
@@ -38,6 +35,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         private final TextView bar_name;
         private final TextView cover;
         private final TextView wait_time;
+        private final TextView hours_operation;
         private final TextView description;
 
         private final Button menuBtn;
@@ -48,6 +46,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             bar_name = (TextView) itemView.findViewById(R.id.bar_name_tv);
             cover = (TextView) itemView.findViewById(R.id.cover_tv);
             wait_time = (TextView) itemView.findViewById(R.id.wait_time_tv);
+            hours_operation = (TextView) itemView.findViewById(R.id.hours_operation_tv);
             description = (TextView) itemView.findViewById(R.id.description_tv);
 
             menuBtn = (Button) itemView.findViewById(R.id.menu_btn);
@@ -68,11 +67,12 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             BarItem b = data.get(position);
             intent.putExtra("bar_name", b.getBar_name());
             intent.putExtra("bar_cover", b.getBar_cover());
-            intent.putExtra("bar_wait_time_minutes", b.getBar_wait_time_minutes());
+            intent.putExtra("bar_wait_time_minutes", b.getBar_wait());
             intent.putExtra("bar_description", b.getBar_description());
             intent.putExtra("bar_address", b.getBar_address());
             intent.putExtra("bar_phone", b.getBar_phone());
             intent.putExtra("bar_image", b.getBar_image());
+            intent.putExtra("bar_hours_operation", b.getBar_hours_operation());
 
             ctx.startActivity(intent);
         }
@@ -134,10 +134,16 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             }
         });
 
+        String wait = "Wait time: " + data.get(position).getBar_wait() + " minutes";
+        String cover = "Cover: $" + data.get(position).getBar_cover();
+        String description = "Description: " + data.get(position).getBar_description();
+        String hours = "Hours of operation: " + data.get(position).getBar_hours_operation();
+
         holder.bar_name.setText(data.get(position).getBar_name());
-        holder.cover.setText(data.get(position).getBar_cover());
-        holder.wait_time.setText(data.get(position).getBar_wait_time_minutes());
-        holder.description.setText(data.get(position).getBar_description());
+        holder.cover.setText(cover);
+        holder.wait_time.setText(wait);
+        holder.hours_operation.setText(hours);
+        holder.description.setText(description);
     }
 
     @Override
@@ -200,7 +206,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
 
         holder.bar_name.setText(model.getBar_name());
         holder.cover.setText(model.getBar_cover());
-        holder.wait_time.setText(model.getBar_wait_time_minutes());
+        holder.wait_time.setText(model.getBar_wait());
         holder.description.setText(model.getBar_description());
     }
 

@@ -17,6 +17,11 @@
         <item name="itemIconTint">@color/bottom_nav_icon_selector</item>-->
     </style>
 
+    <style name="AppTheme.BarMenuStyle">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="colorPrimary">@color/PrimaryDark</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
 
     </style>
@@ -31,9 +36,15 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:fitsSystemWindows">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="BorderedButton">
+        <item name="android:background">@drawable/button_border</item>
+        <item name="android:textColor">@color/cardSecondaryColor</item>
+    </style>
 
 </resources>
