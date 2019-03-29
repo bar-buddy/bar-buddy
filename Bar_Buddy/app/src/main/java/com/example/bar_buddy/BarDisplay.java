@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,6 +22,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.w3c.dom.Text;
 
 public class BarDisplay extends AppCompatActivity {
+
+    boolean isSpecialsExpanded = true;
 
     BarItem bar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -77,14 +80,21 @@ public class BarDisplay extends AppCompatActivity {
         getSupportActionBar().setTitle(bar.getBar_name());
         TextView cover_tv = (TextView) findViewById(R.id.bar_display_cover_tv);
         TextView wait_time_tv = (TextView) findViewById(R.id.bar_display_wait_time_tv);
+        TextView description_tv = (TextView) findViewById(R.id.bar_display_description_tv);
         ImageView header_image = (ImageView) findViewById(R.id.bar_display_image_header);
 
-        cover_tv.setText(bar.getBar_cover());
-        wait_time_tv.setText(bar.getBar_wait_time_minutes());
+        String cover_lead = "Cover: " + bar.getBar_cover();
+        String wait_time_lead = "Wait time: " + bar.getBar_wait_time_minutes();
+
+        cover_tv.setText(cover_lead);
+        wait_time_tv.setText(wait_time_lead);
+        description_tv.setText(bar.getBar_description());
     }
 
     private void setListeners() {
         final Button menuBtn = (Button) findViewById(R.id.bar_display_menu_btn);
+        final Button specialsExpandBtn = (Button) findViewById(R.id.expand_button);
+
         menuBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final Intent intent;
@@ -92,5 +102,23 @@ public class BarDisplay extends AppCompatActivity {
                 getApplicationContext().startActivity(intent);
             }
         });
+
+        specialsExpandBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isSpecialsExpanded) {
+                    //specialsExpandBtn.setBackground(ActivityCompat.getDrawable(getApplicationContext(), R.drawable.ic_expand_less));
+                    specialsExpandBtn.setBackground(ActivityCompat.getDrawable(getApplicationContext(), R.drawable.ic_expand_more));
+                    findViewById(R.id.specials_events_visible_list).setVisibility(View.GONE);
+                    isSpecialsExpanded = false;
+                } else {
+                    specialsExpandBtn.setBackground(ActivityCompat.getDrawable(getApplicationContext(), R.drawable.ic_expand_less));
+                    findViewById(R.id.specials_events_visible_list).setVisibility(View.VISIBLE);
+                    isSpecialsExpanded = true;
+                }
+            }
+        });
+
+
     }
 }

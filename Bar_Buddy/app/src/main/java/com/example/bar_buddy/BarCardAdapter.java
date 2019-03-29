@@ -69,7 +69,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             intent.putExtra("bar_name", b.getBar_name());
             intent.putExtra("bar_cover", b.getBar_cover());
             intent.putExtra("bar_wait_time_minutes", b.getBar_wait_time_minutes());
-            intent.putExtra("bar_description", b.getBar_wait_time_minutes());
+            intent.putExtra("bar_description", b.getBar_description());
             intent.putExtra("bar_address", b.getBar_address());
             intent.putExtra("bar_phone", b.getBar_phone());
             intent.putExtra("bar_image", b.getBar_image());
