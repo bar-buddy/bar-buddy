@@ -143,7 +143,7 @@
             app:layout_constraintTop_toBottomOf="@id/hiddenBarCardExpansion"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <Button
+            <!--<Button
                 android:id="@+id/favorite_button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -153,12 +153,46 @@
                 android:layout_marginStart="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>-->
+
+            <!--<ImageButton
+                android:id="@+id/bar_card_favorite_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_favorite_bar_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />-->
+
+            <ToggleButton
+                android:id="@+id/bar_card_favorite_tglBtn"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_favorite_bar_card"
+                style="@style/toggleButton"
+                android:background="@drawable/ic_toggle_fav_bg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <ImageButton
+                android:id="@+id/bar_card_directions_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_directions"
+                android:background="@color/colorForeground"
+                android:focusable="true"
+                app:layout_constraintStart_toEndOf="@id/bar_card_favorite_tglBtn"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <Button
                 android:id="@+id/expand_button"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:layout_marginEnd="7dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="@drawable/ic_expand_more"

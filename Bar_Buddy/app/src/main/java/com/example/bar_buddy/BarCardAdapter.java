@@ -2,6 +2,7 @@ package com.example.bar_buddy;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
@@ -11,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -38,6 +41,8 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         private final TextView hours_operation;
         private final TextView description;
 
+        private final ToggleButton favBtn;
+        private final ImageButton directionsBtn;
         private final Button menuBtn;
 
         BarViewHolder(View v) {
@@ -49,6 +54,8 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             hours_operation = (TextView) itemView.findViewById(R.id.hours_operation_tv);
             description = (TextView) itemView.findViewById(R.id.description_tv);
 
+            favBtn = (ToggleButton) itemView.findViewById(R.id.bar_card_favorite_tglBtn);
+            directionsBtn = (ImageButton) itemView.findViewById(R.id.bar_card_directions_btn);
             menuBtn = (Button) itemView.findViewById(R.id.menu_btn);
 
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
@@ -96,6 +103,22 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
 
     @Override
     public void onBindViewHolder(@NonNull final BarViewHolder holder, final int position) {
+
+        setBtnListeners(holder, position);
+
+        String wait = "Wait time: " + data.get(position).getBar_wait() + " minutes";
+        String cover = "Cover: $" + data.get(position).getBar_cover();
+        String description = "Description: " + data.get(position).getBar_description();
+        String hours = "Hours of operation: " + data.get(position).getBar_hours_operation();
+
+        holder.bar_name.setText(data.get(position).getBar_name());
+        holder.cover.setText(cover);
+        holder.wait_time.setText(wait);
+        holder.hours_operation.setText(hours);
+        holder.description.setText(description);
+    }
+
+    private void setBtnListeners(final BarViewHolder holder, final int position) {
         final boolean isExpanded = position==mExpandedPosition;
         final Button expand_button = holder.itemView.findViewById(R.id.expand_button);
 
@@ -134,16 +157,21 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             }
         });
 
-        String wait = "Wait time: " + data.get(position).getBar_wait() + " minutes";
-        String cover = "Cover: $" + data.get(position).getBar_cover();
-        String description = "Description: " + data.get(position).getBar_description();
-        String hours = "Hours of operation: " + data.get(position).getBar_hours_operation();
+        holder.favBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        holder.bar_name.setText(data.get(position).getBar_name());
-        holder.cover.setText(cover);
-        holder.wait_time.setText(wait);
-        holder.hours_operation.setText(hours);
-        holder.description.setText(description);
+            }
+        });
+
+        holder.directionsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ctx.startActivity(
+                        new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("geo:0,0?q=" + Uri.encode(data.get(position).getBar_name() + " " + data.get(position).getBar_address()))));
+            }
+        });
     }
 
     @Override
