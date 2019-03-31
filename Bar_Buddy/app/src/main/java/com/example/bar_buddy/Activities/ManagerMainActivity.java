@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.bar_buddy.R;
+import com.example.bar_buddy.WeeklySpecials;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ManagerMainActivity extends AppCompatActivity {
