@@ -141,4 +141,13 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="bar_collapsing_image_description">Collapsing Main Bar Image</string>
+    <string name="title_activity_bar_menu">Menu</string>
+    <string name="specials_events_menu_title">Weekly Specials and Events</string>
+    <string name="specials_events_menu_monday_title">Mondays</string>
+    <string name="specials_events_menu_tuesday_title">Tuesdays</string>
+    <string name="specials_events_menu_wednesday_title">Wednesdays</string>
+    <string name="specials_events_menu_thursday_title">Thursdays</string>
+    <string name="specials_events_menu_friday_title">Fridays</string>
+    <string name="specials_events_menu_saturday_title">Saturdays</string>
+    <string name="specials_events_menu_sunday_title">Sundays</string>
 </resources>

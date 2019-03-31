@@ -1,15 +1,18 @@
-package com.example.bar_buddy;
+package com.example.bar_buddy.TabFragments;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.bar_buddy.Adapters.UpdatesCardAdapter;
+import com.example.bar_buddy.R;
+import com.example.bar_buddy.AdapterItems.UpdateItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +21,15 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FavoritesTab.OnFragmentInteractionListener} interface
+ * {@link UpdatesTab.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FavoritesTab#newInstance} factory method to
+ * Use the {@link UpdatesTab#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavoritesTab extends Fragment {
+public class UpdatesTab extends Fragment {
 
-    private BarCardAdapter adapter;
-    private List<Bar> bars;
+    private UpdatesCardAdapter adapter;
+    private List<UpdateItem> updatesList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,7 +42,7 @@ public class FavoritesTab extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public FavoritesTab() {
+    public UpdatesTab() {
         // Required empty public constructor
     }
 
@@ -49,11 +52,11 @@ public class FavoritesTab extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FavoritesTab.
+     * @return A new instance of fragment UpdatesTab.
      */
     // TODO: Rename and change types and number of parameters
-    public static FavoritesTab newInstance(String param1, String param2) {
-        FavoritesTab fragment = new FavoritesTab();
+    public static UpdatesTab newInstance(String param1, String param2) {
+        UpdatesTab fragment = new UpdatesTab();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,22 +76,19 @@ public class FavoritesTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_updates_tab, container, false);
+        RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.updates_recyclerview);
 
-        View rootView = inflater.inflate(R.layout.fragment_favorites_tab, container, false);
-        RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.favorites_bars_recyclerview);
-        rvCards.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        bars = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            bars.add(new Bar("Rounders"));
+        updatesList = new ArrayList<>();
+        for(int i = 0; i < 20; i++) {
+            updatesList.add(new UpdateItem());
         }
 
-        adapter = new BarCardAdapter(getActivity(), bars);
+        adapter = new UpdatesCardAdapter(getActivity(), updatesList);
         rvCards.setAdapter(adapter);
         rvCards.setItemAnimator(new DefaultItemAnimator());
         rvCards.setNestedScrollingEnabled(false);
 
-        // Inflate the layout for this fragment
         return rootView;
     }
 

@@ -1,4 +1,4 @@
-package com.example.bar_buddy;
+package com.example.bar_buddy.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

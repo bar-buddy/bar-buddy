@@ -1,7 +1,9 @@
-package com.example.bar_buddy;
+package com.example.bar_buddy.Activities;
 
+import android.app.Activity;
+import android.graphics.Color;
 import android.net.Uri;
-import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,38 +12,35 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import android.widget.TextView;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.example.bar_buddy.TabFragments.AccountTab;
+import com.example.bar_buddy.Adapters.BarCardAdapter;
+import com.example.bar_buddy.AdapterItems.BarItem;
+import com.example.bar_buddy.TabFragments.FavoritesTab;
+import com.example.bar_buddy.TabFragments.HomeTab;
+import com.example.bar_buddy.LockableViewPager;
+import com.example.bar_buddy.Adapters.PagerAdapter;
+import com.example.bar_buddy.R;
+import com.example.bar_buddy.TabFragments.UpdatesTab;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-    implements HomeTab.OnFragmentInteractionListener, FavoritesTab.OnFragmentInteractionListener, UpdatesTab.OnFragmentInteractionListener, AccountTab.OnFragmentInteractionListener{
+    implements HomeTab.OnFragmentInteractionListener, FavoritesTab.OnFragmentInteractionListener, UpdatesTab.OnFragmentInteractionListener, AccountTab.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
 
     private BarCardAdapter adapter;
 
-    private List<Bar> bars;
+    private ArrayList<BarItem> bars;
 
-    ViewPager viewPager;
+    LockableViewPager viewPager;
     HomeTab homeTab;
     FavoritesTab favoritesTab;
     UpdatesTab updatesTab;
@@ -55,19 +54,43 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDrawerLayout = findViewById(R.id.drawer_layout);
+        //mDrawerLayout = findViewById(R.id.drawer_layout);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (LockableViewPager) findViewById(R.id.pager);
+        viewPager.setSwipeable(false);
         setupViewPager(viewPager);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        //actionbar.setDisplayHomeAsUpEnabled(true);
+        //actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        //make translucent statusBar on kitkat devices
+        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
+        }
+        if (Build.VERSION.SDK_INT >= 19) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
+        //make fully Android Transparent Status bar
+        if (Build.VERSION.SDK_INT >= 21) {
+            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
 
+    }
+
+    public static void setWindowFlag(Activity activity, final int bits, boolean on) {
+        Window win = activity.getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 
     @Override

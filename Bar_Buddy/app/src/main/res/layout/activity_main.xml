@@ -6,7 +6,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"                                    
+    android:background="@color/colorBackground"
     android:fitsSystemWindows="true">
 
     <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
@@ -20,9 +20,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/gradient"
+            android:background="@color/colorBackground"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:collapseIcon="@drawable/ic_favorite"
+            app:titleTextColor="@color/Primary"
             app:title="@string/app_name_proper" >
 
             <android.support.v7.widget.SearchView
@@ -36,21 +37,21 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <android.support.v4.view.ViewPager
+        <com.example.bar_buddy.LockableViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
-            android:layout_marginBottom="?attr/actionBarSize">
-
-        </android.support.v4.view.ViewPager>
+            android:layout_marginBottom="?attr/actionBarSize"
+            >
+        </com.example.bar_buddy.LockableViewPager>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@drawable/gradient"
+            android:background="@color/colorBackground"
             app:labelVisibilityMode="labeled"
             android:theme="@style/BottomNavTheme"
             app:menu="@menu/navigation" />
