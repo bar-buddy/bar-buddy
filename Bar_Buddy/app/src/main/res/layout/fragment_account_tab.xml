@@ -4,11 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
-    tools:context=".AccountTab"
     android:orientation="vertical">>
 
     <!-- TODO: Update blank fragment layout -->
-    <!--
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout Temporary" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="405dp">
@@ -17,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:orientation="vertical">
-            <ImageView
+            <!--<ImageView
                 android:layout_marginTop="45dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="150dp"
@@ -32,7 +37,7 @@
                 android:text="@string/devin_brown"
                 android:textColor="#fff"
                 android:textStyle="bold"
-                android:textSize="21sp"/>
+                android:textSize="21sp"/>-->
         </LinearLayout>
         <android.support.v7.widget.CardView
             android:layout_width="400dp"
@@ -53,7 +58,7 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
 
-                    <TextView
+                    <!--<TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/favorites"
@@ -66,7 +71,7 @@
                         android:paddingTop="10dp"
                         android:text="@string/_125"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold" />-->
 
                 </LinearLayout>
                 <LinearLayout
@@ -77,7 +82,7 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
 
-                    <TextView
+                    <!--<TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/followers"
@@ -91,7 +96,7 @@
                         android:text="@string/_1205"
                         android:textColor="#fff"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold" />-->
 
                 </LinearLayout>
                 <LinearLayout
@@ -102,7 +107,7 @@
                     android:layout_weight="1"
                     android:layout_height="match_parent">
 
-                    <TextView
+                    <!--<TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/following"
@@ -115,7 +120,7 @@
                         android:paddingTop="10dp"
                         android:text="@string/_360"
                         android:textColor="#fff"
-                        android:textSize="20sp" />
+                        android:textSize="20sp" />-->
 
                 </LinearLayout>
             </LinearLayout>
@@ -205,13 +210,13 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
+    <!--<Button
         android:textColor="#fff"
         android:background="@drawable/buttonstylegradient"
         android:layout_marginTop="35dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/follow_me"/>
--->
+        android:text="@string/follow_me"/>-->
+
 </LinearLayout>

@@ -86,9 +86,9 @@ public class AccountTab extends Fragment {
 
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_account_tab, container, false);
-/*
-        displayUserEmail = v.findViewById(R.id.user_email);
-        showUserEmail(displayUserEmail);
+
+        //displayUserEmail = v.findViewById(R.id.user_email);
+        //showUserEmail(displayUserEmail);
 
         logoutBtn = v.findViewById(R.id.logoutBtn);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +99,7 @@ public class AccountTab extends Fragment {
             }
         });
 
-        resetPwdBtn = v.findViewById(R.id.resetPwdBtn);
+        /*resetPwdBtn = v.findViewById(R.id.resetPwdBtn);
         resetPwdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,8 +113,8 @@ public class AccountTab extends Fragment {
             public void onClick(View v) {
                 deleteAcct(v);
             }
-        });
-*/
+        });*/
+
         return v;
     }
 
