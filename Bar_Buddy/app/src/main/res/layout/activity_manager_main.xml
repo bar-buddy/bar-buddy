@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_marginLeft="50dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/Primary"
         android:text="Add Weekly Special"/>
 
     <Button
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="350dp"
         android:layout_marginLeft="50dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/Primary"
         android:text="LOGOUT"
         android:textColor="@android:color/white" />
 
