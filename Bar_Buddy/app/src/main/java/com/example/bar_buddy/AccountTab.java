@@ -87,7 +87,7 @@ public class AccountTab extends Fragment {
 
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_account_tab, container, false);
-
+/*
         displayUserEmail = v.findViewById(R.id.user_email);
         showUserEmail(displayUserEmail);
 
@@ -115,7 +115,7 @@ public class AccountTab extends Fragment {
                 deleteAcct(v);
             }
         });
-
+*/
         return v;
     }
 

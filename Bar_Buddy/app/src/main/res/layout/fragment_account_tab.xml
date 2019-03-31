@@ -8,6 +8,7 @@
     android:orientation="vertical">>
 
     <!-- TODO: Update blank fragment layout -->
+    <!--
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="405dp">
@@ -212,5 +213,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/follow_me"/>
-
+-->
 </LinearLayout>
+

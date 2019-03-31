@@ -13,12 +13,16 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,11 +36,23 @@ public class WeeklySpecials extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        final ArrayList<String> bar_ids = new ArrayList<>();
+        db.collection("users").document(uid).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        bar_ids.add((String) documentSnapshot.get("bar_id"));
+                    }
+                });
+
         //final Map<String, Object> data = new HashMap<>();
         //final DocumentReference docRef = db.collection("bars").document("U2AraPs3G9bAGgGFwIDW").collection("weekly_specials").document("RauYNgHCafmj3m9CKruZ");
 
         //set the view now
         setContentView(R.layout.activity_add_weekly_special);
+
         specialName = (EditText) findViewById(R.id.input_WeeklySpecialName);
         specialDay = (EditText) findViewById(R.id.inputspecialday);
         specialDescription = (EditText) findViewById(R.id.input_weeklyspecialdescription);
@@ -65,7 +81,7 @@ public class WeeklySpecials extends AppCompatActivity{
                 }
 
                 Map<String, Object> data = new HashMap<>();
-                DocumentReference docRef = db.collection("bars").document("U2AraPs3G9bAGgGFwIDW").collection("weekly_specials").document("RauYNgHCafmj3m9CKruZ");
+                DocumentReference docRef = db.collection("bars").document(bar_ids.get(0)).collection("weekly_specials").document("RauYNgHCafmj3m9CKruZ");
 
                 data.put("special_day", day);
                 data.put("special_description", description);
