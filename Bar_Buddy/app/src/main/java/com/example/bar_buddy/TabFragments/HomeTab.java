@@ -1,4 +1,4 @@
-package com.example.bar_buddy;
+package com.example.bar_buddy.TabFragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,6 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.bar_buddy.Adapters.BarCardAdapter;
+import com.example.bar_buddy.AdapterItems.BarItem;
+import com.example.bar_buddy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -64,7 +67,11 @@ public class HomeTab extends Fragment {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
 
                                 BarItem b = document.toObject(BarItem.class);
-                                bars.add(b);
+                                b.setBar_id(document.getId());
+
+                                if(bars != null) {
+                                    bars.add(b);
+                                }
                             }
                             firestoreCallback.onCallback(bars);
                         } else {

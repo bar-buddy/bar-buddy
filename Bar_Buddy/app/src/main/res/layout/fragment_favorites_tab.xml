@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBackground"
-    tools:context=".FavoritesTab">
+    tools:context=".TabFragments.FavoritesTab">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/favorites_bars_recyclerview"

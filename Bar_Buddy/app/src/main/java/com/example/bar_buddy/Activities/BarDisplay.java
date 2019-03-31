@@ -1,16 +1,28 @@
-package com.example.bar_buddy;
+package com.example.bar_buddy.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.bar_buddy.AdapterItems.BarItem;
+import com.example.bar_buddy.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class BarDisplay extends AppCompatActivity {
 
@@ -47,29 +59,32 @@ public class BarDisplay extends AppCompatActivity {
         });*/
 
         buildBar();
-        setValues();
-
-        setListeners();
     }
 
     private void buildBar() {
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
-            bar = new BarItem(
-                    extras.getString("bar_name"),
-                    extras.getString("bar_cover"),
-                    extras.getString("bar_wait_time_minutes"),
-                    extras.getString("bar_description"),
-                    extras.getString("bar_phone"),
-                    extras.getString("bar_address"),
-                    extras.getString("bar_image"),
-                    extras.getString("bar_hours_operation")
-            );
-        }
+        String id = extras.getString("bar_id");
+
+        db.collection("bars").document(id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            bar = task.getResult().toObject(BarItem.class);
+                            bar.setBar_id(task.getResult().getId());
+
+                            setValues();
+                            setListeners();
+                        }
+                    }
+        });
     }
 
     private void setValues() {
-        getSupportActionBar().setTitle(bar.getBar_name());
+        CollapsingToolbarLayout ctb = findViewById(R.id.toolbar_layout);
+        ctb.setTitle(bar.getBar_name());
+
         TextView cover_tv = (TextView) findViewById(R.id.bar_display_cover_tv);
         TextView wait_time_tv = (TextView) findViewById(R.id.bar_display_wait_time_tv);
         TextView hours_operation = (TextView) findViewById(R.id.bar_display_hours_operation_tv);
@@ -94,6 +109,7 @@ public class BarDisplay extends AppCompatActivity {
             public void onClick(View v) {
                 final Intent intent;
                 intent = new Intent(BarDisplay.this, BarMenu.class);
+                intent.putExtra("bar_id", bar.getBar_id());
                 BarDisplay.this.startActivity(intent);
             }
         });

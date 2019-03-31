@@ -12,25 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".BarMenu"
+            android:name=".Activities.BarMenu"
             android:label="@string/title_activity_bar_menu"
             android:theme="@style/AppTheme.BarMenuStyle"></activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".ManagerMainActivity" />
-        <activity android:name=".UserTypeActivity" />
+        <activity android:name=".Activities.LoginActivity"></activity>
+        <activity android:name=".Activities.ManagerMainActivity" />
+        <activity android:name=".Activities.UserTypeActivity" />
         <activity
-            android:name=".BarDisplay"
+            android:name=".Activities.BarDisplay"
             android:label="@string/title_activity_bar_display"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.bar_buddy.MainActivity" />
+                android:value="com.example.bar_buddy.Activities.MainActivity" />
         </activity>
-        <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".SignupActivity" />
+        <activity android:name=".Activities.ResetPasswordActivity" />
+        <activity android:name=".Activities.SignupActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".UserCheck"

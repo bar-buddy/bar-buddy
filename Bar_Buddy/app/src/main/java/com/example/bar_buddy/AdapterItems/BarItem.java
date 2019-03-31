@@ -1,8 +1,9 @@
-package com.example.bar_buddy;
+package com.example.bar_buddy.AdapterItems;
 
 import java.io.Serializable;
 
 public class BarItem implements Serializable {
+    private String bar_id;
     private String bar_name;
     private String bar_cover;
     private String bar_wait;
@@ -17,8 +18,9 @@ public class BarItem implements Serializable {
     }
 
     public BarItem(
-            String bar_name, String bar_cover, String bar_wait, String bar_description,
+            String bar_id, String bar_name, String bar_cover, String bar_wait, String bar_description,
             String bar_phone, String bar_address, String bar_image, String bar_hours_operation) {
+        this.bar_id = bar_id;
         this.bar_name = bar_name;
         this.bar_cover = bar_cover;
         this.bar_wait = bar_wait;
@@ -28,6 +30,12 @@ public class BarItem implements Serializable {
         this.bar_image = bar_image;
         this.bar_hours_operation = bar_hours_operation;
     }
+
+    public void setBar_id(String id) {
+        this.bar_id = id;
+    }
+
+    public String getBar_id() { return bar_id; }
 
     public String getBar_name() {
         return bar_name;

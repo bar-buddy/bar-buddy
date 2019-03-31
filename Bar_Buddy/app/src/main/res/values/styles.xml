@@ -31,8 +31,13 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="CollapsedTitleText">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/cardSecondaryColor</item>
+    </style>
+
     <style name="ExpandedTitleText">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/cardSecondaryColor</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">

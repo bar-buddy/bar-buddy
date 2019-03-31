@@ -1,4 +1,4 @@
-package com.example.bar_buddy;
+package com.example.bar_buddy.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,6 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.example.bar_buddy.AdapterItems.MenuItem;
+import com.example.bar_buddy.R;
 
 import java.util.List;
 
@@ -19,10 +23,18 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
 
         private final CardView cardContainer;
 
+        private final TextView itemName;
+        private final TextView itemPrice;
+        private final TextView itemDescription;
+
         MenuViewHolder(View v) {
             super(v);
 
             cardContainer = (CardView) itemView.findViewById(R.id.menucard_cv);
+
+            itemName = (TextView) v.findViewById(R.id.menu_item_name);
+            itemPrice = (TextView) v.findViewById(R.id.menu_item_price);
+            itemDescription = (TextView) v.findViewById(R.id.menu_item_description);
         }
     }
 
@@ -45,8 +57,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MenuAdapter.MenuViewHolder menuViewHolder, int i) {
+    public void onBindViewHolder(@NonNull MenuAdapter.MenuViewHolder holder, int position) {
+        String price = "$" + data.get(position).getItem_price();
 
+        holder.itemName.setText(data.get(position).getItem_name());
+        holder.itemPrice.setText(price);
+        holder.itemDescription.setText(data.get(position).getItem_description());
     }
 
     @Override

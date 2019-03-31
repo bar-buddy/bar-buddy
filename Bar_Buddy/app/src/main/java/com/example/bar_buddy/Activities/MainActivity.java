@@ -1,4 +1,4 @@
-package com.example.bar_buddy;
+package com.example.bar_buddy.Activities;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -18,12 +18,21 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.bar_buddy.TabFragments.AccountTab;
+import com.example.bar_buddy.Adapters.BarCardAdapter;
+import com.example.bar_buddy.AdapterItems.BarItem;
+import com.example.bar_buddy.TabFragments.FavoritesTab;
+import com.example.bar_buddy.TabFragments.HomeTab;
+import com.example.bar_buddy.LockableViewPager;
+import com.example.bar_buddy.Adapters.PagerAdapter;
+import com.example.bar_buddy.R;
+import com.example.bar_buddy.TabFragments.UpdatesTab;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-    implements HomeTab.OnFragmentInteractionListener, FavoritesTab.OnFragmentInteractionListener, UpdatesTab.OnFragmentInteractionListener, AccountTab.OnFragmentInteractionListener{
+    implements HomeTab.OnFragmentInteractionListener, FavoritesTab.OnFragmentInteractionListener, UpdatesTab.OnFragmentInteractionListener, AccountTab.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
 
