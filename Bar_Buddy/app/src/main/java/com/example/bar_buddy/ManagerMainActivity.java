@@ -24,6 +24,16 @@ public class ManagerMainActivity extends AppCompatActivity {
                 signOut();
             }
         });
+
+        Button addSpecials = findViewById(R.id.addWeeklySpecial);
+        addSpecials.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                final Intent intent;
+                intent = new Intent(ManagerMainActivity.this, WeeklySpecials.class);
+                ManagerMainActivity.this.startActivity(intent);
+            }
+        });
     }
 
     public void signOut(){

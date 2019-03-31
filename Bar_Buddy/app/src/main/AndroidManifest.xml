@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".ManagerMainActivity" />
+        <activity android:name=".WeeklySpecials" />
         <activity android:name=".UserTypeActivity" />
         <activity
             android:name=".BarDisplay"

@@ -37,7 +37,6 @@ public class WeeklySpecials extends AppCompatActivity{
 
         //set the view now
         setContentView(R.layout.activity_add_weekly_special);
-
         specialName = (EditText) findViewById(R.id.input_WeeklySpecialName);
         specialDay = (EditText) findViewById(R.id.inputspecialday);
         specialDescription = (EditText) findViewById(R.id.input_weeklyspecialdescription);
@@ -51,7 +50,7 @@ public class WeeklySpecials extends AppCompatActivity{
                 String description = specialDescription.getText().toString();
 
                 if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(getApplicationContext(), "Enter a Name!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter a Name", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -61,7 +60,7 @@ public class WeeklySpecials extends AppCompatActivity{
                 }
 
                 if (TextUtils.isEmpty(description)) {
-                    Toast.makeText(getApplicationContext(), "Enter a Description!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter a Description", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

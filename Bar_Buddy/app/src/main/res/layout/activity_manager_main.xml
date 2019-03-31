@@ -21,10 +21,19 @@
         android:textStyle="bold"/>
 
     <Button
-        android:id="@+id/logoutBtn"
+        android:id="@+id/addWeeklySpecial"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
+        android:layout_marginLeft="50dp"
+        android:background="@color/colorPrimary"
+        android:text="Add Weekly Special"/>
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
         android:layout_marginLeft="50dp"
         android:background="@color/colorPrimary"
         android:text="LOGOUT"
