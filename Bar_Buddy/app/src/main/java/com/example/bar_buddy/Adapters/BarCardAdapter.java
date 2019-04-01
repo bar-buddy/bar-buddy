@@ -8,11 +8,13 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -20,6 +22,7 @@ import com.example.bar_buddy.Activities.BarDisplay;
 import com.example.bar_buddy.AdapterItems.BarItem;
 import com.example.bar_buddy.Activities.BarMenu;
 import com.example.bar_buddy.ButtonRangeExtender;
+import com.example.bar_buddy.DownloadImageTask;
 import com.example.bar_buddy.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -46,6 +49,8 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         private final TextView hours_operation;
         private final TextView description;
 
+        private final ImageView image;
+
         private final Button expandBtn;
         private final ToggleButton favBtn;
         private final ImageButton directionsBtn;
@@ -59,6 +64,8 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             wait_time = (TextView) itemView.findViewById(R.id.wait_time_tv);
             hours_operation = (TextView) itemView.findViewById(R.id.hours_operation_tv);
             description = (TextView) itemView.findViewById(R.id.description_tv);
+
+            image = (ImageView) itemView.findViewById(R.id.bar_imageview);
 
             expandBtn = (Button) itemView.findViewById(R.id.expand_button);
             favBtn = (ToggleButton) itemView.findViewById(R.id.bar_card_favorite_tglBtn);
@@ -113,6 +120,13 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         holder.wait_time.setText(wait);
         holder.hours_operation.setText(hours);
         holder.description.setText(description);
+
+        //Setting Image
+        if(holder.image != null && data.get(position).getBar_image() != null) {
+            new DownloadImageTask((ImageView) holder.image).execute(data.get(position).getBar_image());
+        } else if(holder.image == null) {
+            Log.e("holder", "null");
+        }
     }
 
     private void setBtnListeners(final BarViewHolder holder, final int position) {

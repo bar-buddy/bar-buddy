@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bar_buddy.AdapterItems.BarItem;
+import com.example.bar_buddy.DownloadImageTask;
 import com.example.bar_buddy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -89,6 +90,7 @@ public class BarDisplay extends AppCompatActivity {
         TextView wait_time_tv = (TextView) findViewById(R.id.bar_display_wait_time_tv);
         TextView hours_operation = (TextView) findViewById(R.id.bar_display_hours_operation_tv);
         TextView description_tv = (TextView) findViewById(R.id.bar_display_description_tv);
+
         ImageView header_image = (ImageView) findViewById(R.id.bar_display_image_header);
 
         String cover_lead = "Cover: $" + bar.getBar_cover();
@@ -99,6 +101,12 @@ public class BarDisplay extends AppCompatActivity {
         wait_time_tv.setText(wait_time_lead);
         hours_operation.setText(hours_operation_lead);
         description_tv.setText(bar.getBar_description());
+
+        if(header_image != null && bar.getBar_image() != null) {
+            new DownloadImageTask((ImageView) header_image).execute(bar.getBar_image());
+        } else if(header_image == null) {
+            Log.e("holder", "null");
+        }
     }
 
     private void setListeners() {
