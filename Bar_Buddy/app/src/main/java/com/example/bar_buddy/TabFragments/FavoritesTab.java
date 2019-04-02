@@ -53,6 +53,10 @@ public class FavoritesTab extends Fragment implements SwipeRefreshLayout.OnRefre
         // Required empty public constructor
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,21 @@ public class FavoritesTab extends Fragment implements SwipeRefreshLayout.OnRefre
         bar_ids = new ArrayList<String>();
         bars = new ArrayList<BarItem>();
 
+        getFavorites(new FirestoreCallbackOne() {
+            @Override
+            public void onCallback() {
+                readData(new FirestoreCallbackTwo() {
+                    @Override
+                    public void onCallback(List<BarItem> list) {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void getFavorites(final FirestoreCallbackOne firestoreCallback) {
         db.collection("users").document(user.getUid()).collection("bars_favorites").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -74,20 +93,14 @@ public class FavoritesTab extends Fragment implements SwipeRefreshLayout.OnRefre
                                     bar_ids.add((String) b.getBar_id());
                                 }
                             }
+                            firestoreCallback.onCallback();
                         }
                     }
                 });
 
-        readData(new FirestoreCallback() {
-            @Override
-            public void onCallback(List<BarItem> list) {
-                adapter.notifyDataSetChanged();
-            }
-        });
-
     }
 
-    private void readData(final FirestoreCallback firestoreCallback) {
+    private void readData(final FirestoreCallbackTwo firestoreCallback) {
         barsRef
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -95,8 +108,9 @@ public class FavoritesTab extends Fragment implements SwipeRefreshLayout.OnRefre
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-
+                                if(bar_ids.size() == 0) Log.e("i seem to make all" , "delay");
                                 if(bar_ids != null && bar_ids.contains((String) document.getId())) {
+                                    Log.e("inner", "part2");
                                     BarItem b = document.toObject(BarItem.class);
                                     b.setBar_id(document.getId());
 
@@ -113,36 +127,11 @@ public class FavoritesTab extends Fragment implements SwipeRefreshLayout.OnRefre
                 });
     }
 
-    private void reReadData(final FirestoreCallback firestoreCallback) {
-        barsRef
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                if(bar_ids != null && bar_ids.contains((String) document.getId())) {
-                                    BarItem b = document.toObject(BarItem.class);
-                                    b.setBar_id(document.getId());
-
-                                    for(int i = 0; i < bars.size(); i++) {
-                                        if(b.getBar_id().equals(bars.get(i).getBar_id())) {
-                                            bars.set(i, b);
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            firestoreCallback.onCallback(bars);
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+    private interface FirestoreCallbackOne {
+        void onCallback();
     }
 
-    private interface FirestoreCallback {
+    private interface FirestoreCallbackTwo {
         void onCallback(List<BarItem> list);
     }
 
@@ -173,11 +162,19 @@ public class FavoritesTab extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onRefresh() {
         mSwipeRefreshLayout.setRefreshing(true);
 
-        reReadData(new FirestoreCallback() {
+        bars.clear();
+        bar_ids.clear();
+
+        getFavorites(new FirestoreCallbackOne() {
             @Override
-            public void onCallback(List<BarItem> list) {
-                adapter.notifyDataSetChanged();
-                mSwipeRefreshLayout.setRefreshing(false);
+            public void onCallback() {
+                readData(new FirestoreCallbackTwo() {
+                    @Override
+                    public void onCallback(List<BarItem> list) {
+                        adapter.notifyDataSetChanged();
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                });
             }
         });
     }
