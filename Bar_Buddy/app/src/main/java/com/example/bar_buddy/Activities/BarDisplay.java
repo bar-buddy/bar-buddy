@@ -22,6 +22,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.squareup.picasso.Picasso;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -93,20 +94,24 @@ public class BarDisplay extends AppCompatActivity {
 
         ImageView header_image = (ImageView) findViewById(R.id.bar_display_image_header);
 
-        String cover_lead = "Cover: $" + bar.getBar_cover();
-        String wait_time_lead = "Wait time: " + bar.getBar_wait() + " minutes";
-        String hours_operation_lead = "Hours of operation: " + bar.getBar_hours_operation();
+        String cover_lead = "$" + bar.getBar_cover();
+        String wait_time_lead = bar.getBar_wait() + " minutes";
+        String hours_operation_lead = bar.getBar_hours_operation();
 
         cover_tv.setText(cover_lead);
         wait_time_tv.setText(wait_time_lead);
         hours_operation.setText(hours_operation_lead);
         description_tv.setText(bar.getBar_description());
 
-        if(header_image != null && bar.getBar_image() != null) {
+        /*if(header_image != null && bar.getBar_image() != null) {
             new DownloadImageTask((ImageView) header_image).execute(bar.getBar_image());
         } else if(header_image == null) {
             Log.e("holder", "null");
-        }
+        }*/
+        Picasso.get()
+                .load(bar.getBar_image())
+                .placeholder(R.drawable.logo2_transparent)
+                .into(header_image);
     }
 
     private void setListeners() {

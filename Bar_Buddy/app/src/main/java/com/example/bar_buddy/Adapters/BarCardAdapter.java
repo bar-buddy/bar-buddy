@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,9 +25,15 @@ import com.example.bar_buddy.Activities.BarMenu;
 import com.example.bar_buddy.ButtonRangeExtender;
 import com.example.bar_buddy.DownloadImageTask;
 import com.example.bar_buddy.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.bar_buddy.HandleBarsThroughFirestore;
+import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewHolder> {
 
@@ -122,11 +129,16 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         holder.description.setText(description);
 
         //Setting Image
-        if(holder.image != null && data.get(position).getBar_image() != null) {
+        /*if(holder.image != null && data.get(position).getBar_image() != null) {
             new DownloadImageTask((ImageView) holder.image).execute(data.get(position).getBar_image());
         } else if(holder.image == null) {
             Log.e("holder", "null");
-        }
+        }*/
+
+        Picasso.get()
+                .load(data.get(position).getBar_image())
+                .placeholder(R.drawable.logo2_transparent)
+                .into(holder.image);
     }
 
     private void setBtnListeners(final BarViewHolder holder, final int position) {
@@ -174,10 +186,19 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             }
         });
 
-        holder.favBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        boolean result = new HandleBarsThroughFirestore().isFavorite(data.get(position).getBar_id(), holder.favBtn);
+        if(result) {
+            holder.favBtn.setChecked(true);
+        }
 
+        holder.favBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    new HandleBarsThroughFirestore().addFavorite(data.get(position).getBar_id());
+                } else {
+                    new HandleBarsThroughFirestore().removeFavorite(data.get(position).getBar_id());
+                }
             }
         });
 

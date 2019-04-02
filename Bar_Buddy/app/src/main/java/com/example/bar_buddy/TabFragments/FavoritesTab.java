@@ -5,6 +5,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,12 +17,19 @@ import com.example.bar_buddy.Adapters.BarCardAdapter;
 import com.example.bar_buddy.AdapterItems.BarItem;
 import com.example.bar_buddy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
@@ -31,6 +41,7 @@ public class FavoritesTab extends Fragment {
 
     private BarCardAdapter adapter;
     private List<BarItem> bars;
+    private List<String> bar_ids;
 
     private OnFragmentInteractionListener mListener;
 
@@ -43,6 +54,36 @@ public class FavoritesTab extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        bar_ids = new ArrayList<String>();
+        bars = new ArrayList<BarItem>();
+
+        db.collection("users").document(uid).collection("bars_favorites").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                BarItem b = document.toObject(BarItem.class);
+                                Log.e("id", b.getBar_id());
+                                if(bar_ids != null) {
+                                    Log.e("inner", "part");
+                                    bar_ids.add((String) b.getBar_id());
+                                }
+                            }
+                        }
+                    }
+                });
+
+        readData(new FirestoreCallback() {
+            @Override
+            public void onCallback(List<BarItem> list) {
+                adapter.notifyDataSetChanged();
+            }
+        });
+
     }
 
     private void readData(final FirestoreCallback firestoreCallback) {
@@ -53,13 +94,14 @@ public class FavoritesTab extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
 
-                                BarItem b = document.toObject(BarItem.class);
-                                b.setBar_id(document.getId());
+                                if(bar_ids != null && bar_ids.contains((String) document.getId())) {
+                                    BarItem b = document.toObject(BarItem.class);
+                                    b.setBar_id(document.getId());
 
-                                if(bars != null) {
-                                    bars.add(b);
+                                    if(bars != null) {
+                                        bars.add(b);
+                                    }
                                 }
                             }
                             firestoreCallback.onCallback(bars);
@@ -79,18 +121,13 @@ public class FavoritesTab extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_favorites_tab, container, false);
-        /*RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.favorites_bars_recyclerview);
+        RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.favorites_bars_recyclerview);
         rvCards.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        bars = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            bars.add(new BarItem("Rounders"));
-        }
 
         adapter = new BarCardAdapter(getActivity(), bars);
         rvCards.setAdapter(adapter);
         rvCards.setItemAnimator(new DefaultItemAnimator());
-        rvCards.setNestedScrollingEnabled(false);*/
+        rvCards.setNestedScrollingEnabled(false);
 
         // Inflate the layout for this fragment
         return rootView;
