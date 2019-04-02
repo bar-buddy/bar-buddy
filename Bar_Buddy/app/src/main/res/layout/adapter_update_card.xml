@@ -11,10 +11,10 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="250dp">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/card_background"
+            android:id="@+id/updates_card_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounders2"
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <Button
+        <!--<Button
             android:id="@+id/expand_button"
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -35,20 +35,20 @@
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />-->
 
-        <Button
+        <!--<Button
             android:id="@+id/Favorite"
             android:layout_width="130dp"
             android:layout_height="27dp"
             android:layout_marginTop="176dp"
             android:layout_marginEnd="292dp"
             android:background="@drawable/ic_favorite"
-            android:text="@string/today_s_deals"
+
             android:textColor="#fff"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />-->
 
         <ImageView
             android:id="@+id/imageView4"
@@ -61,13 +61,12 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/barname"
+            android:id="@+id/update_card_barname"
             android:layout_width="108dp"
             android:layout_height="33dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="292dp"
-            android:background="@drawable/textviewbackgroundgradient"
-            android:text="@string/rounders"
+            android:background="@color/cardBackground"
             android:textColor="#fff"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -80,19 +79,19 @@
             android:layout_height="20dp"
             android:layout_marginStart="296dp"
             android:layout_marginTop="180dp"
-            android:text="@string/starts_at_5_00pm"
+
             android:textColor="#fff"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/waittime"
+            android:id="@+id/update_card_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="44dp"
             android:layout_marginTop="204dp"
-            android:text="@string/drink_specials"
+
             android:textColor="#fff"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -109,12 +108,12 @@
             app:srcCompat="@drawable/bbicon" />
 
         <TextView
-            android:id="@+id/CoverSpecial"
+            android:id="@+id/update_card_description"
             android:layout_width="178dp"
             android:layout_height="22dp"
             android:layout_marginTop="224dp"
             android:layout_marginEnd="188dp"
-            android:text="@string/deals_on_cover_19_and_21"
+
             android:textColor="#fff"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

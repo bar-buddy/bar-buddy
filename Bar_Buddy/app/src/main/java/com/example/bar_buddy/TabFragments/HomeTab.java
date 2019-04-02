@@ -46,7 +46,7 @@ public class HomeTab extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        bars = new ArrayList<>();
+        bars = new ArrayList<BarItem>();
 
         readData(new FirestoreCallback() {
             @Override
@@ -86,8 +86,7 @@ public class HomeTab extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_home_tab, container, false);
 
@@ -101,6 +100,8 @@ public class HomeTab extends Fragment {
 
         return rootView;
     }
+
+    /* !!!DISREGARD EVERYTHING PAST HERE!!! */
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

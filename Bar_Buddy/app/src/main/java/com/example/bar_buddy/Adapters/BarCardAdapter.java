@@ -127,6 +127,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         holder.hiddenLayout.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.itemView.setActivated(isExpanded);
 
+        //set initial expansion position of cards
         if(isExpanded) {
             previousExpandedPosition = position;
             expand_button.setBackground(ActivityCompat.getDrawable(ctx, R.drawable.ic_expand_less));
@@ -150,6 +151,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             }
         });
 
+        //on-click for menu button
         holder.menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,6 +162,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             }
         });
 
+        //on-click for favorites button
         holder.favBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +170,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             }
         });
 
+        //on-click for navigation through maps of choice
         holder.directionsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

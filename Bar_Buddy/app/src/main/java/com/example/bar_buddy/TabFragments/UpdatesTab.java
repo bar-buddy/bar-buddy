@@ -3,6 +3,7 @@ package com.example.bar_buddy.TabFragments;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -10,35 +11,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.bar_buddy.AdapterItems.BarItem;
+import com.example.bar_buddy.Adapters.BarCardAdapter;
 import com.example.bar_buddy.Adapters.UpdatesCardAdapter;
 import com.example.bar_buddy.R;
 import com.example.bar_buddy.AdapterItems.UpdateItem;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link UpdatesTab.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link UpdatesTab#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class UpdatesTab extends Fragment {
 
-    private UpdatesCardAdapter adapter;
     private List<UpdateItem> updatesList;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference updatesRef = db.collection("updates");
+    private UpdatesCardAdapter adapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -46,43 +40,50 @@ public class UpdatesTab extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment UpdatesTab.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UpdatesTab newInstance(String param1, String param2) {
-        UpdatesTab fragment = new UpdatesTab();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        updatesList = new ArrayList<UpdateItem>();
+
+        readData(new FirestoreCallback() {
+            @Override
+            public void onCallback(List<UpdateItem> list) {
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+    }
+
+    private void readData(final FirestoreCallback firestoreCallback) {
+        updatesRef
+                .orderBy("time")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                UpdateItem u = document.toObject(UpdateItem.class);
+
+                                updatesList.add(u);
+                            }
+                            firestoreCallback.onCallback(updatesList);
+                        }
+                    }
+                });
+    }
+
+    private interface FirestoreCallback {
+        void onCallback(List<UpdateItem> list);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.fragment_updates_tab, container, false);
         RecyclerView rvCards = (RecyclerView) rootView.findViewById(R.id.updates_recyclerview);
-
-        updatesList = new ArrayList<>();
-        for(int i = 0; i < 20; i++) {
-            updatesList.add(new UpdateItem());
-        }
 
         adapter = new UpdatesCardAdapter(getActivity(), updatesList);
         rvCards.setAdapter(adapter);
@@ -91,6 +92,9 @@ public class UpdatesTab extends Fragment {
 
         return rootView;
     }
+
+
+    /* !!!DISREGARD EVERYTHING PAST HERE!!! */
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
