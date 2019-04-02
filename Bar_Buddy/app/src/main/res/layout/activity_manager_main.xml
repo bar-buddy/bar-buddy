@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/colorBackground"
     tools:context=".TabFragments.AccountTab">
 
     <!-- TODO: Update blank fragment layout -->
@@ -26,8 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_marginLeft="50dp"
-        android:background="@color/Primary"
-        android:text="Add Weekly Special"/>
+
+        android:text="Add Weekly Special"
+        style="@style/BorderedButton"/>
 
     <Button
         android:id="@+id/logoutBtn"
@@ -35,8 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="350dp"
         android:layout_marginLeft="50dp"
-        android:background="@color/Primary"
         android:text="LOGOUT"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        style="@style/BorderedButton"/>
 
 </FrameLayout>

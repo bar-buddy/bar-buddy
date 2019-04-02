@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/colorBackground"
     android:fitsSystemWindows="true"
     >
 
@@ -44,24 +44,23 @@
 
         <Button
             android:id="@+id/customer_button"
-            style="?android:textAppearanceSmall"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@color/Primary"
             android:text="CUSTOMER"
             android:textColor="@android:color/white"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            style="@style/BorderedButton"/>
 
         <Button
             android:id="@+id/manager_button"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@color/Primary"
             android:text="MANAGER"
             android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            style="@style/BorderedButton"/>
 
     </LinearLayout>
 
