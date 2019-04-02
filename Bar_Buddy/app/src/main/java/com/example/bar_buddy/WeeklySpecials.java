@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,14 +32,18 @@ public class WeeklySpecials extends AppCompatActivity{
     private FirebaseAuth auth;
     private Button btnAddWeeklySpecial;
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    final ArrayList<String> bar_ids = new ArrayList<>();
+
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
-        final ArrayList<String> bar_ids = new ArrayList<>();
+
+
         db.collection("users").document(uid).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -47,50 +52,53 @@ public class WeeklySpecials extends AppCompatActivity{
                     }
                 });
 
-        //final Map<String, Object> data = new HashMap<>();
-        //final DocumentReference docRef = db.collection("bars").document("U2AraPs3G9bAGgGFwIDW").collection("weekly_specials").document("RauYNgHCafmj3m9CKruZ");
 
-        //set the view now
         setContentView(R.layout.activity_add_weekly_special);
 
         specialName = (EditText) findViewById(R.id.input_WeeklySpecialName);
         specialDay = (EditText) findViewById(R.id.inputspecialday);
         specialDescription = (EditText) findViewById(R.id.input_weeklyspecialdescription);
         btnAddWeeklySpecial = (Button) findViewById(R.id.btn_addWeeklySpecial);
-
-        btnAddWeeklySpecial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = specialName.getText().toString();
-                String day = specialDay.getText().toString();
-                String description = specialDescription.getText().toString();
-
-                if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(getApplicationContext(), "Enter a Name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(day)) {
-                    Toast.makeText(getApplicationContext(), "Enter a Day", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(description)) {
-                    Toast.makeText(getApplicationContext(), "Enter a Description", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                Map<String, Object> data = new HashMap<>();
-                DocumentReference docRef = db.collection("bars").document(bar_ids.get(0)).collection("weekly_specials").document("RauYNgHCafmj3m9CKruZ");
-
-                data.put("special_day", day);
-                data.put("special_description", description);
-                data.put("special_name", name);
-                docRef.set(data);
-            }
-        });
     }
 
+    public void saveWeeklySpecial(View v){
+        String name = specialName.getText().toString();
+        String day = specialDay.getText().toString();
+        String description = specialDescription.getText().toString();
 
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(getApplicationContext(), "Enter a Name", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        if (TextUtils.isEmpty(day)) {
+            Toast.makeText(getApplicationContext(), "Enter a Day", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(description)) {
+            Toast.makeText(getApplicationContext(), "Enter a Description", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Map<String, Object> data = new HashMap<>();
+
+        data.put("special_day", day);
+        data.put("special_description", description);
+        data.put("special_name", name);
+
+        db.collection("bars").document(bar_ids.get(0)).collection("weekly_specials").document().set(data)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public  void onSuccess(Void aVoid){
+                        Toast.makeText(getApplicationContext(), "Weekly Special Saved", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener(){
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "Weekly Special Not Saved", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 }
