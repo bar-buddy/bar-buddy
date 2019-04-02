@@ -17,20 +17,6 @@ public class BarItem implements Serializable {
 
     }
 
-    public BarItem(
-            String bar_id, String bar_name, String bar_cover, String bar_wait, String bar_description,
-            String bar_phone, String bar_address, String bar_image, String bar_hours_operation) {
-        this.bar_id = bar_id;
-        this.bar_name = bar_name;
-        this.bar_cover = bar_cover;
-        this.bar_wait = bar_wait;
-        this.bar_description = bar_description;
-        this.bar_phone = bar_phone;
-        this.bar_address = bar_address;
-        this.bar_image = bar_image;
-        this.bar_hours_operation = bar_hours_operation;
-    }
-
     public void setBar_id(String id) {
         this.bar_id = id;
     }

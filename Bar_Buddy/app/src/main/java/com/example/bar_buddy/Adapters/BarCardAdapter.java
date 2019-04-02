@@ -6,13 +6,17 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -21,13 +25,24 @@ import com.example.bar_buddy.AdapterItems.BarItem;
 import com.example.bar_buddy.Activities.BarMenu;
 import com.example.bar_buddy.ButtonRangeExtender;
 import com.example.bar_buddy.R;
+import com.example.bar_buddy.TabFragments.HomeTab;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.bar_buddy.HandleBarsThroughFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewHolder> {
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private int mExpandedPosition = -1;
     private int previousExpandedPosition = -1;
@@ -39,17 +54,19 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
 
         private final CardView cardContainer;
         private final ConstraintLayout hiddenLayout;
-        
+
         private final TextView bar_name;
         private final TextView cover;
         private final TextView wait_time;
         private final TextView hours_operation;
         private final TextView description;
 
+        private final ImageView image;
+
         private final Button expandBtn;
         private final ToggleButton favBtn;
         private final ImageButton directionsBtn;
-        private final Button menuBtn;
+        private final ImageButton menuBtn;
 
         BarViewHolder(View v) {
             super(v);
@@ -60,13 +77,16 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             hours_operation = (TextView) itemView.findViewById(R.id.hours_operation_tv);
             description = (TextView) itemView.findViewById(R.id.description_tv);
 
+            image = (ImageView) itemView.findViewById(R.id.bar_imageview);
+
             expandBtn = (Button) itemView.findViewById(R.id.expand_button);
             favBtn = (ToggleButton) itemView.findViewById(R.id.bar_card_favorite_tglBtn);
             directionsBtn = (ImageButton) itemView.findViewById(R.id.bar_card_directions_btn);
-            menuBtn = (Button) itemView.findViewById(R.id.menu_btn);
+            menuBtn = (ImageButton) itemView.findViewById(R.id.bar_card_menu_btn);
 
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             hiddenLayout = (ConstraintLayout) itemView.findViewById(R.id.hiddenBarCardExpansion);
+
             v.setClickable(true);
             v.setOnClickListener(this);
         }
@@ -113,6 +133,36 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         holder.wait_time.setText(wait);
         holder.hours_operation.setText(hours);
         holder.description.setText(description);
+
+        Picasso.get()
+                .load(data.get(position).getBar_image())
+                .placeholder(R.drawable.loading_image)
+                .error(R.drawable.no_image_available)
+                .into(holder.image);
+    }
+
+    private interface FavCheckCallback {
+        void onCallback(boolean result);
+    }
+
+    private void checkFavorite(final FavCheckCallback callback, CollectionReference ref, final String bar_id) {
+        ref.whereEqualTo("bar_id", bar_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        boolean result = false;
+                        if(task.isSuccessful()) {
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+                                result = true;
+                                Log.e(bar_id, (String) document.get("bar_id"));
+                            }
+
+
+                        }
+                        callback.onCallback(result);
+                    }
+                });
     }
 
     private void setBtnListeners(final BarViewHolder holder, final int position) {
@@ -121,8 +171,9 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
 
         //expand button hit areas
         new ButtonRangeExtender(expand_button, 100, 100, 100, 100);
-        new ButtonRangeExtender(holder.favBtn, 100, 0, 100, 100);
-        new ButtonRangeExtender(holder.directionsBtn, 100, 100, 100, 0);
+        //new ButtonRangeExtender(holder.favBtn, 30, 5, 30, 30);
+        //new ButtonRangeExtender(holder.directionsBtn, 30, 5, 30, 5);
+        //new ButtonRangeExtender(holder.menuBtn, 30, 30, 30, 0);
 
         holder.hiddenLayout.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.itemView.setActivated(isExpanded);
@@ -162,13 +213,26 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             }
         });
 
-        //on-click for favorites button
-        holder.favBtn.setOnClickListener(new View.OnClickListener() {
+        boolean initial = true;
+        //boolean result = new HandleBarsThroughFirestore().isFavorite(data.get(position).getBar_id(), holder.favBtn);
+        final CollectionReference favRef = db.collection("users").document(user.getUid()).collection("bars_favorites");
+        checkFavorite(new FavCheckCallback() {
             @Override
-            public void onClick(View v) {
+            public void onCallback(boolean result) {
+                holder.favBtn.setChecked(result);
 
+                holder.favBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked) {
+                            new HandleBarsThroughFirestore().addFavorite(data.get(position).getBar_id());
+                        } else {
+                            new HandleBarsThroughFirestore().removeFavorite(data.get(position).getBar_id());
+                        }
+                    }
+                });
             }
-        });
+        }, favRef, data.get(position).getBar_id());
 
         //on-click for navigation through maps of choice
         holder.directionsBtn.setOnClickListener(new View.OnClickListener() {

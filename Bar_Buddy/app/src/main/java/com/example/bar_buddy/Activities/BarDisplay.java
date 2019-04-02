@@ -7,7 +7,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,10 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import static android.support.constraint.Constraints.TAG;
+import com.squareup.picasso.Picasso;
 
 public class BarDisplay extends AppCompatActivity {
 
@@ -89,16 +85,23 @@ public class BarDisplay extends AppCompatActivity {
         TextView wait_time_tv = (TextView) findViewById(R.id.bar_display_wait_time_tv);
         TextView hours_operation = (TextView) findViewById(R.id.bar_display_hours_operation_tv);
         TextView description_tv = (TextView) findViewById(R.id.bar_display_description_tv);
+
         ImageView header_image = (ImageView) findViewById(R.id.bar_display_image_header);
 
-        String cover_lead = "Cover: $" + bar.getBar_cover();
-        String wait_time_lead = "Wait time: " + bar.getBar_wait() + " minutes";
-        String hours_operation_lead = "Hours of operation: " + bar.getBar_hours_operation();
+        String cover_lead = " $" + bar.getBar_cover();
+        String wait_time_lead = " " + bar.getBar_wait() + " minutes";
+        String hours_operation_lead = " " + bar.getBar_hours_operation();
 
         cover_tv.setText(cover_lead);
         wait_time_tv.setText(wait_time_lead);
         hours_operation.setText(hours_operation_lead);
         description_tv.setText(bar.getBar_description());
+
+        Picasso.get()
+                .load(bar.getBar_image())
+                .placeholder(R.drawable.loading_image)
+                .error(R.drawable.no_image_available)
+                .into(header_image);
     }
 
     private void setListeners() {
