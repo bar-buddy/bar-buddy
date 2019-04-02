@@ -136,7 +136,8 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
 
         Picasso.get()
                 .load(data.get(position).getBar_image())
-                .placeholder(R.drawable.logo2_transparent)
+                .placeholder(R.drawable.loading_image)
+                .error(R.drawable.no_image_available)
                 .into(holder.image);
     }
 

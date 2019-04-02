@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activities.BarDisplay"
+    android:layout_marginTop="-20dp"
     android:background="@color/colorBackground"
     tools:showIn="@layout/activity_bar_display">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp" >
 
         <android.support.v7.widget.CardView
             android:id="@+id/general_info_card"
@@ -35,11 +37,11 @@
                     android:id="@+id/cover_lead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/bar_display_cover_lead"
                     android:textColor="@color/Primary"
-                    android:textSize="18sp"
-                    android:text="Cover: "/>
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/bar_display_cover_tv"
@@ -47,17 +49,17 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toEndOf="@id/cover_lead"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:textSize="18sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:id="@+id/wait_time_lead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cover_lead"
+                    android:text="@string/bar_display_wait_lead"
                     android:textColor="@color/Primary"
-                    android:text="Wait time: "
-                    android:textSize="18sp"/>
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cover_lead" />
 
                 <TextView
                     android:id="@+id/bar_display_wait_time_tv"
@@ -65,17 +67,17 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toEndOf="@id/wait_time_lead"
                     app:layout_constraintTop_toBottomOf="@id/cover_lead"
-                    android:textSize="18sp"/>
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:id="@+id/hours_operation_lead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/wait_time_lead"
+                    android:text="@string/bar_display_hours_operation_lead"
                     android:textColor="@color/Primary"
-                    android:text="Hours of operation: "
-                    android:textSize="18sp"/>
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/wait_time_lead" />
 
                 <TextView
                     android:id="@+id/bar_display_hours_operation_tv"
@@ -83,7 +85,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toEndOf="@id/hours_operation_lead"
                     app:layout_constraintTop_toBottomOf="@id/wait_time_lead"
-                    android:textSize="18sp"/>
+                    android:textSize="15sp"/>
 
                 <View
                     android:id="@+id/divider1"
@@ -101,7 +103,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider1"
                     android:textColor="@color/Primary"
-                    android:textSize="18sp"/>-->
+                    android:textSize="15sp"/>-->
 
                 <TextView
                     android:id="@+id/bar_display_description_tv"
@@ -109,7 +111,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider1"
-                    android:textSize="18sp"/>
+                    android:textSize="15sp"/>
 
             </android.support.constraint.ConstraintLayout>
 
@@ -136,9 +138,9 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_favorite"
-                    android:text="Favorite"
                     android:background="@color/transparent"
+                    android:drawableTop="@drawable/ic_favorite"
+                    android:text="@string/bar_display_favoriteBtnTxt"
                     android:textColor="@color/white" />
 
                 <View
@@ -150,9 +152,9 @@
                     android:id="@+id/bar_display_menu_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_restaurant_menu"
-                    android:text="Menu"
                     android:background="@color/transparent"
+                    android:drawableTop="@drawable/ic_restaurant_menu"
+                    android:text="@string/bar_display_menuBtnTxt"
                     android:textColor="@color/white" />
 
                 <View
@@ -163,9 +165,9 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_favorite"
-                    android:text="Favorite"
                     android:background="@color/transparent"
+                    android:drawableTop="@drawable/ic_favorite"
+                    android:text="@string/bar_display_setTheBarBtnTxt"
                     android:textColor="@color/white" />
 
             </android.support.v7.widget.LinearLayoutCompat>

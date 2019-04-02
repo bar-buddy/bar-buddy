@@ -88,9 +88,9 @@ public class BarDisplay extends AppCompatActivity {
 
         ImageView header_image = (ImageView) findViewById(R.id.bar_display_image_header);
 
-        String cover_lead = "$" + bar.getBar_cover();
-        String wait_time_lead = bar.getBar_wait() + " minutes";
-        String hours_operation_lead = bar.getBar_hours_operation();
+        String cover_lead = " $" + bar.getBar_cover();
+        String wait_time_lead = " " + bar.getBar_wait() + " minutes";
+        String hours_operation_lead = " " + bar.getBar_hours_operation();
 
         cover_tv.setText(cover_lead);
         wait_time_tv.setText(wait_time_lead);
@@ -99,7 +99,8 @@ public class BarDisplay extends AppCompatActivity {
 
         Picasso.get()
                 .load(bar.getBar_image())
-                .placeholder(R.drawable.logo2_transparent)
+                .placeholder(R.drawable.loading_image)
+                .error(R.drawable.no_image_available)
                 .into(header_image);
     }
 
