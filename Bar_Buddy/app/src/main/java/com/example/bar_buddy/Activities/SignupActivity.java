@@ -96,7 +96,7 @@ public class SignupActivity extends AppCompatActivity {
                                 }
                             }
                         });
-
+                auth.getCurrentUser().
             }
         });
     }
