@@ -3,22 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@color/cardBackground"
     android:orientation="vertical">>
 
     <!-- TODO: Update blank fragment layout -->
-
-    <Button
-        android:id="@+id/logoutBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout Temporary" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="405dp">
         <LinearLayout
-            android:background="@drawable/gradient"
+            android:background="@color/cardBackground"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:orientation="vertical">
@@ -51,7 +45,7 @@
                 android:weightSum="3"
                 android:baselineAligned="false">
                 <LinearLayout
-                    android:background="@drawable/secondgradient"
+                    android:background="@color/cardPrimaryColor"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="0dp"
@@ -73,9 +67,15 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />-->
 
+                    <Button
+                        android:id="@+id/logoutBtn"
+                        android:layout_width="133dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/cardBackground"
+                        android:text="@string/logout_temporary" />
                 </LinearLayout>
                 <LinearLayout
-                    android:background="@drawable/secondgradient"
+                    android:background="@color/cardPrimaryColor"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="0dp"
@@ -98,9 +98,15 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />-->
 
+                    <Button
+                        android:id="@+id/deleteAcctBtn"
+                        android:layout_width="133dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/cardBackground"
+                        android:text="@string/delete_account" />
                 </LinearLayout>
                 <LinearLayout
-                    android:background="@drawable/secondgradient"
+                    android:background="@color/cardPrimaryColor"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="0dp"
@@ -122,6 +128,12 @@
                         android:textColor="#fff"
                         android:textSize="20sp" />-->
 
+                    <Button
+                        android:id="@+id/resetPwdBtn"
+                        android:layout_width="133dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/cardBackground"
+                        android:text="@string/reset_password" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -168,7 +180,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:text="+601 832 2960"/>
+                android:text="@string/_601_832_2960"/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="25dp"
@@ -179,34 +191,36 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_contacts_black_24dp"/>
+                android:src="@drawable/ic_contacts_black_24dp"
+                android:contentDescription="TODO" />
             <TextView
                 android:textStyle="bold"
 
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:text="Add to contacts"/>
+                android:paddingStart="20dp"
+                android:text="@string/add_to_contacts"/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
-            android:paddingLeft="25dp"
+            android:paddingStart="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_star_black_24dp"/>
+                android:src="@drawable/ic_star_black_24dp"
+                android:contentDescription="@string/todo" />
             <TextView
                 android:textStyle="bold"
 
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:text="Favorite Bars"/>
+                android:paddingStart="20dp"
+                android:text="@string/favorite_bars"/>
         </LinearLayout>
     </LinearLayout>
 
