@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -100,6 +101,11 @@ public class UpdatesCardAdapter extends RecyclerView.Adapter<UpdatesCardAdapter.
             @Override
             public void onCallback() {
                 holder.bar_name.setText(bar.getBar_name());
+                Picasso.get()
+                        .load(bar.getBar_image())
+                        //.placeholder(R.drawable.loading_image)
+                        //.error(R.drawable.no_image_available)
+                        .into(holder.bar_image);
             }
         }, position);
     }
