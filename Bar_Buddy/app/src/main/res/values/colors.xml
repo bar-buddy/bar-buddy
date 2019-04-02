@@ -19,6 +19,7 @@
     <color name="colorBackground">#12151C</color>
 
     <color name="cardBackground">#202833</color>
+    <color name="cardBackgroundSlightlyDarker">#1c242d</color>
     <color name="cardPrimaryColor">#F0B80C</color>
     <color name="cardSecondaryColor">#FFFFFF</color>
 

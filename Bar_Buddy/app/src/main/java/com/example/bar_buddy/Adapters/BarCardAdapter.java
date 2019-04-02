@@ -66,7 +66,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         private final Button expandBtn;
         private final ToggleButton favBtn;
         private final ImageButton directionsBtn;
-        private final Button menuBtn;
+        private final ImageButton menuBtn;
 
         BarViewHolder(View v) {
             super(v);
@@ -82,7 +82,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             expandBtn = (Button) itemView.findViewById(R.id.expand_button);
             favBtn = (ToggleButton) itemView.findViewById(R.id.bar_card_favorite_tglBtn);
             directionsBtn = (ImageButton) itemView.findViewById(R.id.bar_card_directions_btn);
-            menuBtn = (Button) itemView.findViewById(R.id.menu_btn);
+            menuBtn = (ImageButton) itemView.findViewById(R.id.bar_card_menu_btn);
 
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             hiddenLayout = (ConstraintLayout) itemView.findViewById(R.id.hiddenBarCardExpansion);
@@ -171,8 +171,9 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
 
         //expand button hit areas
         new ButtonRangeExtender(expand_button, 100, 100, 100, 100);
-        new ButtonRangeExtender(holder.favBtn, 100, 0, 100, 100);
-        new ButtonRangeExtender(holder.directionsBtn, 100, 100, 100, 0);
+        //new ButtonRangeExtender(holder.favBtn, 30, 5, 30, 30);
+        //new ButtonRangeExtender(holder.directionsBtn, 30, 5, 30, 5);
+        //new ButtonRangeExtender(holder.menuBtn, 30, 30, 30, 0);
 
         holder.hiddenLayout.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.itemView.setActivated(isExpanded);
