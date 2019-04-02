@@ -55,46 +55,12 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
-        /*readData(new FirestoreCallback() {
-            @Override
-            public void onCallback(List<BarItem> list) {
-                adapter.notifyDataSetChanged();
-            }
-        });*/
-
-        /*barsRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(e != null) {
-                    return;
-                }
-                bars = new ArrayList<BarItem>();
-                Log.e("updates", "detected");
-                for(QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
-                    BarItem b = documentSnapshot.toObject(BarItem.class);
-                    b.setBar_id(documentSnapshot.getId());
-                    bars.add(b);
-                }
-                adapter.notifyDataSetChanged();
-            }
-        });*/
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
         bars = new ArrayList<BarItem>();
-
-        mSwipeRefreshLayout.setRefreshing(true);
-        //bars = new ArrayList<>();
-        //adapter = new BarCardAdapter(getActivity(), bars);
 
         readData(new FirestoreCallback() {
             @Override
             public void onCallback(List<BarItem> list) {
                 adapter.notifyDataSetChanged();
-                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -138,8 +104,9 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                                 b.setBar_id(document.getId());
 
                                 for(int i = 0; i < bars.size(); i++) {
-                                    if(!(bars.get(i).getBar_id() == b.getBar_id())) {
+                                    if(b.getBar_id().equals(bars.get(i).getBar_id())) {
                                         bars.set(i, b);
+                                        break;
                                     }
                                 }
                             }
@@ -157,8 +124,6 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
 
     private void loadBars() {
         mSwipeRefreshLayout.setRefreshing(true);
-        //bars = new ArrayList<>();
-        //adapter = new BarCardAdapter(getActivity(), bars);
 
         reReadData(new FirestoreCallback() {
             @Override
@@ -189,27 +154,11 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                 R.color.Primary,
                 R.color.colorBackground);
 
-        //bars = new ArrayList<>();
-
-       /* mSwipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(true);
-
-                loadBars();
-            }
-        });*/
-
-
-
-
         return rootView;
     }
 
     @Override
     public void onRefresh() {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.detach(HomeTab.this).attach(HomeTab.this).commit();
         loadBars();
     }
 

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,14 +35,17 @@ import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class FavoritesTab extends Fragment {
+public class FavoritesTab extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference barsRef = db.collection("bars");
 
     private BarCardAdapter adapter;
     private List<BarItem> bars;
     private List<String> bar_ids;
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private OnFragmentInteractionListener mListener;
 
@@ -54,13 +58,10 @@ public class FavoritesTab extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-
         bar_ids = new ArrayList<String>();
         bars = new ArrayList<BarItem>();
 
-        db.collection("users").document(uid).collection("bars_favorites").get()
+        db.collection("users").document(user.getUid()).collection("bars_favorites").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -112,6 +113,35 @@ public class FavoritesTab extends Fragment {
                 });
     }
 
+    private void reReadData(final FirestoreCallback firestoreCallback) {
+        barsRef
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                if(bar_ids != null && bar_ids.contains((String) document.getId())) {
+                                    BarItem b = document.toObject(BarItem.class);
+                                    b.setBar_id(document.getId());
+
+                                    for(int i = 0; i < bars.size(); i++) {
+                                        if(b.getBar_id().equals(bars.get(i).getBar_id())) {
+                                            bars.set(i, b);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            firestoreCallback.onCallback(bars);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
     private interface FirestoreCallback {
         void onCallback(List<BarItem> list);
     }
@@ -129,9 +159,29 @@ public class FavoritesTab extends Fragment {
         rvCards.setItemAnimator(new DefaultItemAnimator());
         rvCards.setNestedScrollingEnabled(false);
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayoutFavs);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(
+                R.color.Primary,
+                R.color.colorBackground);
+
         // Inflate the layout for this fragment
         return rootView;
     }
+
+    @Override
+    public void onRefresh() {
+        mSwipeRefreshLayout.setRefreshing(true);
+
+        reReadData(new FirestoreCallback() {
+            @Override
+            public void onCallback(List<BarItem> list) {
+                adapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
