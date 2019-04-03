@@ -164,7 +164,7 @@ public class Event extends AppCompatActivity{
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
                         String EndTime = hourOfDay + ":" + minute;
-                        txtStartTime.setText(EndTime);
+                        txtEndTime.setText(EndTime);
                         data.put("event_end_time", EndTime);
                     }
                 }, mHour, mMinute, false);
