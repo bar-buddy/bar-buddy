@@ -45,7 +45,6 @@ public class Event extends AppCompatActivity{
                     }
                 });
 
-
         setContentView(R.layout.activity_add_event);
 
         eventName = (EditText) findViewById(R.id.input_eventName);
@@ -54,7 +53,7 @@ public class Event extends AppCompatActivity{
         btnAddEvent = (Button) findViewById(R.id.btn_addEvent);
     }
 
-    public void saveWeeklySpecial(View v){
+    public void saveEvent(View v){
         String name = eventName.getText().toString();
         String day = eventDay.getText().toString();
         String description = eventDescription.getText().toString();

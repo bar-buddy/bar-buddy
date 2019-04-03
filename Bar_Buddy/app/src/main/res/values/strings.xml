@@ -70,6 +70,6 @@
     <string name="bar_display_setTheBarBtnTxt">Set the Bar</string>
 
     <string name="hint_eventName" >Name of Event</string>
-    <string name="hint_eventDay">Day of the Week</string>
+    <string name="hint_eventDay">Day of the Event</string>
     <string name="hint_eventDescription">Description of Event</string>
 </resources>
