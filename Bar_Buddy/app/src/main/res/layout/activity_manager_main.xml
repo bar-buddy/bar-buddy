@@ -31,10 +31,20 @@
         style="@style/BorderedButton"/>
 
     <Button
+        android:id="@+id/addEvent"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="260dp"
+        android:layout_marginLeft="50dp"
+
+        android:text="Add Event"
+        style="@style/BorderedButton"/>
+
+    <Button
         android:id="@+id/logoutBtn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="400dp"
         android:layout_marginLeft="50dp"
         android:text="LOGOUT"
         android:textColor="@android:color/white"

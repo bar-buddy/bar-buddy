@@ -22,9 +22,10 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorBackground"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            android:paddingBottom="10dp"
             app:collapseIcon="@drawable/ic_favorite"
             app:titleTextColor="@color/Primary"
-            app:title="@string/app_name_proper" >
+            app:title="@string/app_name_proper">
 
             <android.support.v7.widget.SearchView
                 android:id="@+id/search_menu"
