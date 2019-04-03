@@ -46,7 +46,7 @@ public class Event extends AppCompatActivity{
                 });
 
 
-        setContentView(R.layout.activity_add_weekly_special);
+        setContentView(R.layout.activity_add_event);
 
         eventName = (EditText) findViewById(R.id.input_eventName);
         eventDay = (EditText) findViewById(R.id.input_eventDay);

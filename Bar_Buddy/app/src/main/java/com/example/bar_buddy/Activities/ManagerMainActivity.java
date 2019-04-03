@@ -41,9 +41,9 @@ public class ManagerMainActivity extends AppCompatActivity {
         addEvent.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                final Intent intent;
-                intent = new Intent(ManagerMainActivity.this, Event.class);
-                ManagerMainActivity.this.startActivity(intent);
+                final Intent intent2;
+                intent2 = new Intent(ManagerMainActivity.this, Event.class);
+                ManagerMainActivity.this.startActivity(intent2);
             }
         });
     }
