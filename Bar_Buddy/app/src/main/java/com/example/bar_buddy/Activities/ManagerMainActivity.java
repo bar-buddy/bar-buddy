@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.bar_buddy.R;
 import com.example.bar_buddy.WeeklySpecials;
+import com.example.bar_buddy.Event;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ManagerMainActivity extends AppCompatActivity {
@@ -32,6 +33,16 @@ public class ManagerMainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Intent intent;
                 intent = new Intent(ManagerMainActivity.this, WeeklySpecials.class);
+                ManagerMainActivity.this.startActivity(intent);
+            }
+        });
+
+        Button addEvent = findViewById(R.id.addEvent);
+        addEvent.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                final Intent intent;
+                intent = new Intent(ManagerMainActivity.this, Event.class);
                 ManagerMainActivity.this.startActivity(intent);
             }
         });
