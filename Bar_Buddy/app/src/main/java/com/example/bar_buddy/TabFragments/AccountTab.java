@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -30,14 +32,9 @@ import com.google.firebase.auth.FirebaseUser;
  * create an instance of this fragment.
  */
 public class AccountTab extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     Button logoutBtn;
     Button resetPwdBtn;
@@ -51,33 +48,9 @@ public class AccountTab extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AccountTab.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AccountTab newInstance(String param1, String param2) {
-        AccountTab fragment = new AccountTab();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-
     }
 
     @Override
@@ -87,8 +60,13 @@ public class AccountTab extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_account_tab, container, false);
 
-        //displayUserEmail = v.findViewById(R.id.user_email);
-        //showUserEmail(displayUserEmail);
+        TextView email = (TextView) v.findViewById(R.id.account_email_tv);
+        showUserEmail(email);
+
+        ImageView imageView = (ImageView) v.findViewById(R.id.account_image);
+        Picasso.get()
+                .load("https://firebasestorage.googleapis.com/v0/b/bar-buddy-ac0e5.appspot.com/o/blank_profile.png?alt=media&token=7d60a82a-420b-495b-b228-dc6ac52e0bd6")
+                .into(imageView);
 
         logoutBtn = v.findViewById(R.id.logoutBtn);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +77,7 @@ public class AccountTab extends Fragment {
             }
         });
 
-        /*resetPwdBtn = v.findViewById(R.id.resetPwdBtn);
+        resetPwdBtn = v.findViewById(R.id.resetPwdBtn);
         resetPwdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,10 +91,56 @@ public class AccountTab extends Fragment {
             public void onClick(View v) {
                 deleteAcct(v);
             }
-        });*/
+        });
 
         return v;
     }
+
+
+    public void signOut(View v){
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
+    public void sendReset(View v){
+        String email = user.getEmail();
+        auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getActivity(), "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+    }
+
+    public void deleteAcct(View v){
+        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(getActivity(), "Account Removed", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+            }
+        });
+    }
+
+    public void showUserEmail(TextView textView){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String email = user.getEmail();
+        textView.setText(email);
+    }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -155,51 +179,5 @@ public class AccountTab extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    public void signOut(View v){
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(getActivity(), LoginActivity.class);
-        startActivity(intent);
-        getActivity().finish();
-    }
-
-    public void sendReset(View v){
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String email = user.getEmail();
-        auth.sendPasswordResetEmail(email)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity(), "Failed to send reset email!", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-                });
-    }
-
-    public void deleteAcct(View v){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(getActivity(), "Account Removed", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                    getActivity().finish();
-                }
-            }
-        });
-    }
-
-    public void showUserEmail(TextView textView){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String email = user.getEmail();
-        textView.setText(email);
     }
 }

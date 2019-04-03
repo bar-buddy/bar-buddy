@@ -79,4 +79,7 @@
     <string name="date_view_set">The Date is: </string>
     <string name="date_selected"></string>
     <string name="bar_display_directionsBtnTxt">Directions</string>
+    <string name="logout_btn">Logout</string>
+    <string name="delete_account_btn">Delete Account</string>
+    <string name="updates_menu_title">Recent Updates</string>
 </resources>
