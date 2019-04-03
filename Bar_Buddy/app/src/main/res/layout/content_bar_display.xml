@@ -133,15 +133,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
+                android:padding="5dp"
                 android:layout_gravity="center"  >
 
                 <Button
+                    android:id="@+id/bar_display_fav_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
-                    android:drawableTop="@drawable/ic_favorite"
+                    android:drawableTop="@drawable/ic_favorite_bar_card"
                     android:text="@string/bar_display_favoriteBtnTxt"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/cardSecondaryColor" />
 
                 <View
                     android:layout_width="1dp"
@@ -155,7 +157,23 @@
                     android:background="@color/transparent"
                     android:drawableTop="@drawable/ic_restaurant_menu"
                     android:text="@string/bar_display_menuBtnTxt"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/cardSecondaryColor" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="?android:attr/listDivider" />
+
+                <Button
+                    android:id="@+id/bar_display_directions_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:drawableTop="@drawable/ic_directions"
+                    android:text="@string/bar_display_directionsBtnTxt"
+                    android:textColor="@color/cardSecondaryColor" />
 
                 <View
                     android:layout_width="1dp"
@@ -166,9 +184,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
-                    android:drawableTop="@drawable/ic_favorite"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="3dp"
+                    android:drawableTop="@drawable/ic_favorite_bar_card"
                     android:text="@string/bar_display_setTheBarBtnTxt"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/cardSecondaryColor" />
 
             </android.support.v7.widget.LinearLayoutCompat>
 

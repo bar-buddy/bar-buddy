@@ -7,17 +7,25 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bar_buddy.AdapterItems.BarItem;
+import com.example.bar_buddy.Adapters.BarCardAdapter;
+import com.example.bar_buddy.HandleBarsThroughFirestore;
 import com.example.bar_buddy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 public class BarDisplay extends AppCompatActivity {
@@ -26,6 +34,9 @@ public class BarDisplay extends AppCompatActivity {
 
     BarItem bar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    boolean isFav = false;
 
     BarDisplay() {
         //necessary zero argument constructor
@@ -107,6 +118,7 @@ public class BarDisplay extends AppCompatActivity {
     private void setListeners() {
         final Button menuBtn = (Button) findViewById(R.id.bar_display_menu_btn);
         final Button specialsExpandBtn = (Button) findViewById(R.id.expand_button);
+        final Button favBtn = (Button) findViewById(R.id.bar_display_fav_btn);
 
         menuBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -133,6 +145,77 @@ public class BarDisplay extends AppCompatActivity {
             }
         });
 
+        boolean cur;
 
+        final CollectionReference favRef = db.collection("users").document(user.getUid()).collection("bars_favorites");
+        checkFavorite(new FavCheckCallback() {
+            @Override
+            public void onCallback(boolean result) {
+                if(result) {
+                    isFav = true;
+
+                    int imgResource = R.drawable.ic_favorite_bar_card_selected;
+                    favBtn.setCompoundDrawablesWithIntrinsicBounds(0, imgResource, 0, 0);
+                    favBtn.setCompoundDrawablePadding(8);
+
+                    String unfav = "Unfavorite";
+                    favBtn.setText(unfav);
+                }
+
+                favBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(isFav) {
+                            isFav = false;
+
+                            int imgResource = R.drawable.ic_favorite_bar_card;
+                            favBtn.setCompoundDrawablesWithIntrinsicBounds(0, imgResource, 0, 0);
+                            //favBtn.setCompoundDrawablePadding(8);
+
+                            String unfav = "Favorite";
+                            favBtn.setText(unfav);
+
+                            new HandleBarsThroughFirestore().removeFavorite(bar.getBar_id());
+                        } else {
+                            isFav = true;
+
+                            int imgResource = R.drawable.ic_favorite_bar_card_selected;
+                            favBtn.setCompoundDrawablesWithIntrinsicBounds(0, imgResource, 0, 0);
+                            //favBtn.setCompoundDrawablePadding(8);
+
+                            String unfav = "Unfavor";
+                            favBtn.setText(unfav);
+
+                            new HandleBarsThroughFirestore().addFavorite(bar.getBar_id());
+                        }
+                    }
+                });
+            }
+        }, favRef, bar.getBar_id());
+
+    }
+
+    private interface FavCheckCallback {
+        void onCallback(boolean result);
+    }
+
+    private void checkFavorite(final FavCheckCallback callback, CollectionReference ref, final String bar_id) {
+        ref.whereEqualTo("bar_id", bar_id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        boolean result = false;
+                        if(task.isSuccessful()) {
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+                                result = true;
+                                Log.e(bar_id, (String) document.get("bar_id"));
+                            }
+
+
+                        }
+                        callback.onCallback(result);
+                    }
+                });
     }
 }

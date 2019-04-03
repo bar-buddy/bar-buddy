@@ -1,6 +1,7 @@
 package com.example.bar_buddy.AdapterItems;
 
 public class UpdateItem {
+    private String update_id;
     private String bar_id;
     private String bar_name;
     private String update_description;
@@ -11,6 +12,12 @@ public class UpdateItem {
     public UpdateItem() {
 
     }
+
+    public void setUpdate_id(String id) {
+        this.update_id = id;
+    }
+
+    public String getUpdate_id() { return update_id; }
 
     public String getBar_id() { return bar_id; }
 
