@@ -34,11 +34,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
+        auth = getAuth();
 
-        if (auth.getCurrentUser() != null){
-            getUserType();
-        }
+        checkSignedIn(auth);
 
         // set the view now
         setContentView(R.layout.activity_login);
@@ -112,9 +110,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void getUserType(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("users").document(user.getUid());
+        FirebaseUser user = getUser();
+        FirebaseFirestore db = getDB();
+        DocumentReference docRef = getUserData(db, user);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -135,5 +133,28 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public FirebaseAuth getAuth(){
+        return FirebaseAuth.getInstance();
+    }
+
+    public void checkSignedIn(FirebaseAuth auth){
+        if (auth.getCurrentUser() != null){
+            getUserType();
+        }
+        else{return;}
+    }
+
+    public DocumentReference getUserData(FirebaseFirestore db, FirebaseUser user){
+        return db.collection("users").document(user.getUid());
+    }
+
+    public FirebaseUser getUser(){
+        return FirebaseAuth.getInstance().getCurrentUser();
+    }
+
+    public FirebaseFirestore getDB(){
+        return FirebaseFirestore.getInstance();
     }
 }
