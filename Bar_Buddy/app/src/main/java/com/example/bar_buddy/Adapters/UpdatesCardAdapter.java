@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.example.bar_buddy.AdapterItems.BarItem;
 import com.example.bar_buddy.R;
 import com.example.bar_buddy.AdapterItems.UpdateItem;
+import com.example.bar_buddy.TabFragments.UpdatesTab;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,6 +22,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UpdatesCardAdapter extends RecyclerView.Adapter<UpdatesCardAdapter.UpdatesCardViewHolder> {
@@ -28,7 +31,6 @@ public class UpdatesCardAdapter extends RecyclerView.Adapter<UpdatesCardAdapter.
 
     private final Context ctx;
     private List<UpdateItem> data;
-    private BarItem bar;
     
     class UpdatesCardViewHolder extends RecyclerView.ViewHolder {
         
@@ -39,6 +41,7 @@ public class UpdatesCardAdapter extends RecyclerView.Adapter<UpdatesCardAdapter.
         private final TextView bar_name;
         private final TextView update_title;
         private final TextView update_description;
+        private final TextView update_start_time;
         
         UpdatesCardViewHolder(View v) {
             super(v);
@@ -48,32 +51,11 @@ public class UpdatesCardAdapter extends RecyclerView.Adapter<UpdatesCardAdapter.
             bar_name = (TextView) itemView.findViewById(R.id.update_card_barname);
             update_title = (TextView) itemView.findViewById(R.id.update_card_title);
             update_description = (TextView) itemView.findViewById(R.id.update_card_description);
+            update_start_time = (TextView) itemView.findViewById(R.id.update_card_start_time);
         }
     }
 
-    private interface FirestoreCallback {
-        void onCallback();
-    }
-
-    private void getBar(final FirestoreCallback firestoreCallback, final int position) {
-        db.collection("bars")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {
-                            for(QueryDocumentSnapshot document : task.getResult()) {
-                                if(document.getId().equals(data.get(position).getBar_id())) {
-                                    bar = document.toObject(BarItem.class);
-                                }
-                            }
-                            firestoreCallback.onCallback();
-                        }
-                    }
-                });
-    }
-
-    public UpdatesCardAdapter(Context c, List<UpdateItem> data) {
+    public UpdatesCardAdapter(Context c, final List<UpdateItem> data) {
         this.ctx = c;
         this.data = data;
     }
@@ -91,23 +73,30 @@ public class UpdatesCardAdapter extends RecyclerView.Adapter<UpdatesCardAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final UpdatesCardViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final UpdatesCardViewHolder holder, final int position) {
+        holder.bar_name.setText(data.get(position).getBar_name());
         holder.update_title.setText(data.get(position).getUpdate_title());
         holder.update_description.setText(data.get(position).getUpdate_description());
 
-        bar = new BarItem();
+        String start = "Starts at " + data.get(position).getUpdate_start_time();
+        holder.update_start_time.setText(start);
 
-        getBar(new FirestoreCallback() {
-            @Override
-            public void onCallback() {
-                holder.bar_name.setText(bar.getBar_name());
-                Picasso.get()
-                        .load(bar.getBar_image())
-                        //.placeholder(R.drawable.loading_image)
-                        //.error(R.drawable.no_image_available)
-                        .into(holder.bar_image);
-            }
-        }, position);
+        String image = data.get(position).getUpdate_image();
+        if(image != null && !image.equals("")) {
+            Picasso.get()
+                    .load(image)
+                    .into(holder.bar_image);
+        }
+
+        /*BarItem b = data.get(position).getBar();
+        if(b != null) {
+            holder.bar_name.setText(b.getBar_name());
+            Picasso.get()
+                    .load(b.getBar_image())
+                    .placeholder(R.drawable.loading_image)
+                    //.error(R.drawable.no_image_available)
+                    .into(holder.bar_image);
+        }*/
     }
 
     @Override

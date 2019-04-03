@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -49,16 +51,49 @@ public class UpdatesTab extends Fragment {
 
         readData(new FirestoreCallback() {
             @Override
-            public void onCallback(List<UpdateItem> list) {
+            public void onCallback() {
+
+                /*for (int i = 0; i < updatesList.size(); i++) {
+                    getBar(new FirestoreCallback() {
+                        @Override
+                        public void onCallback() {
+                            adapter.notifyDataSetChanged();
+                        }
+                    }, i);
+                }*/
+
                 adapter.notifyDataSetChanged();
             }
         });
 
     }
 
+    /*private void getBar(final FirestoreCallback firestoreCallback, final int position) {
+        db.collection("bars")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Log.e("in", "big daddy");
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.e(document.getId(), updatesList.get(position).getBar_id());
+                                if (document.getId().equals(updatesList.get(position).getBar_id())) {
+                                    Log.e("finding", "success");
+                                    //updatesList.get(position).setBar(document.toObject(BarItem.class));
+                                    BarItem b = document.toObject(BarItem.class);
+                                    updatesList.get(position).setBar(b);
+                                }
+                            }
+                            firestoreCallback.onCallback();
+                        }
+                    }
+                });
+    }*/
+
     private void readData(final FirestoreCallback firestoreCallback) {
         updatesRef
-                .orderBy("time")
+                .orderBy("time", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -66,17 +101,16 @@ public class UpdatesTab extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 UpdateItem u = document.toObject(UpdateItem.class);
-
                                 updatesList.add(u);
                             }
-                            firestoreCallback.onCallback(updatesList);
+                            firestoreCallback.onCallback();
                         }
                     }
                 });
     }
 
     private interface FirestoreCallback {
-        void onCallback(List<UpdateItem> list);
+        void onCallback();
     }
 
     @Override

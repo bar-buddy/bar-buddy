@@ -5,75 +5,118 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/updatecard_cv"
     android:layout_width="match_parent"
-    android:layout_height="250dp">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="5dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp">
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/cardBackground">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/image_title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
 
         <ImageView
             android:id="@+id/updates_card_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/rounders2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <!--<Button
-            android:id="@+id/expand_button"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/ic_expand_more"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />-->
-
-        <!--<Button
-            android:id="@+id/Favorite"
-            android:layout_width="130dp"
-            android:layout_height="27dp"
-            android:layout_marginTop="176dp"
-            android:layout_marginEnd="292dp"
-            android:background="@drawable/ic_favorite"
-
-            android:textColor="#fff"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />-->
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="match_parent"
-            android:layout_height="71dp"
-            android:background="@color/cardBackground"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/update_card_barname"
-            android:layout_width="108dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="292dp"
-            android:background="@color/cardBackground"
-            android:textColor="#fff"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/bar_title_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" >
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:cardBackgroundColor="@color/cardBackground"
+                    app:cardCornerRadius="15dp">
+
+                    <TextView
+                        android:id="@+id/update_card_barname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/cardBackground"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
+                        android:textColor="#fff"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+            </android.support.v7.widget.CardView>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@color/cardBackground"
+            app:layout_constraintTop_toBottomOf="@id/image_title_layout"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/icon_image"
+                android:layout_width="40dp"
+                android:layout_height="62dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/bbicon" />
+
+            <TextView
+                android:id="@+id/update_card_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/cardSecondaryColor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/icon_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/update_card_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/update_card_title"/>
+
+            <TextView
+                android:id="@+id/update_card_description"
+                android:layout_width="wrap_content"
+                android:maxWidth="340dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/cardSecondaryColor"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/update_card_title"
+                app:layout_constraintTop_toBottomOf="@id/update_card_title" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <!--<TextView
             android:id="@+id/cover"
             android:layout_width="114dp"
             android:layout_height="20dp"
@@ -83,41 +126,7 @@
             android:textColor="#fff"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/update_card_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="204dp"
-
-            android:textColor="#fff"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="34dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="204dp"
-            android:layout_marginEnd="376dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/bbicon" />
-
-        <TextView
-            android:id="@+id/update_card_description"
-            android:layout_width="178dp"
-            android:layout_height="22dp"
-            android:layout_marginTop="224dp"
-            android:layout_marginEnd="188dp"
-
-            android:textColor="#fff"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />-->
 
     </android.support.constraint.ConstraintLayout>
 
