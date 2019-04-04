@@ -13,8 +13,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp" >
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp">
 
         <android.support.v7.widget.CardView
             android:id="@+id/general_info_card"
@@ -24,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:cardCornerRadius="5dp"
-            android:layout_margin="7dp"
+            android:layout_marginTop="10dp"
             app:cardBackgroundColor="@color/cardBackground" >
 
             <android.support.constraint.ConstraintLayout
@@ -131,7 +132,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:cardCornerRadius="5dp"
-            android:layout_margin="7dp"
+            android:layout_marginTop="10dp"
             app:cardBackgroundColor="@color/cardBackground" >
 
             <android.support.v7.widget.LinearLayoutCompat
@@ -149,6 +150,7 @@
                     android:background="@color/transparent"
                     android:drawableTop="@drawable/ic_favorite_bar_card"
                     android:text="@string/bar_display_favoriteBtnTxt"
+                    android:textSize="12sp"
                     android:textColor="@color/cardSecondaryColor" />
 
                 <View
@@ -163,6 +165,7 @@
                     android:background="@color/transparent"
                     android:drawableTop="@drawable/ic_restaurant_menu"
                     android:text="@string/bar_display_menuBtnTxt"
+                    android:textSize="12sp"
                     android:textColor="@color/cardSecondaryColor" />
 
                 <View
@@ -179,6 +182,7 @@
                     android:layout_marginEnd="5dp"
                     android:drawableTop="@drawable/ic_directions"
                     android:text="@string/bar_display_directionsBtnTxt"
+                    android:textSize="12sp"
                     android:textColor="@color/cardSecondaryColor" />
 
                 <View
@@ -194,6 +198,7 @@
                     android:layout_marginEnd="3dp"
                     android:drawableTop="@drawable/ic_set_the_bar"
                     android:text="@string/bar_display_setTheBarBtnTxt"
+                    android:textSize="12sp"
                     android:textColor="@color/cardSecondaryColor" />
 
             </android.support.v7.widget.LinearLayoutCompat>
@@ -203,15 +208,15 @@
         <include
             android:id="@+id/bar_display_updates_menu"
             layout="@layout/content_updates_menu"
-            android:layout_margin="7dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/menu_card" />
 
         <include
-            layout="@layout/content_specials_events_menu"
-            android:layout_margin="7dp"
+            layout="@layout/content_events_menu"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"

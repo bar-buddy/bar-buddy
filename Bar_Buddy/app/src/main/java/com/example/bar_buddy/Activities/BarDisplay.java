@@ -1,6 +1,7 @@
 package com.example.bar_buddy.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,9 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bar_buddy.AdapterItems.BarItem;
+import com.example.bar_buddy.AdapterItems.EventItem;
 import com.example.bar_buddy.AdapterItems.UpdateItem;
 import com.example.bar_buddy.Adapters.BarCardAdapter;
+import com.example.bar_buddy.Adapters.EventAdapter;
 import com.example.bar_buddy.Adapters.UpdatesCardAdapter;
+import com.example.bar_buddy.Event;
 import com.example.bar_buddy.HandleBarsThroughFirestore;
 import com.example.bar_buddy.R;
 import com.example.bar_buddy.TabFragments.UpdatesTab;
@@ -48,6 +52,9 @@ public class BarDisplay extends AppCompatActivity {
 
     private UpdatesCardAdapter updatesCardAdapter;
     private List<UpdateItem> updatesList;
+
+    private EventAdapter eventAdapter;
+    private List<EventItem> eventsList;
 
     boolean isFav = false;
 
@@ -93,6 +100,7 @@ public class BarDisplay extends AppCompatActivity {
                             bar.setBar_id(task.getResult().getId());
 
                             setUpdatesRecycler();
+                            setEventsRecycler();
                             setValues();
                             setListeners();
 
@@ -130,8 +138,8 @@ public class BarDisplay extends AppCompatActivity {
 
     private void setListeners() {
         final Button menuBtn = (Button) findViewById(R.id.bar_display_menu_btn);
-        final Button specialsExpandBtn = (Button) findViewById(R.id.expand_button);
         final Button favBtn = (Button) findViewById(R.id.bar_display_fav_btn);
+        final Button directionsBtn = (Button) findViewById(R.id.bar_display_directions_btn);
 
         menuBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -142,18 +150,12 @@ public class BarDisplay extends AppCompatActivity {
             }
         });
 
-        specialsExpandBtn.setOnClickListener(new View.OnClickListener() {
+        directionsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isSpecialsExpanded) {
-                    specialsExpandBtn.setBackground(ActivityCompat.getDrawable(getApplicationContext(), R.drawable.ic_expand_more));
-                    findViewById(R.id.specials_events_visible_list).setVisibility(View.GONE);
-                    isSpecialsExpanded = false;
-                } else {
-                    specialsExpandBtn.setBackground(ActivityCompat.getDrawable(getApplicationContext(), R.drawable.ic_expand_less));
-                    findViewById(R.id.specials_events_visible_list).setVisibility(View.VISIBLE);
-                    isSpecialsExpanded = true;
-                }
+                startActivity(
+                        new Intent(Intent.ACTION_VIEW,
+                                Uri.parse("geo:0,0?q=" + Uri.encode(bar.getBar_name() + " " + bar.getBar_address()))));
             }
         });
 
@@ -201,11 +203,28 @@ public class BarDisplay extends AppCompatActivity {
         rvCards.setItemAnimator(new DefaultItemAnimator());
         rvCards.setNestedScrollingEnabled(false);
 
-        readData(new FirestoreCallback() {
+        getUpdates(new FirestoreCallback() {
             @Override
             public void onCallback(boolean result) {
                 updatesCardAdapter.notifyDataSetChanged();
-                Log.e("should be", "refreshed");
+            }
+        });
+    }
+
+    private void setEventsRecycler() {
+        RecyclerView rvCards = (RecyclerView) findViewById(R.id.events_menu_rv);
+
+        eventsList = new ArrayList<EventItem>();
+
+        eventAdapter = new EventAdapter(this, eventsList);
+        rvCards.setAdapter(eventAdapter);
+        rvCards.setItemAnimator(new DefaultItemAnimator());
+        rvCards.setNestedScrollingEnabled(false);
+
+        getEvents(new FirestoreCallback() {
+            @Override
+            public void onCallback(boolean result) {
+                eventAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -234,7 +253,7 @@ public class BarDisplay extends AppCompatActivity {
                 });
     }
 
-    private void readData(final FirestoreCallback firestoreCallback) {
+    private void getUpdates(final FirestoreCallback firestoreCallback) {
         db.collection("updates")
                 //.whereEqualTo("bar_id", bar.getBar_id())
                 .orderBy("time", Query.Direction.DESCENDING)
@@ -250,6 +269,26 @@ public class BarDisplay extends AppCompatActivity {
 
                                     updatesList.add(u);
                                 }
+                            }
+                            firestoreCallback.onCallback(true);
+                        }
+                    }
+                });
+    }
+    
+    private void getEvents(final FirestoreCallback firestoreCallback) {
+        db.collection("bars")
+                .document(bar.getBar_id())
+                .collection("events")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                EventItem e = document.toObject(EventItem.class);
+
+                                eventsList.add(e);
                             }
                             firestoreCallback.onCallback(true);
                         }

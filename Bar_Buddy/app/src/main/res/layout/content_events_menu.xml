@@ -6,6 +6,42 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="@color/displayRVbackground" >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/events_menu_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/events_menu_title"
+            android:textSize="22sp"
+            android:textColor="@color/Primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/events_menu_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/events_menu_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
+
+<!--<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="5dp"
     app:cardBackgroundColor="@color/cardBackground" >
 
     <android.support.v7.widget.CardView
@@ -277,4 +313,4 @@
 
     </android.support.v7.widget.CardView>
 
-</android.support.v7.widget.CardView>
+</android.support.v7.widget.CardView>-->
