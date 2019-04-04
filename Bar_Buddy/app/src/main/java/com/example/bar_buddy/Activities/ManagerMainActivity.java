@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.example.bar_buddy.R;
 import com.example.bar_buddy.WeeklySpecials;
 import com.example.bar_buddy.Event;
+import com.example.bar_buddy.ManagerUpdateBarInfo;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ManagerMainActivity extends AppCompatActivity {
@@ -44,6 +45,16 @@ public class ManagerMainActivity extends AppCompatActivity {
                 final Intent intent2;
                 intent2 = new Intent(ManagerMainActivity.this, Event.class);
                 ManagerMainActivity.this.startActivity(intent2);
+            }
+        });
+
+        Button addCoverAndWait = findViewById(R.id.addCoverAndWait);
+        addCoverAndWait.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                final Intent intent3;
+                intent3 = new Intent(ManagerMainActivity.this, ManagerUpdateBarInfo.class);
+                ManagerMainActivity.this.startActivity(intent3);
             }
         });
     }

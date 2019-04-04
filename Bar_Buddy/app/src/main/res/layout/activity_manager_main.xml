@@ -41,6 +41,16 @@
         style="@style/BorderedButton"/>
 
     <Button
+        android:id="@+id/addCoverAndWait"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="320dp"
+        android:layout_marginLeft="50dp"
+
+        android:text="Add Cover and Wait"
+        style="@style/BorderedButton"/>
+
+    <Button
         android:id="@+id/logoutBtn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"

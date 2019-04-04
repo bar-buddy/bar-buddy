@@ -84,4 +84,7 @@
     <string name="updates_menu_title">Recent Updates</string>
     <string name="events_menu_title">Upcoming Events</string>
     <string name="bar_card_closed">Closed</string>
+
+    <string name="hint_barCover" >What is the cover?</string>
+    <string name="hint_barWait" >What is the wait?</string>
 </resources>
