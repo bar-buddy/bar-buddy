@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,13 +29,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdatesTab extends Fragment {
+public class UpdatesTab extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private List<UpdateItem> updatesList;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference updatesRef = db.collection("updates");
     private UpdatesCardAdapter adapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private OnFragmentInteractionListener mListener;
 
@@ -101,7 +103,33 @@ public class UpdatesTab extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 UpdateItem u = document.toObject(UpdateItem.class);
+                                u.setUpdate_id(document.getId());
+
                                 updatesList.add(u);
+                            }
+                            firestoreCallback.onCallback();
+                        }
+                    }
+                });
+    }
+
+    private void reReadData(final FirestoreCallback firestoreCallback) {
+        updatesRef
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+                                UpdateItem u = document.toObject(UpdateItem.class);
+                                u.setUpdate_id(document.getId());
+
+                                for(int i = 0; i < updatesList.size(); i++) {
+                                    if(u.getUpdate_id().equals(updatesList.get(i).getUpdate_id())) {
+                                        updatesList.set(i, u);
+                                        break;
+                                    }
+                                }
                             }
                             firestoreCallback.onCallback();
                         }
@@ -124,9 +152,27 @@ public class UpdatesTab extends Fragment {
         rvCards.setItemAnimator(new DefaultItemAnimator());
         rvCards.setNestedScrollingEnabled(false);
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(
+                R.color.Primary,
+                R.color.colorBackground);
+
         return rootView;
     }
 
+    @Override
+    public void onRefresh() {
+        mSwipeRefreshLayout.setRefreshing(true);
+
+        reReadData(new FirestoreCallback() {
+            @Override
+            public void onCallback() {
+                adapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
 
     /* !!!DISREGARD EVERYTHING PAST HERE!!! */
 

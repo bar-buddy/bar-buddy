@@ -78,4 +78,10 @@
     <string name="date_button_set">Set Date</string>
     <string name="date_view_set">The Date is: </string>
     <string name="date_selected"></string>
+    <string name="bar_display_directionsBtnTxt">Directions</string>
+    <string name="logout_btn">Logout</string>
+    <string name="delete_account_btn">Delete Account</string>
+    <string name="updates_menu_title">Recent Updates</string>
+    <string name="events_menu_title">Upcoming Events</string>
+    <string name="bar_card_closed">Closed</string>
 </resources>

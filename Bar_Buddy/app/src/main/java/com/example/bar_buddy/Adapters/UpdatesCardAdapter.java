@@ -78,7 +78,7 @@ public class UpdatesCardAdapter extends RecyclerView.Adapter<UpdatesCardAdapter.
         holder.update_title.setText(data.get(position).getUpdate_title());
         holder.update_description.setText(data.get(position).getUpdate_description());
 
-        String start = "Starts at " + data.get(position).getUpdate_start_time();
+        String start = "Starts " + data.get(position).getUpdate_start_time();
         holder.update_start_time.setText(start);
 
         String image = data.get(position).getUpdate_image();

@@ -126,7 +126,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         String wait = "Wait time: " + data.get(position).getBar_wait() + " minutes";
         String cover = "Cover: $" + data.get(position).getBar_cover();
         String description = "Description: " + data.get(position).getBar_description();
-        String hours = "Hours of operation: " + data.get(position).getBar_hours_operation();
+        String hours = "Open: " + data.get(position).getBar_hours_operation();
 
         holder.bar_name.setText(data.get(position).getBar_name());
         holder.cover.setText(cover);
