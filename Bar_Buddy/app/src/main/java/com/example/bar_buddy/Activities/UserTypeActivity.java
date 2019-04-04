@@ -61,5 +61,4 @@ public class UserTypeActivity extends AppCompatActivity {
         users.document(u.getUid()).set(user);
     }
 
-
 }

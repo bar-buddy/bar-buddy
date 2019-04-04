@@ -46,9 +46,6 @@ public class LoginActivityTest {
     @Mock
     private FirebaseFirestore firebaseFirestore;
 
-    @Mock
-    private DocumentReference documentReference;
-
     @Before
     public void before(){
         PowerMockito.mockStatic(FirebaseAuth.class);

@@ -17,6 +17,12 @@ public class BarItem implements Serializable {
 
     }
 
+    public BarItem(String phone, String address, String name) {
+        bar_name = name;
+        bar_address = address;
+        bar_phone = phone;
+    }
+
     public void setBar_id(String id) {
         this.bar_id = id;
     }
