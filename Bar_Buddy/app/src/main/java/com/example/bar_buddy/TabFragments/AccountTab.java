@@ -69,6 +69,8 @@ public class AccountTab extends Fragment {
                 .into(imageView);
 
         logoutBtn = v.findViewById(R.id.logoutBtn);
+        String s = "Logout";
+        logoutBtn.setText(s);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +79,9 @@ public class AccountTab extends Fragment {
             }
         });
 
+        s = "Reset Password";
         resetPwdBtn = v.findViewById(R.id.resetPwdBtn);
+        resetPwdBtn.setText(s);
         resetPwdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +89,9 @@ public class AccountTab extends Fragment {
             }
         });
 
+        s = "Delete Account";
         deleteAcctBtn = v.findViewById(R.id.deleteAcctBtn);
+        deleteAcctBtn.setText(s);
         deleteAcctBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
