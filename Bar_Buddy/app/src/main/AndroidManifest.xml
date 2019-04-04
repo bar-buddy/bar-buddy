@@ -15,6 +15,7 @@
         <activity android:name=".ManagerMainActivity" />
         <activity android:name=".WeeklySpecials" />
         <activity android:name=".Event" />
+        <activity android:name=".ManagerUpdateBarInfo" />
         <activity android:name=".UserTypeActivity" />
         <activity
             android:name=".Activities.BarMenu"
