@@ -65,7 +65,7 @@ public class AccountTab extends Fragment {
 
         ImageView imageView = (ImageView) v.findViewById(R.id.account_image);
         Picasso.get()
-                .load("https://firebasestorage.googleapis.com/v0/b/bar-buddy-ac0e5.appspot.com/o/blank_profile.png?alt=media&token=7d60a82a-420b-495b-b228-dc6ac52e0bd6")
+                .load("https://firebasestorage.googleapis.com/v0/b/bar-buddy-ac0e5.appspot.com/o/devin.jpeg?alt=media&token=595d0f33-dcec-4cb8-a430-bf18a763d6d2")
                 .into(imageView);
 
         logoutBtn = v.findViewById(R.id.logoutBtn);
