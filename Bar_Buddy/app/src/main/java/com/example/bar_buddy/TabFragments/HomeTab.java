@@ -10,8 +10,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,6 +29,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -40,9 +45,11 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
     private List<BarItem> bars;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference barsRef = db.collection("bars");
+    private Query barsRef = db.collection("bars");
     private BarCardAdapter adapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private SearchView searchView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,10 +69,10 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
             public void onCallback(List<BarItem> list) {
                 adapter.notifyDataSetChanged();
             }
-        });
+        }, "");
     }
 
-    private void readData(final FirestoreCallback firestoreCallback) {
+    private void readData(final FirestoreCallback firestoreCallback, final String s) {
         barsRef
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -76,7 +83,12 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                                 BarItem b = document.toObject(BarItem.class);
                                 b.setBar_id(document.getId());
 
-                                if(bars != null) {
+                                if(bars != null &&
+                                        b.getBar_name().toLowerCase().contains(s.toLowerCase())) {
+
+                                    /*for(int i = 0; i < bars.size(); i++) {
+                                        bars.get(i).getBar_name()
+                                    }*/
                                     bars.add(b);
                                 }
                             }
@@ -148,6 +160,41 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
         mSwipeRefreshLayout.setColorSchemeResources(
                 R.color.Primary,
                 R.color.colorBackground);
+
+        searchView = (SearchView) rootView.findViewById(R.id.search);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                bars.clear();
+                mSwipeRefreshLayout.setRefreshing(true);
+                readData(new FirestoreCallback() {
+                    @Override
+                    public void onCallback(List<BarItem> list) {
+                        adapter.notifyDataSetChanged();
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                }, s);
+                return false;
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                bars.clear();
+                readData(new FirestoreCallback() {
+                    @Override
+                    public void onCallback(List<BarItem> list) {
+                        adapter.notifyDataSetChanged();
+                    }
+                }, "");
+                return false;
+            }
+        });
 
         return rootView;
     }
