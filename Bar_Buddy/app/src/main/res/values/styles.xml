@@ -63,4 +63,11 @@
         <item name="android:textOff"></item>
     </style>
 
+    <style name="_EditText">
+        <item name="android:background">@drawable/ic_edit_text_bg</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:textColor">@color/StandardText</item>
+    </style>
+
 </resources>

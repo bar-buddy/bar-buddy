@@ -44,16 +44,12 @@ public class SetTheBarDialog extends AlertDialog {
         dialogTitle = findViewById(R.id.title_set_the_bar);
         dialogTitle.setText(title);
 
-        //String[] times = new String[]{"< 5", "5-10", "10-15", "15-20", "20-30", "> 30"};
-        /*List<String> times = new ArrayList<String>();
-        times.add("< 5"); times.add("5-10"); times.add("10-15"); times.add("15-20");
-        times.add("20-30"); times.add("> 30");*/
-        String times[] = {"< 5 minutes", "5-10 minutes", "10-15 minutes", "15-20 minutes", "20-30 minutes", "> 30 minutes"};
+        /*String times[] = {"< 5 minutes", "5-10 minutes", "10-15 minutes", "15-20 minutes", "20-30 minutes", "> 30 minutes"};
 
         waitTime = (Spinner) findViewById(R.id.spinner_wait_time);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, times);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        waitTime.setAdapter(adapter);
+        waitTime.setAdapter(adapter);*/
 
         cover = (EditText) findViewById(R.id.edit_text_cover);
 
