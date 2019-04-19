@@ -26,6 +26,7 @@ import com.example.bar_buddy.Adapters.UpdatesCardAdapter;
 import com.example.bar_buddy.Event;
 import com.example.bar_buddy.HandleBarsThroughFirestore;
 import com.example.bar_buddy.R;
+import com.example.bar_buddy.SetTheBarDialog;
 import com.example.bar_buddy.TabFragments.UpdatesTab;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -140,6 +141,7 @@ public class BarDisplay extends AppCompatActivity {
         final Button menuBtn = (Button) findViewById(R.id.bar_display_menu_btn);
         final Button favBtn = (Button) findViewById(R.id.bar_display_fav_btn);
         final Button directionsBtn = (Button) findViewById(R.id.bar_display_directions_btn);
+        final Button setTheBarBtn = (Button) findViewById(R.id.bar_display_set_the_bar_btn);
 
         menuBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -190,6 +192,13 @@ public class BarDisplay extends AppCompatActivity {
                 });
             }
         }, favRef, bar.getBar_id());
+
+        setTheBarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SetTheBarDialog(BarDisplay.this, bar).show();
+            }
+        });
 
     }
 

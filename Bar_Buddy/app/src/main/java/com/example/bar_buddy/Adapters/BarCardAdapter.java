@@ -253,9 +253,6 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             @Override
             public void onClick(View v) {
                 new SetTheBarDialog(ctx, data.get(position)).show();
-                /*AlertDialog ad = new AlertDialog.Builder(ctx).create();
-                ad.setTitle("Test");
-                ad.show();*/
             }
         });
     }
