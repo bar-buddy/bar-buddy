@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/title_set_the_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="24sp" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/title_set_the_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:max="6"
+        android:progress="3"
+        android:progressTint="@color/transparent"
+        />
+
+    <TextView
+        android:id="@+id/text_cover_lead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cover Price: "
+        app:layout_constraintStart_toStartOf="@id/seekBar"
+        app:layout_constraintTop_toBottomOf="@id/seekBar"/>
+
+    <EditText
+        android:id="@+id/edit_text_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="0"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        app:layout_constraintTop_toBottomOf="@id/seekBar"
+        app:layout_constraintStart_toEndOf="@id/text_cover_lead" />
+
+    <!--<Spinner
+        android:id="@+id/spinner_cover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/seekBar"
+        app:layout_constraintStart_toEndOf="@id/text_cover_lead" >
+    </Spinner>-->
+
+    <TextView
+        android:id="@+id/text_wait_time_lead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wait Time: "
+        app:layout_constraintStart_toStartOf="@id/text_cover_lead"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_cover"/>
+
+    <Spinner
+        android:id="@+id/spinner_wait_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_cover"
+        app:layout_constraintStart_toEndOf="@id/text_wait_time_lead">
+    </Spinner>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        style="@style/BorderedButton"
+        app:layout_constraintTop_toBottomOf="@id/spinner_wait_time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</android.support.constraint.ConstraintLayout>

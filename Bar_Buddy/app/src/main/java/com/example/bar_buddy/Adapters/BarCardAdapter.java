@@ -1,5 +1,6 @@
 package com.example.bar_buddy.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ import com.example.bar_buddy.AdapterItems.BarItem;
 import com.example.bar_buddy.Activities.BarMenu;
 import com.example.bar_buddy.ButtonRangeExtender;
 import com.example.bar_buddy.R;
+import com.example.bar_buddy.SetTheBarDialog;
 import com.example.bar_buddy.TabFragments.HomeTab;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -67,6 +70,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         private final ToggleButton favBtn;
         private final ImageButton directionsBtn;
         private final ImageButton menuBtn;
+        private final Button setTheBarBtn;
 
         BarViewHolder(View v) {
             super(v);
@@ -83,6 +87,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             favBtn = (ToggleButton) itemView.findViewById(R.id.bar_card_favorite_tglBtn);
             directionsBtn = (ImageButton) itemView.findViewById(R.id.bar_card_directions_btn);
             menuBtn = (ImageButton) itemView.findViewById(R.id.bar_card_menu_btn);
+            setTheBarBtn = (Button) itemView.findViewById(R.id.set_the_bar_btn);
 
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             hiddenLayout = (ConstraintLayout) itemView.findViewById(R.id.hiddenBarCardExpansion);
@@ -241,6 +246,16 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
                 ctx.startActivity(
                         new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("geo:0,0?q=" + Uri.encode(data.get(position).getBar_name() + " " + data.get(position).getBar_address()))));
+            }
+        });
+
+        holder.setTheBarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SetTheBarDialog(ctx, data.get(position)).show();
+                /*AlertDialog ad = new AlertDialog.Builder(ctx).create();
+                ad.setTitle("Test");
+                ad.show();*/
             }
         });
     }
