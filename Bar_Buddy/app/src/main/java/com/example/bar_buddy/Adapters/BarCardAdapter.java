@@ -28,6 +28,7 @@ import com.example.bar_buddy.Activities.BarMenu;
 import com.example.bar_buddy.ButtonRangeExtender;
 import com.example.bar_buddy.R;
 import com.example.bar_buddy.SetTheBarDialog;
+import com.example.bar_buddy.UserDataDialog;
 import com.example.bar_buddy.TabFragments.HomeTab;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -71,6 +72,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         private final ImageButton directionsBtn;
         private final ImageButton menuBtn;
         private final Button setTheBarBtn;
+        private final Button coverBtn;
 
         BarViewHolder(View v) {
             super(v);
@@ -88,6 +90,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             directionsBtn = (ImageButton) itemView.findViewById(R.id.bar_card_directions_btn);
             menuBtn = (ImageButton) itemView.findViewById(R.id.bar_card_menu_btn);
             setTheBarBtn = (Button) itemView.findViewById(R.id.set_the_bar_btn);
+            coverBtn = (Button) itemView.findViewById(R.id.cover_btn);
 
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             hiddenLayout = (ConstraintLayout) itemView.findViewById(R.id.hiddenBarCardExpansion);
@@ -249,10 +252,19 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             }
         });
 
+        //on-click to launch Set the Bar
         holder.setTheBarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new SetTheBarDialog(ctx, data.get(position)).show();
+            }
+        });
+
+        //on-click to launch Cover Price more info
+        holder.coverBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new UserDataDialog(ctx).show();
             }
         });
     }

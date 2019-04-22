@@ -68,6 +68,14 @@
                 android:textColor="@color/cardSecondaryColor"
                 android:textSize="16sp" />
 
+            <Button
+                android:id="@+id/cover_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Why?"
+                app:layout_constraintStart_toEndOf="@id/cover_tv"
+                app:layout_constraintTop_toTopOf="@id/cover_tv"/>
+
             <TextView
                 android:id="@+id/wait_time_tv"
                 android:layout_width="wrap_content"

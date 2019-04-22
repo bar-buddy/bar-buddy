@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.bar_buddy.AdapterItems.BarItem;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -81,7 +82,7 @@ public class SetTheBarDialog extends AlertDialog {
 
         data.put("bar_cover", coverInput);
         data.put("bar_wait", waitTimeInput);
-        data.put("time_submitted", new Date().getTime());
+        data.put("time_submitted", ServerValue.TIMESTAMP);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("bars").document(bar.getBar_id())
