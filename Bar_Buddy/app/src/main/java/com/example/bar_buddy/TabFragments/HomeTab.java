@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -61,6 +62,7 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        setHasOptionsMenu(true);
 
         bars = new ArrayList<BarItem>();
 
@@ -70,6 +72,78 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                 adapter.notifyDataSetChanged();
             }
         }, "");
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        super.onCreateOptionsMenu(menu, menuInflater);
+
+        menuInflater.inflate(R.menu.search_menu, menu);
+        menuInflater.inflate(R.menu.sort_menu, menu);
+
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                bars.clear();
+                readData(new FirestoreCallback() {
+                    @Override
+                    public void onCallback(List<BarItem> list) {
+                        adapter.notifyDataSetChanged();
+                    }
+                }, s);
+                return false;
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.sortmenu_default:
+                item.setChecked(true);
+                barsRef = db.collection("bars");
+                loadBars();
+                break;
+            case R.id.sortmenu_AZ:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_name", Query.Direction.ASCENDING);
+                loadBars();
+                break;
+            case R.id.sortmenu_ZA:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_name", Query.Direction.DESCENDING);
+                loadBars();
+                break;
+            case R.id.sortmenu_WaitHL:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_wait", Query.Direction.DESCENDING);
+                loadBars();
+                break;
+            case R.id.sortmenu_WaitLH:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_wait", Query.Direction.ASCENDING);
+                loadBars();
+                break;
+            case R.id.sortmenu_CovHL:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_cover", Query.Direction.DESCENDING);
+                loadBars();
+                break;
+            case R.id.sortmenu_covLH:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_cover", Query.Direction.ASCENDING);
+                loadBars();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void readData(final FirestoreCallback firestoreCallback, final String s) {
@@ -100,46 +174,30 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                 });
     }
 
-    private void reReadData(final FirestoreCallback firestoreCallback) {
-        barsRef
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                BarItem b = document.toObject(BarItem.class);
-                                b.setBar_id(document.getId());
-
-                                for(int i = 0; i < bars.size(); i++) {
-                                    if(b.getBar_id().equals(bars.get(i).getBar_id())) {
-                                        bars.set(i, b);
-                                        break;
-                                    }
-                                }
-                            }
-                            firestoreCallback.onCallback(bars);
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
-
     private interface FirestoreCallback {
         void onCallback(List<BarItem> list);
     }
 
     private void loadBars() {
+        bars.clear();
+
         mSwipeRefreshLayout.setRefreshing(true);
 
-        reReadData(new FirestoreCallback() {
+        readData(new FirestoreCallback() {
             @Override
             public void onCallback(List<BarItem> list) {
                 adapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
-        });
+        }, "");
+
+        /*reReadData(new FirestoreCallback() {
+            @Override
+            public void onCallback(List<BarItem> list) {
+                adapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });*/
     }
 
     @Override
@@ -160,41 +218,6 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
         mSwipeRefreshLayout.setColorSchemeResources(
                 R.color.Primary,
                 R.color.colorBackground);
-
-        searchView = (SearchView) rootView.findViewById(R.id.search);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                bars.clear();
-                mSwipeRefreshLayout.setRefreshing(true);
-                readData(new FirestoreCallback() {
-                    @Override
-                    public void onCallback(List<BarItem> list) {
-                        adapter.notifyDataSetChanged();
-                        mSwipeRefreshLayout.setRefreshing(false);
-                    }
-                }, s);
-                return false;
-            }
-        });
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                bars.clear();
-                readData(new FirestoreCallback() {
-                    @Override
-                    public void onCallback(List<BarItem> list) {
-                        adapter.notifyDataSetChanged();
-                    }
-                }, "");
-                return false;
-            }
-        });
 
         return rootView;
     }

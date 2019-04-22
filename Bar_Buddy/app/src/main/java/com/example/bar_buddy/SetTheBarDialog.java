@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,7 @@ public class SetTheBarDialog extends AlertDialog {
 
         data.put("bar_cover", coverInput);
         data.put("bar_wait", waitTimeInput);
+        data.put("time_submitted", new Date().getTime());
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("bars").document(bar.getBar_id())

@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     android:background="@color/cardBackground"
+    android:layout_gravity="center_horizontal"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -28,17 +30,26 @@
         android:progressTint="@color/transparent"
         />
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/inner_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seekBar" >
+
     <TextView
         android:id="@+id/text_cover_lead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cover Price: "
-        app:layout_constraintStart_toStartOf="@id/seekBar"
-        app:layout_constraintTop_toBottomOf="@id/seekBar"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/edit_text_cover"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:padding="7dp"
@@ -46,24 +57,18 @@
         style="@style/_EditText"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        app:layout_constraintTop_toBottomOf="@id/seekBar"
-        app:layout_constraintStart_toEndOf="@id/text_cover_lead" />
+        app:layout_constraintTop_toBottomOf="@id/text_cover_lead"
+        app:layout_constraintStart_toStartOf="@id/text_cover_lead" />
 
     <TextView
         android:id="@+id/text_wait_time_lead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Wait Time: "
-        app:layout_constraintStart_toStartOf="@id/text_cover_lead"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_cover"/>
-
-    <!--<Spinner
-        android:id="@+id/spinner_wait_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_cover"
-        app:layout_constraintStart_toEndOf="@id/text_wait_time_lead">
-    </Spinner>-->
+        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toEndOf="@id/text_cover_lead"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_cover_lead"/>
 
     <EditText
         android:id="@+id/edit_text_wait_time"
@@ -75,16 +80,20 @@
         style="@style/_EditText"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_cover"
-        app:layout_constraintStart_toEndOf="@id/text_wait_time_lead" />
+        app:layout_constraintTop_toTopOf="@id/edit_text_cover"
+        app:layout_constraintStart_toStartOf="@id/text_wait_time_lead"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
 
     <Button
         android:id="@+id/submit_set_the_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Submit"
         style="@style/BorderedButton"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_wait_time"
+        app:layout_constraintTop_toBottomOf="@id/inner_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </android.support.constraint.ConstraintLayout>
