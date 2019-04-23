@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.google.firebase.Timestamp.now;
+
 public class SetTheBarDialog extends AlertDialog {
 
     private BarItem bar;
@@ -82,7 +84,7 @@ public class SetTheBarDialog extends AlertDialog {
 
         data.put("bar_cover", coverInput);
         data.put("bar_wait", waitTimeInput);
-        data.put("time_submitted", ServerValue.TIMESTAMP);
+        data.put("time_submitted", now());
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("bars").document(bar.getBar_id())

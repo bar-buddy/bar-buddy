@@ -256,7 +256,9 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         holder.setTheBarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SetTheBarDialog(ctx, data.get(position)).show();
+                AlertDialog STB = new SetTheBarDialog(ctx, data.get(position));
+                STB.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                STB.show();
             }
         });
 
@@ -264,7 +266,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         holder.coverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new UserDataDialog(ctx).show();
+                new UserDataDialog(ctx, data.get(position), true).show();
             }
         });
     }
