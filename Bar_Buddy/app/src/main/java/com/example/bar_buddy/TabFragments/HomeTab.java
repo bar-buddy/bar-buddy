@@ -10,8 +10,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,6 +30,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -40,9 +46,11 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
     private List<BarItem> bars;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference barsRef = db.collection("bars");
+    private Query barsRef = db.collection("bars");
     private BarCardAdapter adapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private SearchView searchView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -54,6 +62,7 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        setHasOptionsMenu(true);
 
         bars = new ArrayList<BarItem>();
 
@@ -62,33 +71,82 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
             public void onCallback(List<BarItem> list) {
                 adapter.notifyDataSetChanged();
             }
+        }, "");
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        super.onCreateOptionsMenu(menu, menuInflater);
+
+        menuInflater.inflate(R.menu.search_menu, menu);
+        menuInflater.inflate(R.menu.sort_menu, menu);
+
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                bars.clear();
+                readData(new FirestoreCallback() {
+                    @Override
+                    public void onCallback(List<BarItem> list) {
+                        adapter.notifyDataSetChanged();
+                    }
+                }, s);
+                return false;
+            }
         });
     }
 
-    private void readData(final FirestoreCallback firestoreCallback) {
-        barsRef
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                BarItem b = document.toObject(BarItem.class);
-                                b.setBar_id(document.getId());
-
-                                if(bars != null) {
-                                    bars.add(b);
-                                }
-                            }
-                            firestoreCallback.onCallback(bars);
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.sortmenu_default:
+                item.setChecked(true);
+                barsRef = db.collection("bars");
+                loadBars();
+                break;
+            case R.id.sortmenu_AZ:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_name", Query.Direction.ASCENDING);
+                loadBars();
+                break;
+            case R.id.sortmenu_ZA:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_name", Query.Direction.DESCENDING);
+                loadBars();
+                break;
+            case R.id.sortmenu_WaitHL:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_wait", Query.Direction.DESCENDING);
+                loadBars();
+                break;
+            case R.id.sortmenu_WaitLH:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_wait", Query.Direction.ASCENDING);
+                loadBars();
+                break;
+            case R.id.sortmenu_CovHL:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_cover", Query.Direction.DESCENDING);
+                loadBars();
+                break;
+            case R.id.sortmenu_covLH:
+                item.setChecked(true);
+                barsRef = db.collection("bars").orderBy("bar_cover", Query.Direction.ASCENDING);
+                loadBars();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
-    private void reReadData(final FirestoreCallback firestoreCallback) {
+    private void readData(final FirestoreCallback firestoreCallback, final String s) {
         barsRef
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -99,11 +157,13 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
                                 BarItem b = document.toObject(BarItem.class);
                                 b.setBar_id(document.getId());
 
-                                for(int i = 0; i < bars.size(); i++) {
-                                    if(b.getBar_id().equals(bars.get(i).getBar_id())) {
-                                        bars.set(i, b);
-                                        break;
-                                    }
+                                if(bars != null &&
+                                        b.getBar_name().toLowerCase().contains(s.toLowerCase())) {
+
+                                    /*for(int i = 0; i < bars.size(); i++) {
+                                        bars.get(i).getBar_name()
+                                    }*/
+                                    bars.add(b);
                                 }
                             }
                             firestoreCallback.onCallback(bars);
@@ -119,15 +179,25 @@ public class HomeTab extends Fragment implements SwipeRefreshLayout.OnRefreshLis
     }
 
     private void loadBars() {
+        bars.clear();
+
         mSwipeRefreshLayout.setRefreshing(true);
 
-        reReadData(new FirestoreCallback() {
+        readData(new FirestoreCallback() {
             @Override
             public void onCallback(List<BarItem> list) {
                 adapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
-        });
+        }, "");
+
+        /*reReadData(new FirestoreCallback() {
+            @Override
+            public void onCallback(List<BarItem> list) {
+                adapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });*/
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.bar_buddy;
+package com.example.bar_buddy.ManagerActivities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -6,6 +6,7 @@ import android.widget.TimePicker;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.bar_buddy.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,6 +45,11 @@ public class Event extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_add_event);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.add_event_toolbar2);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
@@ -56,20 +63,18 @@ public class Event extends AppCompatActivity{
                     }
                 });
 
-        setContentView(R.layout.activity_add_event);
-
         eventName = (EditText) findViewById(R.id.input_eventName);
         eventDay = (EditText) findViewById(R.id.input_eventDate);
         eventDescription = (EditText) findViewById(R.id.input_eventDescription);
         btnAddEvent = (Button) findViewById(R.id.btn_addEvent);
 
         btnDatePicker=(Button)findViewById(R.id.btn_date);
-        btnStartTimePicker=(Button)findViewById(R.id.btn_start_time);
-        btnEndTimePicker=(Button)findViewById(R.id.btn_end_time);
+        //btnStartTimePicker=(Button)findViewById(R.id.btn_start_time);
+        //btnEndTimePicker=(Button)findViewById(R.id.btn_end_time);
 
         txtDate=(EditText)findViewById(R.id.input_eventDate);
-        txtStartTime=(EditText)findViewById(R.id.in_start_time);
-        txtEndTime=(EditText)findViewById(R.id.in_end_time);
+        //txtStartTime=(EditText)findViewById(R.id.in_start_time);
+        //txtEndTime=(EditText)findViewById(R.id.in_end_time);
     }
 
     public void saveEvent(View v){

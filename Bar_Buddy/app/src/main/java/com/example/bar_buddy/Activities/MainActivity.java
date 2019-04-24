@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setLogo(R.drawable.logo2);
+        //toolbar.setLogo(R.drawable.logo2);
 
         ActionBar actionbar = getSupportActionBar();
         //actionbar.setDisplayHomeAsUpEnabled(true);

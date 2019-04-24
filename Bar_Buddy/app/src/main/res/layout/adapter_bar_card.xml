@@ -68,6 +68,17 @@
                 android:textColor="@color/cardSecondaryColor"
                 android:textSize="16sp" />
 
+            <ImageButton
+                android:id="@+id/cover_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_alert"
+                android:background="@android:color/holo_red_dark"
+                app:layout_constraintStart_toEndOf="@id/wait_time_tv"
+                app:layout_constraintTop_toTopOf="@id/cover_tv"
+                app:layout_constraintBottom_toBottomOf="@id/wait_time_tv"/>
+
             <TextView
                 android:id="@+id/wait_time_tv"
                 android:layout_width="wrap_content"

@@ -12,7 +12,7 @@
     <color name="PrimaryDark">#12151C</color>
     <color name="Primary">#F0B80C</color>
     <color name="PrimaryTransparent">#50F0B80C</color>
-    <color name="Accent">#FF3F80</color>
+    <color name="Accent">#F0B80C</color>
     <color name="MainButton">#0ba376</color>
     <color name="SecondaryButton">#B90A60</color>
     <color name="LinkText">#F0B80C</color>
