@@ -72,7 +72,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         private final ImageButton directionsBtn;
         private final ImageButton menuBtn;
         private final Button setTheBarBtn;
-        private final Button coverBtn;
+        private final ImageButton coverBtn;
 
         BarViewHolder(View v) {
             super(v);
@@ -90,7 +90,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
             directionsBtn = (ImageButton) itemView.findViewById(R.id.bar_card_directions_btn);
             menuBtn = (ImageButton) itemView.findViewById(R.id.bar_card_menu_btn);
             setTheBarBtn = (Button) itemView.findViewById(R.id.set_the_bar_btn);
-            coverBtn = (Button) itemView.findViewById(R.id.cover_btn);
+            coverBtn = (ImageButton) itemView.findViewById(R.id.cover_btn);
 
             cardContainer = (CardView) itemView.findViewById(R.id.barcard_cv);
             hiddenLayout = (ConstraintLayout) itemView.findViewById(R.id.hiddenBarCardExpansion);
@@ -266,7 +266,9 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         holder.coverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new UserDataDialog(ctx, data.get(position), true).show();
+                AlertDialog userData = new UserDataDialog(ctx, data.get(position), true);
+                userData.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                userData.show();
             }
         });
     }

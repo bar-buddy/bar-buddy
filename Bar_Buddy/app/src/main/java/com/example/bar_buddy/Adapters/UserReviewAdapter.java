@@ -48,10 +48,12 @@ public class UserReviewAdapter extends RecyclerView.Adapter<UserReviewAdapter.Us
 
     @Override
     public void onBindViewHolder(@NonNull UserReViewHolder holder, final int position) {
-        holder.user_cover.setText(data.get(position).getBar_cover());
-        holder.user_wait.setText(data.get(position).getBar_wait());
+        String coverString = "Cover: $" + data.get(position).getBar_cover();
+        String waitString = "Wait: " + data.get(position).getBar_wait() + " minutes";
+        holder.user_cover.setText(coverString);
+        holder.user_wait.setText(waitString);
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         String s = simpleDateFormat.format(data.get(position).getTime_submitted());
 
         holder.user_time_submitted.setText(s);

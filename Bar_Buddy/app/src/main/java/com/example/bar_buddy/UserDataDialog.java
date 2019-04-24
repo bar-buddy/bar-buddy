@@ -17,6 +17,7 @@ import com.example.bar_buddy.Adapters.UserReviewAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -57,7 +58,7 @@ public class UserDataDialog extends AlertDialog {
 
         TextView title = (TextView) findViewById(R.id.title_user_data);
         String titleText;
-        if(cover) titleText = "Cover at " + bar.getBar_name();
+        if(cover) titleText = "Cover and Wait at " + bar.getBar_name();
         else titleText = "Wait Time at " + bar.getBar_name();
         title.setText(titleText);
 
@@ -90,7 +91,7 @@ public class UserDataDialog extends AlertDialog {
 
     private void readData(final FirestoreCallback firestoreCallback) {
          db.collection("bars").document(bar.getBar_id()).collection("user_reviews")
-                 .orderBy("time_submitted")
+                 .orderBy("time_submitted", Query.Direction.DESCENDING)
                  .get()
                  .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                      @Override
@@ -99,17 +100,7 @@ public class UserDataDialog extends AlertDialog {
                              for (QueryDocumentSnapshot document : task.getResult()) {
                                  UserReviewItem review = document.toObject(UserReviewItem.class);
 
-                                 //DateFormat dateFormat = DateFormat.getDateInstance();//new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                                 //String s = dateFormat.format(review.getTime_submitted());
-
-                                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd HH:mm:ss");
-                                 String s = simpleDateFormat.format(review.getTime_submitted());
-
-                                 Log.e("cover", review.getBar_cover());
-                                 Log.e("date", s);
-
                                  if(reviews != null) {
-                                     Log.e("in", "side");
                                      reviews.add(review);
                                  }
                              }

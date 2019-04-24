@@ -1,5 +1,6 @@
 package com.example.bar_buddy.Activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -196,7 +197,10 @@ public class BarDisplay extends AppCompatActivity {
         setTheBarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new SetTheBarDialog(BarDisplay.this, bar).show();
+                //new SetTheBarDialog(BarDisplay.this, bar).show();
+                AlertDialog STB = new SetTheBarDialog(BarDisplay.this, bar);
+                STB.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                STB.show();
             }
         });
 
