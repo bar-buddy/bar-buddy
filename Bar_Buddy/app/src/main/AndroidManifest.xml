@@ -14,7 +14,9 @@
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".ManagerMainActivity" />
         <activity android:name=".ManagerActivities.WeeklySpecials" />
-        <activity android:name=".ManagerActivities.Event" />
+        <activity
+            android:name=".ManagerActivities.Event"
+            android:parentActivityName=".ManagerActivities.ManagerMainActivity"/>
         <activity android:name=".ManagerActivities.ManagerUpdateBarInfo" />
         <activity android:name=".UserTypeActivity" />
         <activity
