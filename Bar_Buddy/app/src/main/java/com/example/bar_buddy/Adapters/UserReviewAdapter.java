@@ -54,7 +54,7 @@ public class UserReviewAdapter extends RecyclerView.Adapter<UserReviewAdapter.Us
         holder.user_wait.setText(waitString);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        String s = simpleDateFormat.format(data.get(position).getTime_submitted());
+        String s = "at " + simpleDateFormat.format(data.get(position).getTime_submitted());
 
         holder.user_time_submitted.setText(s);
     }

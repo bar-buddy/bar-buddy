@@ -72,6 +72,18 @@
                     android:textColor="@color/cardSecondaryColor"
                     android:textSize="15sp"/>
 
+                <ImageButton
+                    android:id="@+id/bar_display_cover_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/ic_alert"
+                    android:visibility="invisible"
+                    android:background="@color/cardBackground"
+                    app:layout_constraintStart_toEndOf="@id/bar_display_wait_time_tv"
+                    app:layout_constraintTop_toTopOf="@id/bar_display_cover_tv"
+                    app:layout_constraintBottom_toBottomOf="@id/bar_display_wait_time_tv"/>
+
                 <TextView
                     android:id="@+id/hours_operation_lead"
                     android:layout_width="wrap_content"
