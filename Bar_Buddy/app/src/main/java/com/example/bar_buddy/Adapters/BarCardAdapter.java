@@ -25,6 +25,7 @@ import android.widget.ToggleButton;
 import com.example.bar_buddy.Activities.BarDisplay;
 import com.example.bar_buddy.AdapterItems.BarItem;
 import com.example.bar_buddy.Activities.BarMenu;
+import com.example.bar_buddy.AdapterItems.UserReviewItem;
 import com.example.bar_buddy.ButtonRangeExtender;
 import com.example.bar_buddy.R;
 import com.example.bar_buddy.SetTheBarDialog;
@@ -37,6 +38,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.example.bar_buddy.HandleBarsThroughFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
@@ -126,19 +128,71 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         return new BarViewHolder(LayoutInflater.from(ctx).inflate(R.layout.adapter_bar_card,parent,false));
     }
 
+    private interface FirestoreCallback {
+        void onCallback(int user_cover, int user_wait);
+    }
+
+    private void readData(final FirestoreCallback firestoreCallback, int position) {
+        db.collection("bars").document(data.get(position).getBar_id()).collection("user_reviews")
+                .orderBy("time_submitted", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            int user_cover = 0, user_wait = 0, user_count = 0;
+
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                UserReviewItem review = document.toObject(UserReviewItem.class);
+                                user_cover += Integer.parseInt(review.getBar_cover());
+                                user_wait += Integer.parseInt(review.getBar_wait());
+                                user_count++;
+                            }
+                            if(user_count > 0) {
+                                user_cover /= user_count;
+                                user_wait /= user_count;
+                            } else if(user_count == 0) {
+                                user_cover = -1;
+                                user_wait = -1;
+                            }
+
+                            firestoreCallback.onCallback(user_cover, user_wait);
+                        } else {
+                            firestoreCallback.onCallback(-1, -1);
+                        }
+                    }
+                });
+    }
+
     @Override
     public void onBindViewHolder(@NonNull final BarViewHolder holder, final int position) {
 
         setBtnListeners(holder, position);
 
-        String wait = "Wait time: " + data.get(position).getBar_wait() + " minutes";
+        String wait = "Wait time: " + data.get(position).getBar_wait() + " mins";
         String cover = "Cover: $" + data.get(position).getBar_cover();
+        holder.cover.setText(cover);
+        holder.wait_time.setText(wait);
+
+        readData(new FirestoreCallback() {
+            @Override
+            public void onCallback(int user_cover, int user_wait) {
+                String cover, wait;
+                if(user_cover >= 0) {
+                    cover = "Avg Cover: $" + user_cover;
+                    holder.cover.setText(cover);
+                }
+                if(user_wait >= 0) {
+                    wait = "Avg Wait time: " + user_wait + " mins";
+                    holder.wait_time.setText(wait);
+                }
+            }
+        }, position);
+
         String description = "Description: " + data.get(position).getBar_description();
         String hours = "Open: " + data.get(position).getBar_hours_operation();
 
         holder.bar_name.setText(data.get(position).getBar_name());
-        holder.cover.setText(cover);
-        holder.wait_time.setText(wait);
         holder.hours_operation.setText(hours);
         holder.description.setText(description);
 
