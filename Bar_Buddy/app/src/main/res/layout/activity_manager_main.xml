@@ -60,4 +60,12 @@
         android:textColor="@android:color/white"
         style="@style/BorderedButton"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/your_bar_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="500dp">
+
+    </android.support.v7.widget.RecyclerView>
+
 </FrameLayout>

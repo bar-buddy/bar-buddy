@@ -6,8 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -21,14 +19,11 @@ import android.widget.TextView;
 import com.example.bar_buddy.AdapterItems.BarItem;
 import com.example.bar_buddy.AdapterItems.EventItem;
 import com.example.bar_buddy.AdapterItems.UpdateItem;
-import com.example.bar_buddy.Adapters.BarCardAdapter;
 import com.example.bar_buddy.Adapters.EventAdapter;
 import com.example.bar_buddy.Adapters.UpdatesCardAdapter;
-import com.example.bar_buddy.Event;
 import com.example.bar_buddy.HandleBarsThroughFirestore;
 import com.example.bar_buddy.R;
 import com.example.bar_buddy.SetTheBarDialog;
-import com.example.bar_buddy.TabFragments.UpdatesTab;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -76,14 +71,6 @@ public class BarDisplay extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });*/
 
         buildBar();
     }

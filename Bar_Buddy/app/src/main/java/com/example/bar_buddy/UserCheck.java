@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.example.bar_buddy.Activities.LoginActivity;
 import com.example.bar_buddy.Activities.MainActivity;
-import com.example.bar_buddy.Activities.ManagerMainActivity;
+import com.example.bar_buddy.ManagerActivities.ManagerMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

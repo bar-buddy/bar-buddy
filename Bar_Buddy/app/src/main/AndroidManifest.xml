@@ -13,16 +13,16 @@
         android:theme="@style/AppTheme" >
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".ManagerMainActivity" />
-        <activity android:name=".WeeklySpecials" />
-        <activity android:name=".Event" />
-        <activity android:name=".ManagerUpdateBarInfo" />
+        <activity android:name=".ManagerActivities.WeeklySpecials" />
+        <activity android:name=".ManagerActivities.Event" />
+        <activity android:name=".ManagerActivities.ManagerUpdateBarInfo" />
         <activity android:name=".UserTypeActivity" />
         <activity
             android:name=".Activities.BarMenu"
             android:label="@string/title_activity_bar_menu"
             android:theme="@style/AppTheme.BarMenuStyle"></activity>
         <activity android:name=".Activities.LoginActivity"></activity>
-        <activity android:name=".Activities.ManagerMainActivity" />
+        <activity android:name=".ManagerActivities.ManagerMainActivity" />
         <activity android:name=".Activities.UserTypeActivity" />
         <activity
             android:name=".Activities.BarDisplay"
