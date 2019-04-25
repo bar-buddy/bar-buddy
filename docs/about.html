@@ -58,12 +58,21 @@
       .flip-card-back::-webkit-scrollbar { 
         display: none; 
       } 
+
+      .user-image {
+        height: 25%;
+      }
+
+      .user-image img {
+        float: left;
+        height: 30%;
+      }
     </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">
-          <img src="images/logo2.png" height="50px">
+        <img src="images/logo2.png" height="50px">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -88,72 +97,58 @@
     </nav>
 
     <div class="jumbotron" style="padding-bottom: 100px;">
-        <h1>Team Members</h1><br>
+      <div class="container">
+        <h1>Team Members</h1>
+        <hr>
         <div class="row">
-          <div class="col" align="center">
-            <div class="flip-card">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <img src="images/sam.jpg" alt="Avatar" style="width:100%; height:100%;">
-                  <h2>Sam Maryland</h2>
-                </div>
-                <div class="flip-card-back">
-                  <h2>Sam Maryland</h2> 
-                  <p><b>Contact:</b> sammaryland@comcast.net</p>
-                  <p>I am from Kennesaw, Georgia, about an hour northwest of Atlanta. In my free time, I like to play golf and guitar, as well as watch Atlanta sports. I have worked two summers as an Security Software Engineer at IBM in Sandy Springs, Georgia. After graduation, I will return to Atlanta to work as a Quality Engineer at Chick-fil-A.</p>
-                </div>
-              </div>
-            </div>
+          <div class="col-4">
+            <img class="rounded" src="images/sam.jpg" style="height: 300px; width: auto; display: block; margin: auto;" />
           </div>
-          <div class="col" align="center">
-            <div class="flip-card">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <img src="images/bryan.jpg" alt="Avatar" style="width:100%; height:100%;">
-                  <h2>Bryan Pauken</h2>
-                </div>
-                <div class="flip-card-back"> 
-                  <h2>Bryan Pauken</h2>
-                  <p><b>Contact:</b> bhpauken@crimson.ua.edu</p>
-                  <p>I am originally from the great city of Normal, IL which you might know from being home to the nation’s largest Dairy Queen.  Big fan of all things Chicago sports except Cody Parkey and the double doink kick.  I work on campus as an Honors Recruitment Intern and also remotely as a web developer for Social Knowledge.  I am the secretary of the kayak club team on campus and enjoy whitewater kayaking on the weekends.  Once I graduate in May, I plan on going back to flight school to pursue my passion in aviation and become a commercial pilot.</p>
-                </div>
-              </div>
-            </div>
+          <div class="col-8">
+            <h2>Sam Maryland</h2>
+            <p><b>Contact:</b> sammaryland@comcast.net</p>
+            <p>I am from Kennesaw, Georgia, about an hour northwest of Atlanta. In my free time, I like to play golf and guitar, as well as watch Atlanta sports. I have worked two summers as an Security Software Engineer at IBM in Sandy Springs, Georgia. After graduation, I will return to Atlanta to work as a Quality Engineer at Chick-fil-A.</p>
           </div>
-          <div class="col" align="center">
-            <div class="flip-card">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <img src="images/noah.jpg" alt="Avatar" style="width:100%; height:100%;">
-                  <h2>Noah Gleason</h2>
-                </div>
-                <div class="flip-card-back"> 
-                  <h2>Noah Gleason</h2>
-                  <p><b>Contact:</b> ncgleason@crimson.ua.edu</p>
-                  <p>I am originally from Shreveport, LA. I began studying Computer Science in high school and quickly
-                      decided to make it my college major. I spent time developing internal applications for Red River Bank
-                      in Louisiana, including their mobile messaging service and employee directory. I also spent a summer
-                      working at Mercedes-Benz as they integrated their new management software. I spend my free time playing
-                      basketball, writing, reading, and rock climbing.</p>
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="col" align="center">
-            <div class="flip-card">
-              <div class="flip-card-inner">
-                <div class="flip-card-front">
-                  <img src="images/Devin.JPG" alt="Avatar" style="width:100%; height:100%;">
-                  <h2>Devin Brown</h2>
-                </div>
-                <div class="flip-card-back"> 
-                  <h2>Devin Brown</h2>
-                  <p><b>Contact:</b> dsbrown4@crimson.ua.edu</p>
-                  <p>I am from Madison, Mississippi which is a small town about fifteen minutes from Jackson. I began my programming journey my freshman year at the University of Alabama and have spent my time learning new languages and working as a freelance programmer. Being apart of both the technical side and business/human interaction side of project have led me to wanting to become an IT Business Analyst either out west in California or up north in New York. In my free time I like to play soccer and basketball, workout, make music, and play video games. </p>
-                </div>
-              </div>
-            </div>
-          </div> 
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-4">
+            <img class="rounded" src="images/bryan.jpg" style="height: 300px; width: auto; display: block; margin: auto;" />
+          </div>
+          <div class="col-8">
+            <h2>Bryan Pauken</h2>
+            <p><b>Contact:</b> bhpauken@crimson.ua.edu</p>
+            <p>I am originally from the great city of Normal, IL which you might know from being home to the nation’s largest Dairy Queen.  Big fan of all things Chicago sports except Cody Parkey and the double doink kick.  I work on campus as an Honors Recruitment Intern and also remotely as a web developer for Social Knowledge.  I am the secretary of the kayak club team on campus and enjoy whitewater kayaking on the weekends.  Once I graduate in May, I plan on going back to flight school to pursue my passion in aviation and become a commercial pilot.</p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-4">
+            <img class="rounded" src="images/noah.jpg" style="height: 300px; width: auto; display: block; margin: auto;" />
+          </div>
+          <div class="col-8">
+            <h2>Noah Gleason</h2>
+            <p><b>Contact:</b> ncgleason@crimson.ua.edu</p>
+            <p>I am originally from Shreveport, LA. I began studying Computer Science in high school and quickly
+              decided to make it my college major. I spent time developing internal applications for Red River Bank
+              in Louisiana, including their mobile messaging service and employee directory. I also spent a summer
+              working at Mercedes-Benz as they integrated their new management software. I spend my free time playing
+              basketball, writing, reading, and rock climbing.</p>          
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-4 mx-auto">
+            <img class="rounded" src="images/Devin.JPG" style="height: 300px; width: auto; display: block; margin: auto;" />
+          </div>
+          <div class="col-8">
+            <h2>Devin Brown</h2>
+            <p><b>Contact:</b> dsbrown4@crimson.ua.edu</p>
+            <p>I am from Madison, Mississippi which is a small town about fifteen minutes from Jackson. I began my programming journey my freshman year at the University of Alabama and have spent my time learning new languages and working as a freelance programmer. Being apart of both the technical side and business/human interaction side of project have led me to wanting to become an IT Business Analyst either out west in California or up north in New York. In my free time I like to play soccer and basketball, workout, make music, and play video games. </p>
+          </div>
+        </div>
+        <hr>
       </div>
+    </div>
   </body>
 </html>
