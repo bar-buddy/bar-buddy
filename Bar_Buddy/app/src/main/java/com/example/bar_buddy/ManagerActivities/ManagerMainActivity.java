@@ -2,6 +2,7 @@ package com.example.bar_buddy.ManagerActivities;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -30,12 +31,13 @@ import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class ManagerMainActivity extends AppCompatActivity {
+public class ManagerMainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<BarItem> bar;
     private String bar_id;
     private BarCardAdapter adapter;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,12 @@ public class ManagerMainActivity extends AppCompatActivity {
         rvCards.setItemAnimator(new DefaultItemAnimator());
         rvCards.setNestedScrollingEnabled(false);
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.manager_swipe_refresh);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeResources(
+                R.color.Primary,
+                R.color.colorBackground);
+
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
 
@@ -109,6 +117,21 @@ public class ManagerMainActivity extends AppCompatActivity {
                         });
                     }
                 });
+    }
+
+    @Override
+    public void onRefresh() {
+        bar.clear();
+
+        mSwipeRefreshLayout.setRefreshing(true);
+
+        readData(new FirestoreCallback() {
+            @Override
+            public void onCallback(List<BarItem> list) {
+                adapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     private interface FirestoreCallback {

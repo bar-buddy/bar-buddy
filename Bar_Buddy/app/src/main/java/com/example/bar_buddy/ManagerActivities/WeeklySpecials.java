@@ -46,6 +46,9 @@ public class WeeklySpecials extends AppCompatActivity{
     private EditText specialName, specialDay, specialDescription;
     private FirebaseAuth auth;
     private Button btnAddWeeklySpecial;
+    private int mYear, mMonth, mDay, mHour, mMinute;
+
+    Map<String, Object> data = new HashMap<>();
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     final ArrayList<String> bar_ids = new ArrayList<>();
@@ -99,8 +102,6 @@ public class WeeklySpecials extends AppCompatActivity{
             return;
         }
 
-        Map<String, Object> data = new HashMap<>();
-
         data.put("special_day", day);
         data.put("special_description", description);
         data.put("special_name", name);
@@ -120,5 +121,21 @@ public class WeeklySpecials extends AppCompatActivity{
                 });
     }
 
+    public void selectDate(View v){
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
 
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        String SelectedDate = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        specialDay.setText(SelectedDate);
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+    }
 }
