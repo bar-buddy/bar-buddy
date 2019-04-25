@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.bar_buddy.Activities.MainActivity;
 import com.example.bar_buddy.Adapters.BarCardAdapter;
