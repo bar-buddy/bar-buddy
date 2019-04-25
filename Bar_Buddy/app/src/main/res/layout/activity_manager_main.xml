@@ -1,74 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:background="@color/colorBackground">
-
-    <TextView
-        android:id="@+id/user_email"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:text="Welcome, Manager"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="40dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:textStyle="bold"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/your_bar_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="260dp" >
-
-    </android.support.v7.widget.RecyclerView>
-
-    <Button
-        android:id="@+id/addWeeklySpecial"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="Add Weekly Special"
-        style="@style/BorderedButton"/>
-
-    <Button
-        android:id="@+id/addEvent"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="Add Event"
-        style="@style/BorderedButton"/>
-
-    <Button
-        android:id="@+id/addCoverAndWait"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="Add Cover and Wait"
-        style="@style/BorderedButton"/>
-
-    <Button
-        android:id="@+id/logoutBtn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="22dp"
-        android:text="LOGOUT"
-        android:textColor="@android:color/white"
-        style="@style/BorderedButton"/>
-
-</LinearLayout>
-
-<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     tools:context=".TabFragments.AccountTab">
 
+    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/user_email"
         android:layout_width="300dp"
@@ -125,9 +63,9 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/your_bar_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="500dp"
         android:layout_marginTop="500dp">
 
     </android.support.v7.widget.RecyclerView>
 
-</FrameLayout>-->
+</FrameLayout>
