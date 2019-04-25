@@ -41,12 +41,17 @@ import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
+
 
 public class WeeklySpecials extends AppCompatActivity{
     private EditText specialName, specialDay, specialDescription;
     private FirebaseAuth auth;
     private Button btnAddWeeklySpecial;
-    private int mYear, mMonth, mDay, mHour, mMinute;
+    private String selectedDay;
 
     Map<String, Object> data = new HashMap<>();
 
@@ -76,15 +81,38 @@ public class WeeklySpecials extends AppCompatActivity{
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Spinner staticSpinner = (Spinner) findViewById(R.id.static_spinner);
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+                .createFromResource(this, R.array.day_array,
+                        android.R.layout.simple_spinner_item);
+
+        staticAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        staticSpinner.setAdapter(staticAdapter);
+
         specialName = (EditText) findViewById(R.id.input_WeeklySpecialName);
-        specialDay = (EditText) findViewById(R.id.inputspecialday);
         specialDescription = (EditText) findViewById(R.id.input_weeklyspecialdescription);
         btnAddWeeklySpecial = (Button) findViewById(R.id.btn_addWeeklySpecial);
+
+        staticSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                selectedDay  = (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+            }
+        });
     }
 
     public void saveWeeklySpecial(View v){
         String name = specialName.getText().toString();
-        String day = specialDay.getText().toString();
+        String day = selectedDay;
         String description = specialDescription.getText().toString();
 
         if (TextUtils.isEmpty(name)) {
@@ -92,10 +120,11 @@ public class WeeklySpecials extends AppCompatActivity{
             return;
         }
 
-        if (TextUtils.isEmpty(day)) {
-            Toast.makeText(getApplicationContext(), "Enter a Day", Toast.LENGTH_SHORT).show();
+        if (day.equals("Select a Day")) {
+            Toast.makeText(getApplicationContext(), "Select a Day", Toast.LENGTH_SHORT).show();
             return;
         }
+
 
         if (TextUtils.isEmpty(description)) {
             Toast.makeText(getApplicationContext(), "Enter a Description", Toast.LENGTH_SHORT).show();
@@ -121,21 +150,4 @@ public class WeeklySpecials extends AppCompatActivity{
                 });
     }
 
-    public void selectDate(View v){
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-                        String SelectedDate = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
-                        specialDay.setText(SelectedDate);
-                    }
-                }, mYear, mMonth, mDay);
-        datePickerDialog.show();
-    }
 }

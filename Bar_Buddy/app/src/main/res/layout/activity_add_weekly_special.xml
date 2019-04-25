@@ -58,14 +58,13 @@
                 app:layout_constraintTop_toBottomOf="@id/input_WeeklySpecialName"
                 app:layout_constraintStart_toStartOf="parent"/>
 
-            <EditText
-                android:id="@+id/inputspecialday"
-                android:hint="Day of the Week"
+            <Spinner
+                android:id="@+id/static_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/cardSecondaryColor"
-                app:layout_constraintTop_toBottomOf="@id/input_weeklyspecialdescription"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:hint="Day of the Week"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/input_weeklyspecialdescription" />
 
 
 

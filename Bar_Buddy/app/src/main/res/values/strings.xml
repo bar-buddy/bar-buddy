@@ -87,4 +87,14 @@
 
     <string name="hint_barCover" >What is the cover?</string>
     <string name="hint_barWait" >What is the wait?</string>
+    <string-array name="day_array">
+        <item>Select a Day</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
 </resources>
