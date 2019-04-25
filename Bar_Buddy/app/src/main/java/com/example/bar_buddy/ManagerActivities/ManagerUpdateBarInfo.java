@@ -3,6 +3,7 @@ package com.example.bar_buddy.ManagerActivities;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -49,6 +50,9 @@ public class ManagerUpdateBarInfo extends AppCompatActivity{
 
 
         setContentView(R.layout.activity_manager_add_cover_wait);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.manager_add_cover_wait2);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         barCover = (EditText) findViewById(R.id.input_barCover);
         barWait = (EditText) findViewById(R.id.input_barWait);
