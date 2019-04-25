@@ -21,9 +21,11 @@ import com.example.bar_buddy.AdapterItems.BarItem;
 import com.example.bar_buddy.AdapterItems.EventItem;
 import com.example.bar_buddy.AdapterItems.UpdateItem;
 import com.example.bar_buddy.AdapterItems.UserReviewItem;
+import com.example.bar_buddy.AdapterItems.WeeklySpecialItem;
 import com.example.bar_buddy.Adapters.BarCardAdapter;
 import com.example.bar_buddy.Adapters.EventAdapter;
 import com.example.bar_buddy.Adapters.UpdatesCardAdapter;
+import com.example.bar_buddy.Adapters.WeeklyAdapter;
 import com.example.bar_buddy.HandleBarsThroughFirestore;
 import com.example.bar_buddy.R;
 import com.example.bar_buddy.SetTheBarDialog;
@@ -58,6 +60,9 @@ public class BarDisplay extends AppCompatActivity {
 
     private EventAdapter eventAdapter;
     private List<EventItem> eventsList;
+
+    private WeeklyAdapter weeklyAdapter;
+    private List<WeeklySpecialItem> weeklySpecialsList;
 
     boolean isFav = false;
 
@@ -96,6 +101,7 @@ public class BarDisplay extends AppCompatActivity {
 
                             setUpdatesRecycler();
                             setEventsRecycler();
+                            setWeeklySpecialsRecycler();
                             setValues();
                             setListeners();
 
@@ -304,6 +310,24 @@ public class BarDisplay extends AppCompatActivity {
         });
     }
 
+    private void setWeeklySpecialsRecycler() {
+        RecyclerView rvCards = (RecyclerView) findViewById(R.id.weekly_specials_menu_rv);
+
+        weeklySpecialsList = new ArrayList<WeeklySpecialItem>();
+
+        weeklyAdapter = new WeeklyAdapter(this, weeklySpecialsList);
+        rvCards.setAdapter(weeklyAdapter);
+        rvCards.setItemAnimator(new DefaultItemAnimator());
+        rvCards.setNestedScrollingEnabled(false);
+
+        getWeeklySpecials(new FirestoreCallback() {
+            @Override
+            public void onCallback(boolean result) {
+                weeklyAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
     private interface FirestoreCallback {
         void onCallback(boolean result);
     }
@@ -364,6 +388,27 @@ public class BarDisplay extends AppCompatActivity {
                                 EventItem e = document.toObject(EventItem.class);
 
                                 eventsList.add(e);
+                            }
+                            firestoreCallback.onCallback(true);
+                        }
+                    }
+                });
+    }
+
+    private void getWeeklySpecials(final FirestoreCallback firestoreCallback) {
+        db.collection("bars")
+                .document(bar.getBar_id())
+                .collection("weekly_specials")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                WeeklySpecialItem w = document.toObject(WeeklySpecialItem.class);
+
+                                weeklySpecialsList.add(w);
+                                Log.e("add", "ing");
                             }
                             firestoreCallback.onCallback(true);
                         }

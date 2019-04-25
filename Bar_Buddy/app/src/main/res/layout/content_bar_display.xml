@@ -228,12 +228,22 @@
             app:layout_constraintTop_toBottomOf="@id/menu_card" />
 
         <include
+            android:id="@+id/bar_display_events_menu"
             layout="@layout/content_events_menu"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bar_display_updates_menu" />
+
+        <include
+            layout="@layout/content_weekly_specials_menu"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bar_display_events_menu" />
+
 
     </android.support.constraint.ConstraintLayout>
 
