@@ -69,6 +69,9 @@ public class WeeklySpecials extends AppCompatActivity{
 
 
         setContentView(R.layout.activity_add_weekly_special);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.add_weekly_special2);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         specialName = (EditText) findViewById(R.id.input_WeeklySpecialName);
         specialDay = (EditText) findViewById(R.id.inputspecialday);
