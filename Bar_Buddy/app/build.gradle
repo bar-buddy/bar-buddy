@@ -41,7 +41,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
     implementation 'com.firebaseui:firebase-ui-database:2.1.0'
@@ -51,11 +51,13 @@ dependencies {
     testImplementation 'org.powermock:powermock-module-junit4:1.6.5'
     testImplementation 'org.powermock:powermock-api-mockito:1.6.5'
 
-    testImplementation "com.android.support.test.espresso:espresso-core:3.0.1"
-    testImplementation "com.android.support.test:runner:1.0.1"
+    testImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
+    androidTestImplementation "com.android.support.test:runner:1.0.2"
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
 
     testImplementation 'org.robolectric:robolectric:3.6.1'
+
+    androidTestImplementation 'com.android.support.test.espresso:espresso-intents:2.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
