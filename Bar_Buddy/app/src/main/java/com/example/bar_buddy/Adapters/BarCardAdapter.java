@@ -181,7 +181,6 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
                 if(user_cover >= 0) {
                     cover = "Avg Cover: $" + user_cover;
                     holder.cover.setText(cover);
-                    holder.coverBtn.setVisibility(View.VISIBLE);
                 }
                 if(user_wait >= 0) {
                     wait = "Avg Wait time: " + user_wait + " mins";
@@ -321,7 +320,7 @@ public class BarCardAdapter extends RecyclerView.Adapter<BarCardAdapter.BarViewH
         holder.coverBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog userData = new UserDataDialog(ctx, data.get(position));
+                AlertDialog userData = new UserDataDialog(ctx, data.get(position), true);
                 userData.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
                 userData.show();
             }

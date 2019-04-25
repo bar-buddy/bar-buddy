@@ -13,21 +13,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bar_buddy.AdapterItems.BarItem;
 import com.example.bar_buddy.AdapterItems.EventItem;
 import com.example.bar_buddy.AdapterItems.UpdateItem;
-import com.example.bar_buddy.AdapterItems.UserReviewItem;
-import com.example.bar_buddy.Adapters.BarCardAdapter;
 import com.example.bar_buddy.Adapters.EventAdapter;
 import com.example.bar_buddy.Adapters.UpdatesCardAdapter;
 import com.example.bar_buddy.HandleBarsThroughFirestore;
 import com.example.bar_buddy.R;
 import com.example.bar_buddy.SetTheBarDialog;
-import com.example.bar_buddy.UserDataDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,8 +35,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,43 +102,19 @@ public class BarDisplay extends AppCompatActivity {
         CollapsingToolbarLayout ctb = findViewById(R.id.toolbar_layout);
         ctb.setTitle(bar.getBar_name());
 
-        final TextView cover_tv = (TextView) findViewById(R.id.bar_display_cover_tv);
-        final TextView wait_time_tv = (TextView) findViewById(R.id.bar_display_wait_time_tv);
+        TextView cover_tv = (TextView) findViewById(R.id.bar_display_cover_tv);
+        TextView wait_time_tv = (TextView) findViewById(R.id.bar_display_wait_time_tv);
         TextView hours_operation = (TextView) findViewById(R.id.bar_display_hours_operation_tv);
         TextView description_tv = (TextView) findViewById(R.id.bar_display_description_tv);
-        final ImageButton coverBtn = (ImageButton) findViewById(R.id.bar_display_cover_btn);
 
         ImageView header_image = (ImageView) findViewById(R.id.bar_display_image_header);
 
+        String cover_lead = " $" + bar.getBar_cover();
+        String wait_time_lead = " " + bar.getBar_wait() + " minutes";
         String hours_operation_lead = " " + bar.getBar_hours_operation();
 
-        String cover = "Cover: $" + bar.getBar_cover();
-        String wait = "Wait time: " + bar.getBar_wait() + " minutes";
-        cover_tv.setText(cover);
-        wait_time_tv.setText(wait);
-
-        readData(new FirestoreCallbackTwo() {
-            @Override
-            public void onCallback(int user_cover, int user_wait) {
-                String cover, wait;
-                if(user_cover >= 0) {
-                    TextView cover_lead = (TextView) findViewById(R.id.cover_lead);
-                    String avgCov = "Average Cover: ";
-                    cover_lead.setText(avgCov);
-                    cover = "$" + user_cover;
-                    cover_tv.setText(cover);
-                    coverBtn.setVisibility(View.VISIBLE);
-                }
-                if(user_wait >= 0) {
-                    TextView wait_lead = (TextView) findViewById(R.id.wait_time_lead);
-                    String waitAvg = "Average Wait time: ";
-                    wait_lead.setText(waitAvg);
-                    wait = user_wait + " mins";
-                    wait_time_tv.setText(wait);
-                }
-            }
-        });
-
+        cover_tv.setText(cover_lead);
+        wait_time_tv.setText(wait_time_lead);
         hours_operation.setText(hours_operation_lead);
         description_tv.setText(bar.getBar_description());
 
@@ -160,7 +130,6 @@ public class BarDisplay extends AppCompatActivity {
         final Button favBtn = (Button) findViewById(R.id.bar_display_fav_btn);
         final Button directionsBtn = (Button) findViewById(R.id.bar_display_directions_btn);
         final Button setTheBarBtn = (Button) findViewById(R.id.bar_display_set_the_bar_btn);
-        final ImageButton coverBtn = (ImageButton) findViewById(R.id.bar_display_cover_btn);
 
         menuBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -222,50 +191,6 @@ public class BarDisplay extends AppCompatActivity {
             }
         });
 
-        coverBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog userData = new UserDataDialog(BarDisplay.this, bar);
-                userData.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-                userData.show();
-            }
-        });
-    }
-
-    private interface FirestoreCallbackTwo {
-        void onCallback(int user_cover, int user_wait);
-    }
-
-    private void readData(final FirestoreCallbackTwo firestoreCallback) {
-        db.collection("bars").document(bar.getBar_id()).collection("user_reviews")
-                .orderBy("time_submitted", Query.Direction.DESCENDING)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            int user_cover = 0, user_wait = 0, user_count = 0;
-
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                UserReviewItem review = document.toObject(UserReviewItem.class);
-                                user_cover += Integer.parseInt(review.getBar_cover());
-                                user_wait += Integer.parseInt(review.getBar_wait());
-                                user_count++;
-                            }
-                            if(user_count > 0) {
-                                user_cover /= user_count;
-                                user_wait /= user_count;
-                            } else if(user_count == 0) {
-                                user_cover = -1;
-                                user_wait = -1;
-                            }
-
-                            firestoreCallback.onCallback(user_cover, user_wait);
-                        } else {
-                            firestoreCallback.onCallback(-1, -1);
-                        }
-                    }
-                });
     }
 
     private void setUpdatesRecycler() {

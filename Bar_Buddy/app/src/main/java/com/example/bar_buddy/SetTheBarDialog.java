@@ -55,6 +55,13 @@ public class SetTheBarDialog extends AlertDialog {
         dialogTitle = findViewById(R.id.title_set_the_bar);
         dialogTitle.setText(title);
 
+        /*String times[] = {"< 5 minutes", "5-10 minutes", "10-15 minutes", "15-20 minutes", "20-30 minutes", "> 30 minutes"};
+
+        waitTime = (Spinner) findViewById(R.id.spinner_wait_time);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, times);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        waitTime.setAdapter(adapter);*/
+
         cover = (EditText) findViewById(R.id.edit_text_cover);
         waitTime = (EditText) findViewById(R.id.edit_text_wait_time);
 
@@ -72,11 +79,6 @@ public class SetTheBarDialog extends AlertDialog {
     private void submitSetTheBar() {
         String coverInput = cover.getText().toString();
         String waitTimeInput = waitTime.getText().toString();
-
-        if(coverInput.equals("") || waitTimeInput.equals("")) {
-            Toast.makeText(getContext(), "ERROR: Please input valid cover and wait time", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         Map<String, Object> data = new HashMap<>();
 

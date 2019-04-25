@@ -21,8 +21,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Text;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -40,12 +38,14 @@ public class UserDataDialog extends AlertDialog {
 
     private UserReviewAdapter adapter;
 
+    private boolean cover;
     private BarItem bar;
 
 
-    public UserDataDialog(Context ctx, BarItem b) {
+    public UserDataDialog(Context ctx, BarItem b, boolean cover) {
         super(ctx);
         this.bar = b;
+        this.cover = cover;
         this.ctx = ctx;
     }
 
@@ -57,17 +57,10 @@ public class UserDataDialog extends AlertDialog {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
         TextView title = (TextView) findViewById(R.id.title_user_data);
-        String titleText = "Cover and Wait";
+        String titleText;
+        if(cover) titleText = "Cover and Wait at " + bar.getBar_name();
+        else titleText = "Wait Time at " + bar.getBar_name();
         title.setText(titleText);
-
-        String barCover = "Cover: $" + bar.getBar_cover();
-        String barWait = "Wait time: " + bar.getBar_wait() + " mins";
-        TextView barCoverTv = (TextView) findViewById(R.id.user_data_cover);
-        TextView barWaitTv = (TextView) findViewById(R.id.user_data_wait);
-        final TextView avgCover = (TextView) findViewById(R.id.avg_cover);
-        final TextView avgWait = (TextView) findViewById(R.id.avg_wait);
-        barCoverTv.setText(barCover);
-        barWaitTv.setText(barWait);
 
         RecyclerView rvCards = (RecyclerView) findViewById(R.id.user_reviews_dialog_recyclerview);
         rvCards.setLayoutManager(new LinearLayoutManager(ctx));
@@ -81,12 +74,8 @@ public class UserDataDialog extends AlertDialog {
 
         readData(new FirestoreCallback() {
             @Override
-            public void onCallback(int user_cover, int user_wait) {
+            public void onCallback(List<UserReviewItem> list) {
                 adapter.notifyDataSetChanged();
-                String avgCov = "Average Cover: $" + user_cover;
-                String avgWt = "Average Wait time: " + user_wait + " mins";
-                avgCover.setText(avgCov);
-                avgWait.setText(avgWt);
             }
         });
     }
@@ -97,7 +86,7 @@ public class UserDataDialog extends AlertDialog {
     }
 
     private interface FirestoreCallback {
-        void onCallback(int user_cover, int user_wait);
+        void onCallback(List<UserReviewItem> list);
     }
 
     private void readData(final FirestoreCallback firestoreCallback) {
@@ -108,26 +97,14 @@ public class UserDataDialog extends AlertDialog {
                      @Override
                      public void onComplete(@NonNull Task<QuerySnapshot> task) {
                          if (task.isSuccessful()) {
-                             int user_cover = 0, user_wait = 0, user_count = 0;
-
                              for (QueryDocumentSnapshot document : task.getResult()) {
                                  UserReviewItem review = document.toObject(UserReviewItem.class);
 
                                  if(reviews != null) {
                                      reviews.add(review);
                                  }
-                                 user_cover += Integer.parseInt(review.getBar_cover());
-                                 user_wait += Integer.parseInt(review.getBar_wait());
-                                 user_count++;
                              }
-                             if(user_count > 0) {
-                                 user_cover /= user_count;
-                                 user_wait /= user_count;
-                             } else if(user_count == 0) {
-                                 user_cover = -1;
-                                 user_wait = -1;
-                             }
-                             firestoreCallback.onCallback(user_cover, user_wait);
+                             firestoreCallback.onCallback(reviews);
                          }
                      }
                  });
